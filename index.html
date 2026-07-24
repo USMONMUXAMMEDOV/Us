@@ -7,380 +7,442 @@
     
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome - Ikonkalar uchun -->
+
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* 1. LUSION STYLE BACKGROUND AESTHETICS */
         body {
             background-color: #030008;
             color: #f3f4f6;
             font-family: system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
-            background-image: radial-gradient(rgba(236, 72, 153, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
+            user-select: none;
         }
 
-        /* 2. DYNAMIC GLASSMORPHISM INTERFACES */
-        .glass-box {
-            background: rgba(15, 7, 28, 0.5);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(236, 72, 153, 0.15);
-            transition: all 0.4s ease-in-out;
+        /* Glassmorphism Cards with 3D Tilt */
+        .glass-card {
+            background: rgba(15, 7, 28, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(236, 72, 153, 0.18);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
+            transform-style: preserve-3d;
         }
-        .glass-box:hover {
-            border-color: rgba(56, 189, 248, 0.5);
-            box-shadow: 0 10px 40px rgba(236, 72, 153, 0.2);
-            transform: translateY(-3px);
-        }
-
-        /* 3. NEON BUTTONS & GLOW */
-        .neon-btn {
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-        .neon-btn:hover {
-            background: rgba(56, 189, 248, 0.2);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-            transform: translateY(-2px);
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.3);
         }
 
-        /* 4. CANVAS WRAPPER & MASKING */
-        #neuralCanvasWrapper {
-            width: 100%;
-            height: 100vh;
+        /* Canvas Overlay for FX */
+        #fxCanvas, #neuralCanvas {
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 0;
-            opacity: 0.8;
-            pointer-events: auto; /* Canvas interaktiv bo'lishi kerak */
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+        #neuralCanvas { z-index: 0; opacity: 0.75; }
+        #fxCanvas { z-index: 99; }
+
+        /* Multipage Screen Motion Slider */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95) translateY(30px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .page-section.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
-        /* Scrollbar customization */
+        /* Screen Shake Motion */
+        .screen-shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-8px, 5px) rotate(-1deg); }
+            40% { transform: translate(8px, -5px) rotate(1deg); }
+            60% { transform: translate(-5px, -3px) rotate(-0.5deg); }
+            80% { transform: translate(5px, 3px) rotate(0.5deg); }
+        }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #030008; }
-        ::-webkit-scrollbar-thumb { background: #38bdf8; border-radius: 3px; }
-
-        /* Animation Keyframes */
-        @keyframes subtlePulse {
-            0%, 100% { opacity: 0.9; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
+        ::-webkit-scrollbar-thumb { background: #ec4899; border-radius: 10px; }
     </style>
 </head>
-<body class="selection:bg-cyan-600 selection:text-white">
+<body class="selection:bg-pink-600 selection:text-white">
 
-    <!-- A. DYNAMIC n8n NEURAL CANVAS (Butun oynada aylanadi) -->
-    <div id="neuralCanvasWrapper">
-        <canvas id="neuralCanvas"></canvas>
-    </div>
+    <!-- CANVAS EFFECTS (Fondagi va ustki FX animasiyalar) -->
+    <canvas id="neuralCanvas"></canvas>
+    <canvas id="fxCanvas"></canvas>
 
-    <!-- B. UI OVERLAYS (Canvas ustidagi elementlar) -->
-    <main class="relative z-10 w-full min-h-screen">
+    <!-- UI OVERLAY CONTENT -->
+    <main class="relative z-10 w-full min-h-screen pb-24">
 
-        <!-- 1. FIXED HEADER NAVIGATION -->
-        <nav class="fixed top-0 left-0 w-full p-4 flex justify-between items-center bg-[#030008]/70 backdrop-blur-lg border-b border-pink-500/10">
-            <div class="text-xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-cyan-400">
-                SHO<span class="text-white">USMON</span><span class="text-cyan-400">.ai</span>
+        <!-- 1. HEADER & PAGE NAVIGATION -->
+        <nav class="fixed top-0 left-0 w-full p-4 flex justify-between items-center bg-[#030008]/80 backdrop-blur-xl border-b border-pink-500/10 z-50">
+            <div class="text-lg md:text-xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400">
+                SHOUSMON<span class="text-cyan-400">.AI</span>
             </div>
-            <div class="flex items-center gap-4 text-xs font-mono">
-                <a href="#projects" class="hidden md:inline hover:text-pink-400 transition">Loyihalar (4)</a>
-                <a href="#ai-stack" class="hidden md:inline hover:text-cyan-400 transition">AI Vositalar (70)</a>
-                <button class="neon-btn px-5 py-2 rounded-full font-bold text-cyan-200 flex items-center gap-1.5">
-                    <i class="fas fa-microchip animate-pulse"></i> AI Agent Build
+            
+            <!-- Page Controller Buttons -->
+            <div class="flex items-center gap-2 md:gap-3 text-xs font-mono">
+                <button onclick="switchPage(1)" id="btn-page1" class="px-3 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20 transition">
+                    1. Hero
+                </button>
+                <button onclick="switchPage(2)" id="btn-page2" class="px-3 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition">
+                    2. 70 AI Stack
+                </button>
+                <button onclick="switchPage(3)" id="btn-page3" class="px-3 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 transition">
+                    3. 30 AI Loyihalar
                 </button>
             </div>
         </nav>
 
-        <!-- 2. HERO SECTION & SENIOR ARCHITECT TITLE -->
-        <section class="h-screen flex flex-col items-center justify-center text-center p-4">
-            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-wider mb-2 text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-300 to-pink-500 drop-shadow-2xl">
+        <!-- ================= PAGE 1: HERO SECTION ================= -->
+        <section id="page-1" class="page-section active h-screen flex flex-col items-center justify-center text-center p-4 pt-16">
+            <div class="inline-block p-1 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 mb-6 animate-pulse">
+                <div class="bg-[#030008] px-4 py-1.5 rounded-full text-xs font-mono text-cyan-300">
+                    <i class="fas fa-bolt text-yellow-400 mr-1"></i> Interactive Multipage Portfolio
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-7xl font-black uppercase tracking-wider mb-4 text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-pink-500">
                 MUHAMMADJONOV<br/>SHOUSMON
             </h1>
-            <p class="text-sm md:text-base font-mono text-cyan-300 tracking-widest uppercase max-w-xl animate-subtlePulse">
-                SENIOR AI MUTAHAXIS VA ARHITEKTOR | Autonomous Agent Engineer
+            <p class="text-sm md:text-lg font-mono text-cyan-300 tracking-widest uppercase max-w-2xl">
+                SENIOR AI MUTAHAXIS VA ARHITEKTOR
             </p>
-            <i class="fas fa-chevron-down text-3xl text-pink-500/50 mt-16 animate-bounce"></i>
+            <p class="text-xs text-slate-400 mt-4 max-w-md font-mono">
+                Sichqonchani harakatlantiring, ekranni suring: Olov, muzlash va banan animatsiyalarini ko'rasiz!
+            </p>
+            
+            <button onclick="switchPage(2)" class="mt-10 px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 font-bold text-white shadow-lg hover:scale-105 transition">
+                70 AI Stackga o'tish <i class="fas fa-arrow-right ml-2"></i>
+            </button>
         </section>
 
-        <!-- 3. AI SAMPLE PROJECTS (4 burchak ichiga tiqilmagan vizual kartalar) -->
-        <section id="projects" class="py-20 px-6 max-w-7xl mx-auto border-t border-pink-900/30 bg-[#030008]/90 relative z-20">
-            <h3 class="text-center text-3xl font-bold uppercase text-white mb-16 tracking-wide">
-                Amaliy AI & Workflow Loyihalar <span class="text-pink-500 text-sm font-mono">(Click Icons)</span>
-            </h3>
-            
-            <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- JavaScript orqali 4 ta loyiha kartasi bu yerga yuklanadi -->
+        <!-- ================= PAGE 2: 70 AI STACK ================= -->
+        <section id="page-2" class="page-section max-w-7xl mx-auto pt-28 px-4">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black uppercase tracking-wide text-white">70 TA AI VOSITALARI STAGI</h2>
+                <p class="text-xs font-mono text-cyan-400 mt-2">(Har bir ikonka ustiga bosib rasmiy platformasiga o'ting)</p>
             </div>
+            <div id="aiIconGrid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3"></div>
         </section>
 
-        <!-- 4. FOOTER & FIXED CONTACT ICONS -->
-        <footer class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center bg-[#030008]/80 border-t border-pink-500/10 z-50">
-            <span class="text-xs font-mono text-slate-600">© 2026 S. Muhammadjonov. Lusion Aesthetics.</span>
-            
-            <!-- Fixed Right Socials (Faqat ikon, ustiga bosa URL ga o'tadi) -->
-            <div class="flex items-center gap-3">
-                <a href="https://t.me/usca_13" target="_blank" class="cyber-icon hover:text-pink-400 text-pink-500 transition" title="Telegram">
-                    <i class="fab fa-telegram-plane text-xl"></i>
-                </a>
-                <a href="https://github.com/us13" target="_blank" class="cyber-icon hover:text-purple-400 text-purple-500 transition" title="GitHub">
-                    <i class="fab fa-github text-xl"></i>
-                </a>
-                <a href="tel:+998770137713" class="cyber-icon hover:text-cyan-400 text-cyan-500 transition" title="Telefon">
-                    <i class="fas fa-phone text-xl"></i>
-                </a>
-                <a href="mailto:usmonmuxammedov@gmail.com" class="cyber-icon hover:text-pink-400 text-pink-500 transition" title="Email">
-                    <i class="fas fa-envelope text-xl"></i>
-                </a>
+        <!-- ================= PAGE 3: 30 AI PROJECTS ================= -->
+        <section id="page-3" class="page-section max-w-7xl mx-auto pt-28 px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black uppercase tracking-wide text-white">30 TA AI LOYIHALAR (PORTFOLIO)</h2>
+                <p class="text-xs font-mono text-pink-400 mt-2">Muallifsiz, tayyor AI va Workflow yechimlari</p>
+            </div>
+            <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- FOOTER CONTACT ICONS -->
+        <footer class="fixed bottom-0 left-0 w-full p-4 flex justify-between items-center bg-[#030008]/80 border-t border-pink-500/10 z-50 backdrop-blur-md">
+            <span class="text-xs font-mono text-slate-500">© 2026 Shousmon AI</span>
+            <div class="flex items-center gap-4">
+                <a href="https://t.me/usca_13" target="_blank" class="text-pink-500 hover:text-pink-300 text-lg transition"><i class="fab fa-telegram-plane"></i></a>
+                <a href="https://github.com/us13" target="_blank" class="text-purple-500 hover:text-purple-300 text-lg transition"><i class="fab fa-github"></i></a>
+                <a href="tel:+998770137713" class="text-cyan-500 hover:text-cyan-300 text-lg transition"><i class="fas fa-phone"></i></a>
+                <a href="mailto:usmonmuxammedov@gmail.com" class="text-pink-500 hover:text-pink-300 text-lg transition"><i class="fas fa-envelope"></i></a>
             </div>
         </footer>
 
     </main>
 
-    <!-- JAVASCRIPT LOGIC (Interaktivlik va n8n Animatsiyasi) -->
+    <!-- JAVASCRIPT ANIMATION AND DATA ENGINE -->
     <script>
-        // --- 1. DATA: AI SAMPLE PROJECTS (4 objects with Icons and Authorless Links) ---
-        const projectData = [
-            {
-                name: "Web Design Platform",
-                icon: "fa-palette",
-                color: "#ec4899", // Pink
-                desc: "AI-powered vizual veb-maketing platformasi integratsiyasi.",
-                url: "https://v0.dev" // Muallifsiz loyiha namunasi
-            },
-            {
-                name: "Content Analysis Bot",
-                icon: "fa-comments",
-                color: "#38bdf8", // Cyan
-                desc: "Katta hujjatlarni tahlil qiluvchi va konspektlovchi agent.",
-                url: "https://chatbase.co"
-            },
-            {
-                name: "Multi-Agent System",
-                icon: "fa-network-wired",
-                color: "#a855f7", // Purple
-                desc: "OpenRouter va n8n workflow orqali orkestratsiya.",
-                url: "https://n8n.io"
-            },
-            {
-                name: "Sample AI Products",
-                icon: "fa-brain",
-                color: "#ec4899", // Pink
-                desc: "70 ta top AI vositalarini birlashtiruvchi interfeys.",
-                url: "#ai-stack"
-            }
+        // --- 1. DATA: 70 AI TOOLS ---
+        const aiTools = [
+            { name: "ChatGPT", icon: "fa-comments", color: "#10a37f", url: "https://chatgpt.com" },
+            { name: "Claude", icon: "fa-brain", color: "#d97706", url: "https://claude.ai" },
+            { name: "Midjourney", icon: "fa-palette", color: "#ec4899", url: "https://midjourney.com" },
+            { name: "n8n", icon: "fa-diagram-project", color: "#a855f7", url: "https://n8n.io" },
+            { name: "v0.dev", icon: "fa-code", color: "#38bdf8", url: "https://v0.dev" },
+            { name: "Cursor", icon: "fa-terminal", color: "#6366f1", url: "https://cursor.com" },
+            { name: "ElevenLabs", icon: "fa-microphone", color: "#10b981", url: "https://elevenlabs.io" },
+            { name: "Runway", icon: "fa-video", color: "#f43f5e", url: "https://runwayml.com" },
+            { name: "Flux", icon: "fa-wand-magic-sparkles", color: "#eab308", url: "https://blackforestlabs.ai" },
+            { name: "GitHub Copilot", icon: "fa-laptop-code", color: "#8b5cf6", url: "https://github.com/features/copilot" },
+            { name: "Perplexity", icon: "fa-magnifying-glass", color: "#06b6d4", url: "https://perplexity.ai" },
+            { name: "Sora", icon: "fa-film", color: "#f97316", url: "https://openai.com/sora" },
+            { name: "Suno AI", icon: "fa-music", color: "#ec4899", url: "https://suno.com" },
+            { name: "Udio", icon: "fa-headphones", color: "#a855f7", url: "https://udio.com" },
+            { name: "LangChain", icon: "fa-link", color: "#22c55e", url: "https://langchain.com" },
+            { name: "LlamaIndex", icon: "fa-database", color: "#38bdf8", url: "https://llamaindex.ai" },
+            { name: "OpenRouter", icon: "fa-network-wired", color: "#6366f1", url: "https://openrouter.ai" },
+            { name: "HuggingFace", icon: "fa-robot", color: "#f59e0b", url: "https://huggingface.co" },
+            { name: "Mistral", icon: "fa-wind", color: "#ef4444", url: "https://mistral.ai" },
+            { name: "Gemini", icon: "fa-gem", color: "#3b82f6", url: "https://gemini.google.com" },
+            { name: "Groq", icon: "fa-bolt", color: "#f97316", url: "https://groq.com" },
+            { name: "Pinecone", icon: "fa-tree", color: "#10b981", url: "https://pinecone.io" },
+            { name: "Qdrant", icon: "fa-cubes", color: "#ec4899", url: "https://qdrant.tech" },
+            { name: "Make", icon: "fa-gears", color: "#d946ef", url: "https://make.com" },
+            { name: "Zapier", icon: "fa-bolt-lightning", color: "#ff4d00", url: "https://zapier.com" },
+            { name: "Replit", icon: "fa-layer-group", color: "#f43f5e", url: "https://replit.com" },
+            { name: "Voiceflow", icon: "fa-comment-dots", color: "#3b82f6", url: "https://voiceflow.com" },
+            { name: "Botpress", icon: "fa-robot", color: "#8b5cf6", url: "https://botpress.com" },
+            { name: "AutoGPT", icon: "fa-microchip", color: "#06b6d4", url: "https://agpt.co" },
+            { name: "CrewAI", icon: "fa-users-gear", color: "#10b981", url: "https://crewai.com" },
+            { name: "Flowise", icon: "fa-sliders", color: "#a855f7", url: "https://flowiseai.com" },
+            { name: "Langflow", icon: "fa-share-nodes", color: "#ec4899", url: "https://langflow.org" },
+            { name: "Pika Labs", icon: "fa-clapperboard", color: "#eab308", url: "https://pika.art" },
+            { name: "Leonardo AI", icon: "fa-paintbrush", color: "#f43f5e", url: "https://leonardo.ai" },
+            { name: "Stable Diffusion", icon: "fa-border-all", color: "#38bdf8", url: "https://stability.ai" },
+            { name: "Kling AI", icon: "fa-video-slash", color: "#a855f7", url: "https://klingai.com" },
+            { name: "Luma Dream", icon: "fa-cloud-moon", color: "#3b82f6", url: "https://lumalabs.ai" },
+            { name: "HeyGen", icon: "fa-user-tie", color: "#10b981", url: "https://heygen.com" },
+            { name: "Synthesia", icon: "fa-circle-play", color: "#6366f1", url: "https://synthesia.io" },
+            { name: "Descript", icon: "fa-sliders-h", color: "#06b6d4", url: "https://descript.com" },
+            { name: "Notion AI", icon: "fa-file-lines", color: "#ffffff", url: "https://notion.so" },
+            { name: "Otter.ai", icon: "fa-headset", color: "#38bdf8", url: "https://otter.ai" },
+            { name: "Fireflies", icon: "fa-bug", color: "#eab308", url: "https://fireflies.ai" },
+            { name: "Gamma App", icon: "fa-file-powerpoint", color: "#ec4899", url: "https://gamma.app" },
+            { name: "Tome", icon: "fa-book-open", color: "#a855f7", url: "https://tome.app" },
+            { name: "Phind", icon: "fa-filter", color: "#10b981", url: "https://phind.com" },
+            { name: "Codeium", icon: "fa-code-branch", color: "#06b6d4", url: "https://codeium.com" },
+            { name: "Tabnine", icon: "fa-keyboard", color: "#f43f5e", url: "https://tabnine.com" },
+            { name: "Superhuman", icon: "fa-paper-plane", color: "#6366f1", url: "https://superhuman.com" },
+            { name: "Mem.ai", icon: "fa-brain-circuit", color: "#3b82f6", url: "https://mem.ai" },
+            { name: "Chatbase", icon: "fa-message", color: "#10b981", url: "https://chatbase.co" },
+            { name: "CustomGPT", icon: "fa-sliders", color: "#a855f7", url: "https://customgpt.ai" },
+            { name: "Replicate", icon: "fa-clone", color: "#ffffff", url: "https://replicate.com" },
+            { name: "Together AI", icon: "fa-circle-nodes", color: "#38bdf8", url: "https://together.ai" },
+            { name: "Anyscale", icon: "fa-expand", color: "#eab308", url: "https://anyscale.com" },
+            { name: "Modal Labs", icon: "fa-server", color: "#ec4899", url: "https://modal.com" },
+            { name: "Baseten", icon: "fa-hard-drive", color: "#f43f5e", url: "https://baseten.co" },
+            { name: "RunPod", icon: "fa-microchip", color: "#a855f7", url: "https://runpod.io" },
+            { name: "Vast.ai", icon: "fa-memory", color: "#06b6d4", url: "https://vast.ai" },
+            { name: "Ollama", icon: "fa-box-archive", color: "#ffffff", url: "https://ollama.com" },
+            { name: "LM Studio", icon: "fa-desktop", color: "#38bdf8", url: "https://lmstudio.ai" },
+            { name: "Jan.ai", icon: "fa-laptop", color: "#10b981", url: "https://jan.ai" },
+            { name: "AnythingLLM", icon: "fa-box", color: "#6366f1", url: "https://anythingllm.com" },
+            { name: "Open WebUI", icon: "fa-window-maximize", color: "#3b82f6", url: "https://openwebui.com" },
+            { name: "ComfyUI", icon: "fa-diagram-successor", color: "#eab308", url: "https://comfy.org" },
+            { name: "Automatic1111", icon: "fa-sliders", color: "#ec4899", url: "https://github.com/AUTOMATIC1111" },
+            { name: "Fooocus", icon: "fa-eye", color: "#a855f7", url: "https://github.com/lllyasviel/Fooocus" },
+            { name: "Whisper", icon: "fa-ear-listen", color: "#10b981", url: "https://openai.com/research/whisper" },
+            { name: "DeepL AI", icon: "fa-language", color: "#06b6d4", url: "https://deepl.com" },
+            { name: "Kapa.ai", icon: "fa-circle-question", color: "#f43f5e", url: "https://kapa.ai" }
         ];
 
-        // --- 2. DATA: 70 TOP AI ICONS (Sohalar bo'yicha namunaviy massiv) ---
-        // Portfolioda so'ralgan 70 ta AI ikonkalari canvasda renderlanadi, ularni URL ga bog'lash JS da bajariladi.
-        const topAiIcons = [
-            { name: "ChatGPT", color: "#10a37f", url: "https://chatgpt.com" },
-            { name: "Claude", color: "#f3f4f6", url: "https://claude.ai" },
-            { name: "Midjourney", color: "#ffffff", url: "https://midjourney.com" },
-            { name: "DALL-E 3", color: "#ff4500", url: "https://openai.com/dall-e-3" },
-            { name: "v0.dev", color: "#000000", url: "https://v0.dev" },
-            { name: "n8n", color: "#a855f7", url: "https://n8n.io" },
-            { name: "GitHub Copilot", color: "#6e5494", url: "https://github.com/features/copilot" },
-            { name: "ElevenLabs", color: "#38bdf8", url: "https://elevenlabs.io" },
-            // ...Massivni 70 tagacha kengaytirish mumkin...
-            // Qulaylik uchun namunaviy 8 ta ikonka massivda saqlandi.
+        // --- 2. DATA: 30 AI PROJECTS ---
+        const aiProjects = [
+            { name: "Autonomous Support Agent", icon: "fa-headset", color: "#ec4899", desc: "n8n & RAG bazasidagi 24/7 avto-mijozlar servisi.", url: "https://n8n.io" },
+            { name: "Web Scraping Lead Gen", icon: "fa-spider", color: "#38bdf8", desc: "Veb-saytlardan ma'lumot yig'uvchi AI agent.", url: "https://v0.dev" },
+            { name: "AI Email Auto-Responder", icon: "fa-envelope-open-text", color: "#a855f7", desc: "Kiruvchi xatlarni tahlil qilib avto-javob yozadi.", url: "https://make.com" },
+            { name: "Multi-Agent Code Reviewer", icon: "fa-code-compare", color: "#10b981", desc: "CrewAI asosida kodlarni avto-audit qiladi.", url: "https://crewai.com" },
+            { name: "Financial PDF Summarizer", icon: "fa-file-invoice-dollar", color: "#f43f5e", desc: "PDF hisobotlarni tahlil qiluvchi analitik.", url: "https://chatbase.co" },
+            { name: "Social Auto-Content Planner", icon: "fa-share-nodes", color: "#eab308", desc: "SMM kontent yaratib avto-post qiluvchi agent.", url: "https://zapier.com" },
+            { name: "Voice AI Sales Caller", icon: "fa-phone-volume", color: "#3b82f6", desc: "Ovozli AI orqali uchrashuv belgilovchi agent.", url: "https://elevenlabs.io" },
+            { name: "E-Commerce Recommender", icon: "fa-cart-shopping", color: "#8b5cf6", desc: "Aqlli xarid va mahsulot tavsiya mexanizmi.", url: "https://replicate.com" },
+            { name: "Interactive PDF Q&A", icon: "fa-file-pdf", color: "#ec4899", desc: "Hujjatlar bilan RAG orqali jonli muloqot.", url: "https://llamaindex.ai" },
+            { name: "AI Web Page Builder", icon: "fa-laptop-code", color: "#38bdf8", desc: "Prompt orqali tayyor UI yaratuvchi generator.", url: "https://v0.dev" },
+            { name: "AI Image Studio & Inpaint", icon: "fa-wand-magic-sparkles", color: "#a855f7", desc: "Flux modellarida rasmlarni tahrirlash studio.", url: "https://blackforestlabs.ai" },
+            { name: "Real-time Meeting Transcriber", icon: "fa-chalkboard-user", color: "#10b981", desc: "Ovozni matnga o'girib, qisqa konspekt tuzadi.", url: "https://otter.ai" },
+            { name: "AI Photo Enhancer & BG Remover", icon: "fa-image", color: "#f43f5e", desc: "Sifatni oshirib, fonni avto olib tashlaydi.", url: "https://runwayml.com" },
+            { name: "Personal AI Learning Tutor", icon: "fa-graduation-cap", color: "#eab308", desc: "Moslashtirilgan ta'lim va test generatori.", url: "https://openai.com" },
+            { name: "AI Resume & Portfolio Builder", icon: "fa-address-card", color: "#3b82f6", desc: "Vakansiyaga mos rezyume va muqova xati.", url: "https://gamma.app" },
+            { name: "Multi-LLM Chat Gateway", icon: "fa-cubes-stacked", color: "#8b5cf6", desc: "GPT-4o, Claude 3.5, Gemini yagona interfeysi.", url: "https://openrouter.ai" },
+            { name: "Enterprise Knowledge RAG", icon: "fa-building-lock", color: "#ec4899", desc: "Korxona ichki hujjatlari bo'yicha qidiruv.", url: "https://langchain.com" },
+            { name: "AI Legal Contract Analyzer", icon: "fa-scale-balanced", color: "#38bdf8", desc: "Yuridik shartnomalarda xatarni aniqlaydi.", url: "https://claude.ai" },
+            { name: "Smart Invoice OCR Engine", icon: "fa-receipt", color: "#a855f7", desc: "Chek va invoyslarni avto o'quvchi tizim.", url: "https://pinecone.io" },
+            { name: "Healthcare Symptom Checker", icon: "fa-user-doctor", color: "#10b981", desc: "Alomatlar bo'yicha dastlabki diagnostika.", url: "https://perplexity.ai" },
+            { name: "AI HR Resume Screener", icon: "fa-users-viewfinder", color: "#f43f5e", desc: "Rezyumelarni avtomatik saralovchi AI.", url: "https://botpress.com" },
+            { name: "Fraud Detection Pipeline", icon: "fa-shield-halved", color: "#eab308", desc: "Shubhali amallarni darhol tutuvchi AI.", url: "https://groq.com" },
+            { name: "AI Inventory Forecaster", icon: "fa-chart-line", color: "#3b82f6", desc: "Ombor va sotuv hajmini bashorat qilish.", url: "https://huggingface.co" },
+            { name: "Adaptive Course Generator", icon: "fa-book-bookmark", color: "#8b5cf6", desc: "Individual darslik yaratuvchi platforma.", url: "https://tome.app" },
+            { name: "AI Code Completion Plugin", icon: "fa-puzzle-piece", color: "#ec4899", desc: "Kodni avto-to'ldiruvchi VS Code plagini.", url: "https://cursor.com" },
+            { name: "Voice Synthesizer & Dubber", icon: "fa-language", color: "#38bdf8", desc: "Ovozni saqlab boshqa tilga tarjima qilish.", url: "https://elevenlabs.io" },
+            { name: "AI Text-to-SQL Generator", icon: "fa-database", color: "#a855f7", desc: "Matndan murakkab SQL so'rovini tuzish.", url: "https://phind.com" },
+            { name: "Smart Telegram Vision Bot", icon: "fa-paper-plane", color: "#10b981", desc: "Rasm va hujjatlarni tahlil qiluvchi bot.", url: "https://t.me" },
+            { name: "Perplexity-style Search Engine", icon: "fa-globe", color: "#f43f5e", desc: "Manbasi bilan javob beruvchi AI qidiruv.", url: "https://perplexity.ai" },
+            { name: "Face & Motion Tracking Studio", icon: "fa-video", color: "#eab308", desc: "Video oqimida harakat va yuz analitikasi.", url: "https://klingai.com" }
         ];
 
-        // --- 3. UI RENDER: PROJECTS SECTION ---
-        const projectGrid = document.getElementById('projectGrid');
-        
-        projectData.forEach(p => {
-            const cardHtml = `
-                <a href="${p.url}" target="_blank" class="glass-box rounded-3xl p-6 flex flex-col items-center text-center group">
-                    <div class="w-16 h-16 rounded-full flex items-center justify-center border-2 border-slate-700/50 mb-5 group-hover:scale-110 transition" style="border-color: ${p.color}30;">
-                        <i class="fas ${p.icon} text-3xl transition" style="color: ${p.color};"></i>
-                    </div>
-                    <h4 class="font-bold text-white text-lg mb-2 tracking-wide">${p.name}</h4>
-                    <p class="text-slate-400 text-xs font-light leading-relaxed mb-4">${p.desc}</p>
-                    <span class="text-[10px] font-mono mt-auto" style="color: ${p.color};">Linkka o'tish ↗</span>
+        // --- 3. RENDER CONTENT ---
+        const aiGrid = document.getElementById('aiIconGrid');
+        aiTools.forEach(t => {
+            aiGrid.innerHTML += `
+                <a href="${t.url}" target="_blank" onclick="triggerConfetti(event)" class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer group hover:scale-110">
+                    <i class="fas ${t.icon} text-xl md:text-2xl mb-1 transition" style="color: ${t.color}"></i>
+                    <span class="text-[10px] font-mono text-slate-300 truncate w-full group-hover:text-cyan-300">${t.name}</span>
                 </a>
             `;
-            projectGrid.innerHTML += cardHtml;
         });
 
-        // --- 4. n8n NEURAL CANVAS ANIMATION (Butun oynada harakat) ---
-        const canvas = document.getElementById('neuralCanvas');
-        const ctx = canvas.getContext('2d');
+        const projGrid = document.getElementById('projectGrid');
+        aiProjects.forEach(p => {
+            projGrid.innerHTML += `
+                <a href="${p.url}" target="_blank" onclick="triggerConfetti(event)" class="glass-card p-6 rounded-3xl flex flex-col text-left group">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center border border-slate-700 mb-4" style="background: ${p.color}15; border-color: ${p.color}40;">
+                        <i class="fas ${p.icon} text-2xl" style="color: ${p.color};"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-base mb-1 tracking-wide group-hover:text-cyan-300 transition">${p.name}</h3>
+                    <p class="text-slate-400 text-xs font-light mb-4">${p.desc}</p>
+                    <span class="text-[11px] font-mono mt-auto" style="color: ${p.color}">Loyiha linki ↗</span>
+                </a>
+            `;
+        });
 
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
+        // --- 4. MULTIPAGE CONTROL & SCREEN MOTION ---
+        function switchPage(pageIndex) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const activePage = document.getElementById(`page-${pageIndex}`);
+            activePage.classList.add('active');
+
+            // Screen Shake Motion
+            document.body.classList.add('screen-shake');
+            setTimeout(() => document.body.classList.remove('screen-shake'), 400);
+
+            // Spawn Banana Effect
+            spawnBanana();
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
 
-        // n8n style nodes and connection structure
-        const nodes = [];
-        const nodeCount = 20; // Butun oynadagi n8n nodedari
-        const colors = ['#ec4899', '#38bdf8', '#a855f7', '#10b981', '#f43f5e'];
+        // --- 5. CANVAS ANIMATIONS (Fire, Freeze, Bananas, n8n Nodes) ---
+        const fxCanvas = document.getElementById('fxCanvas');
+        const fxCtx = fxCanvas.getContext('2d');
+        const nCanvas = document.getElementById('neuralCanvas');
+        const nCtx = nCanvas.getContext('2d');
 
-        // Create standard n8n style workflow nodes
-        for (let i = 0; i < nodeCount; i++) {
-            nodes.push({
-                x: Math.random() * (canvas.width || 400),
-                y: Math.random() * (canvas.height || 300),
-                radius: Math.random() * 4 + 5, // n8n nodelarining o'lchami
-                color: colors[Math.floor(Math.random() * colors.length)],
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5,
-                pulse: Math.random() * Math.PI * 2
+        function resize() {
+            fxCanvas.width = nCanvas.width = window.innerWidth;
+            fxCanvas.height = nCanvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        // Olov / Fire Particles on Mouse Move & Scroll
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            for(let i=0; i<3; i++) {
+                particles.push({
+                    x: mouseX, y: mouseY,
+                    vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3 - 1,
+                    size: Math.random()*6 + 2, color: Math.random() > 0.5 ? '#ff4500' : '#ff8c00',
+                    life: 1, type: 'fire'
+                });
+            }
+        });
+
+        // Scroll / Drag Event -> Ice / Freeze & Fire Blast
+        window.addEventListener('scroll', () => {
+            for(let i=0; i<5; i++) {
+                particles.push({
+                    x: Math.random()*window.innerWidth,
+                    y: Math.random()*window.innerHeight,
+                    vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2,
+                    size: Math.random()*8 + 3, color: '#38bdf8',
+                    life: 1, type: 'ice'
+                });
+            }
+        });
+
+        // Bananas Array
+        const bananas = [];
+        function spawnBanana() {
+            bananas.push({
+                x: Math.random()*window.innerWidth,
+                y: window.innerHeight + 50,
+                vy: -(Math.random()*10 + 12),
+                vx: (Math.random()-0.5)*6,
+                rot: 0, vRot: (Math.random()-0.5)*0.2
             });
         }
 
-        // Add 'n8n' Central Logo Node (4 burchaksiz, aylanib yuradi)
-        const n8nLogoNode = {
-            x: canvas.width / 2,
-            y: canvas.height / 2,
-            radius: 25, // Kattaroq
-            color: '#a855f7', // Purple
-            vx: 0.8,
-            vy: 0.6,
-            pulse: 0,
-            isLogo: true
-        };
-        nodes.push(n8nLogoNode);
-
-        // Data Transmission Pulses (Signallar)
-        const pulses = [];
-        function createPulse(n1, n2) {
-            pulses.push({
-                startNode: n1,
-                endNode: n2,
-                progress: 0,
-                speed: Math.random() * 0.02 + 0.01,
-                color: n1.color
-            });
+        function triggerConfetti(e) {
+            e.stopPropagation();
+            for(let i=0; i<30; i++) {
+                particles.push({
+                    x: e.clientX, y: e.clientY,
+                    vx: (Math.random()-0.5)*10, vy: (Math.random()-0.5)*10,
+                    size: Math.random()*6 + 2, color: '#ec4899',
+                    life: 1, type: 'fire'
+                });
+            }
         }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // n8n Neural Nodes Background
+        const nodes = Array.from({length: 25}, () => ({
+            x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight,
+            vx: (Math.random()-0.5)*1.2, vy: (Math.random()-0.5)*1.2,
+            radius: Math.random()*3 + 3
+        }));
 
-            // Update Nodes Position (Butun oynada harakat)
-            nodes.forEach(node => {
-                node.x += node.vx;
-                node.y += node.vy;
+        function loop() {
+            // FX Loop
+            fxCtx.clearRect(0,0, fxCanvas.width, fxCanvas.height);
 
-                // Border check
-                if (node.x < node.radius || node.x > canvas.width - node.radius) node.vx *= -1;
-                if (node.y < node.radius || node.y > canvas.height - node.radius) node.vy *= -1;
+            // Render Fire & Ice Particles
+            for(let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+                if(p.life <= 0) { particles.splice(i, 1); continue; }
 
-                node.pulse += node.isLogo ? 0.03 : 0.05;
+                fxCtx.beginPath();
+                fxCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
+                fxCtx.fillStyle = p.color;
+                fxCtx.shadowColor = p.color; fxCtx.shadowBlur = 10;
+                fxCtx.fill();
+                fxCtx.shadowBlur = 0;
+            }
+
+            // Render Bananas 🍌
+            for(let i = bananas.length - 1; i >= 0; i--) {
+                const b = bananas[i];
+                b.x += b.vx; b.y += b.vy; b.vy += 0.4; b.rot += b.vRot;
+                if(b.y > window.innerHeight + 100) { bananas.splice(i, 1); continue; }
+
+                fxCtx.save();
+                fxCtx.translate(b.x, b.y);
+                fxCtx.rotate(b.rot);
+                fxCtx.font = "32px serif";
+                fxCtx.fillText("🍌", -16, 16);
+                fxCtx.restore();
+            }
+
+            // Neural Nodes Loop
+            nCtx.clearRect(0,0, nCanvas.width, nCanvas.height);
+            nodes.forEach(n => {
+                n.x += n.vx; n.y += n.vy;
+                if(n.x < 0 || n.x > nCanvas.width) n.vx *= -1;
+                if(n.y < 0 || n.y > nCanvas.height) n.vy *= -1;
+
+                nCtx.beginPath();
+                nCtx.arc(n.x, n.y, n.radius, 0, Math.PI*2);
+                nCtx.fillStyle = '#a855f7';
+                nCtx.shadowColor = '#a855f7'; nCtx.shadowBlur = 8;
+                nCtx.fill();
+                nCtx.shadowBlur = 0;
             });
 
-            // Draw n8n Style Connections ( Workflow lines)
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[i].x - nodes[j].x;
-                    const dy = nodes[i].y - nodes[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    // Faqat yaqin nodelar o'rtasida aloqa
-                    if (dist < 130) {
-                        ctx.beginPath();
-                        ctx.moveTo(nodes[i].x, nodes[i].y);
-                        ctx.lineTo(nodes[j].x, nodes[j].y);
-                        // Neon pink connection with blur effect
-                        ctx.strokeStyle = `rgba(236, 72, 153, ${0.4 - dist / 250})`;
-                        ctx.lineWidth = 1;
-                        // ctx.shadowColor = '#ec4899'; ctx.shadowBlur = 4;
-                        ctx.stroke();
-                        // ctx.shadowBlur = 0;
-
-                        // Create random pulse signal on connection
-                        if (Math.random() < 0.003) {
-                            createPulse(nodes[i], nodes[j]);
-                        }
+            for(let i=0; i<nodes.length; i++) {
+                for(let j=i+1; j<nodes.length; j++) {
+                    const dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                    if(dist < 130) {
+                        nCtx.beginPath();
+                        nCtx.moveTo(nodes[i].x, nodes[i].y);
+                        nCtx.lineTo(nodes[j].x, nodes[j].y);
+                        nCtx.strokeStyle = `rgba(236, 72, 153, ${0.3 - dist/400})`;
+                        nCtx.stroke();
                     }
                 }
             }
 
-            // Draw Data Pulses
-            for (let i = pulses.length - 1; i >= 0; i--) {
-                const p = pulses[i];
-                p.progress += p.speed;
-
-                if (p.progress >= 1) {
-                    pulses.splice(i, 1);
-                    continue;
-                }
-
-                const currentX = p.startNode.x + (p.endNode.x - p.startNode.x) * p.progress;
-                const currentY = p.startNode.y + (p.endNode.y - p.startNode.y) * p.progress;
-
-                ctx.beginPath();
-                ctx.arc(currentX, currentY, 3, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                // Neon glow for pulse
-                ctx.shadowColor = p.color; ctx.shadowBlur = 10;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            }
-
-            // Draw n8n Style Nodes
-            nodes.forEach(node => {
-                const currentRadius = node.radius + Math.sin(node.pulse) * (node.isLogo ? 3 : 1.5);
-
-                if (node.isLogo) {
-                    // Draw central n8n Logo (without rectangle, neon style)
-                    ctx.fillStyle = node.color; ctx.font = 'bold 16px font-mono'; ctx.textAlign = 'center';
-                    // Logo glow
-                    ctx.shadowColor = node.color; ctx.shadowBlur = 20;
-                    ctx.fillText('n8n.ai', node.x, node.y + 6);
-                    ctx.shadowBlur = 0;
-                } else {
-                    // Draw standard workflow node
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, currentRadius, 0, Math.PI * 2);
-                    ctx.fillStyle = node.color;
-                    // Neon glow for node
-                    ctx.shadowColor = node.color; ctx.shadowBlur = 12;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-
-                    // Outer Ring
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, currentRadius + 3, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(255, 255, 255, 0.3)`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            });
-
-            requestAnimationFrame(animate);
+            requestAnimationFrame(loop);
         }
-
-        animate();
-
-        // Canvas Interaktivligi (Click orqali signal yuborish)
-        canvas.addEventListener('click', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            // n8n logo tugunini click tekshirish
-            const dx = clickX - n8nLogoNode.x;
-            const dy = clickY - n8nLogoNode.y;
-            if (Math.sqrt(dx * dx + dy * dy) < n8nLogoNode.radius + 10) {
-                // n8n logo bosilsa barcha nodelarga signal yuborish
-                nodes.forEach(n => {
-                    if (n !== n8nLogoNode) createPulse(n8nLogoNode, n);
-                });
-            } else {
-                // Boshqa joy bosilsa random signal
-                const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
-                createPulse(nodes[0], randomNode);
-            }
-        });
-
+        loop();
     </script>
 </body>
 </html>
