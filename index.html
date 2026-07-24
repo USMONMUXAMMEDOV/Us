@@ -1,48 +1,52 @@
 <!DOCTYPE html>
-<html lang="uz" class="scroll-smooth">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammadjonov Shousmon – AI Portfolio & Agent HQ</title>
+    <title>Muhammadjonov Shousmon – AI Specialist Portfolio</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap');
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
         body {
-            background-color: #020307;
+            background-color: #030408;
             color: #f3f4f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
+            user-select: none;
         }
 
-        /* Glassmorphism UI */
-        .glass-card {
-            background: rgba(13, 17, 28, 0.75);
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            backdrop-filter: blur(14px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Border-less Floating Elements (To'rtburchak ramkalar o'rniga) */
+        .float-element {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .glass-card:hover {
-            border-color: rgba(245, 158, 11, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(245, 158, 11, 0.2);
+        .float-element:hover {
+            background: rgba(245, 158, 11, 0.08);
+            transform: translateY(-4px) scale(1.02);
         }
 
-        .ai-chip {
-            background: rgba(18, 24, 38, 0.85);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+        .ai-icon-chip {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
             transition: all 0.25s ease;
         }
-        .ai-chip:hover {
-            border-color: #f59e0b;
-            background: rgba(245, 158, 11, 0.15);
-            transform: scale(1.08);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        .ai-icon-chip:hover {
+            background: rgba(245, 158, 11, 0.2);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
         }
 
-        #neuralBgCanvas {
+        /* Neural Background Canvas */
+        #neuralCanvas {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
@@ -50,209 +54,184 @@
             pointer-events: none;
         }
 
+        /* FX Particle Effects Layer */
+        #fxCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 99;
+            pointer-events: none;
+        }
+
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #030408; }
-        ::-webkit-scrollbar-thumb { background: #f59e0b44; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f59e0b88; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b55; border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen relative selection:bg-amber-500 selection:text-black">
 
-    <canvas id="neuralBgCanvas"></canvas>
+    <canvas id="neuralCanvas"></canvas>
 
-    <div class="relative z-10 max-w-6xl mx-auto px-4 py-8 space-y-16">
+    <canvas id="fxCanvas"></canvas>
 
-        <header class="glass-card p-6 rounded-3xl text-center max-w-3xl mx-auto border-amber-500/30">
-            <div class="flex items-center justify-center gap-3 mb-4 flex-wrap">
-                <a href="tel:+998770137713" class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 hover:bg-amber-500/20 transition">
-                    <i class="fas fa-phone text-sm"></i>
-                </a>
-                <a href="https://t.me/usca_13" target="_blank" class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 hover:bg-cyan-500/20 transition">
-                    <i class="fab fa-telegram text-sm"></i>
-                </a>
-                <a href="https://github.com/us13" target="_blank" class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition">
-                    <i class="fab fa-github text-sm"></i>
-                </a>
-                <a href="mailto:usmonmuxammedov@gmail.com" class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 hover:bg-pink-500/20 transition">
-                    <i class="fas fa-envelope text-sm"></i>
-                </a>
+    <main class="relative z-10 max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <header class="text-center space-y-4 max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono tracking-widest uppercase">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                AI Engineering & Neural Networks
             </div>
 
-            <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500/20 via-purple-500/20 to-cyan-500/20 border border-amber-500/40 mb-3 shadow-xl">
-                <i class="fas fa-brain text-3xl text-amber-400"></i>
-            </div>
-            
-            <h1 class="text-2xl md:text-4xl font-extrabold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500">
+            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-yellow-500">
                 Muhammadjonov Shousmon
             </h1>
-            <p class="text-xs md:text-sm tracking-widest text-cyan-400 uppercase font-semibold mt-1 font-mono">
-                SENIOR FRONTEND DEVELOPER | AI AUTOMATION ENGINEER
+
+            <p class="text-sm md:text-base text-slate-300 leading-relaxed font-light">
+                Men zamonaviy <strong class="text-amber-400 font-semibold">Sun'iy Intellekt texnologiyalari, neyron tarmoqlar</strong> hamda ko'p agentli avtomatlashtirilgan tizimlar bo'yicha mutaxassisman. Biznes jarayonlarini raqamlashtirish va sun'iy intellekt integratsiyasida ilg'or modellardan unumli foydalanaman.
             </p>
         </header>
 
-        <section class="glass-card p-6 md:p-8 rounded-3xl">
-            <div class="text-center mb-6">
-                <h2 class="text-base md:text-lg font-black tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">
-                    <i class="fas fa-microchip mr-2 text-amber-400"></i> MEN SHU 30+ AI DASTURLARDAN MUKAMMAL FOYDALANAMAN
-                </h2>
-                <p class="text-xs text-slate-400 mt-1 font-mono">Yuqori samaradorlik va avtomatlashtirish uchun foydalaniladigan neyron tarmoqlar</p>
-            </div>
-
-            <div id="aiGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3"></div>
-        </section>
-
         <section class="space-y-6">
             <div class="text-center">
-                <h2 class="text-xl font-bold uppercase tracking-wider text-amber-400 font-mono">
-                    <i class="fas fa-cubes mr-2"></i> MEN YARATGAN YUQORI DARAJA LOYIHALAR (10+)
+                <h2 class="text-base md:text-lg font-extrabold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-400">
+                    Neyron Tarmoqlar va AI Ekotizimi
                 </h2>
-                <p class="text-xs text-slate-400 font-mono mt-1">AI Agentlar, Avtomatizatsiya va Eksklyuziv Web Platformalar</p>
+                <p class="text-xs text-slate-400 font-mono mt-1">Loyihalarda qo'llaniladigan asosiy model va platformalar</p>
             </div>
 
-            <div id="projectsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            <div id="aiGrid" class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto"></div>
         </section>
 
-        <section class="glass-card p-6 rounded-3xl space-y-4 border-emerald-500/30">
-            <div class="flex flex-wrap justify-between items-center gap-3 border-b border-white/10 pb-4">
+        <section class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-lg md:text-xl font-extrabold uppercase tracking-widest text-amber-400">
+                    Amalga Oshirilgan Loyihalar
+                </h2>
+                <p class="text-xs text-slate-400 font-mono">Intellektual va innovatsion web ishlanmalar</p>
+            </div>
+
+            <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </section>
+
+        <section class="space-y-4 pt-8">
+            <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-emerald-400 uppercase font-mono flex items-center gap-2">
-                        <i class="fas fa-building text-emerald-400 animate-pulse"></i> 3D AI Agentlar Ishxonasi / Shaharchasi
+                        <i class="fas fa-network-wired"></i> Real-time AI Agentlar Xonasi (Interaktiv)
                     </h2>
-                    <p class="text-xs text-slate-400 font-mono">Agentlar real vaqtda stolda ishlaydi, buyruq bajaradi, dam oladi va yuradi.</p>
+                    <p class="text-xs text-slate-400 font-mono">Agent ustiga bosing: U to'xtaydi va real vaqtdagi topshiriq subtitrlari ko'rinadi.</p>
                 </div>
-                <div class="flex items-center gap-3 text-xs font-mono">
-                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                        ● Live Agents: <strong id="agentCount">28</strong>
-                    </span>
-                </div>
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">● Live Agents Active</span>
             </div>
 
-            <div class="relative w-full h-[550px] rounded-2xl overflow-hidden border border-amber-500/20 bg-black/80">
-                <canvas id="officeCanvas" class="w-full h-full"></canvas>
+            <div class="relative w-full h-[450px] rounded-3xl overflow-hidden bg-black/70 backdrop-blur-md cursor-pointer border border-emerald-500/20 shadow-2xl">
+                <canvas id="roomCanvas" class="w-full h-full"></canvas>
+
+                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-3 rounded-2xl bg-black/85 backdrop-blur-lg border border-amber-500/40 hidden transition-all">
+                    <div class="flex items-center justify-between text-xs font-mono text-amber-400 mb-1">
+                        <span id="subAgentName" class="font-bold">AGENT_NAME</span>
+                        <span id="subStatus" class="px-2 py-0.5 rounded bg-amber-500/20 text-[10px]">STATUS</span>
+                    </div>
+                    <p id="subText" class="text-xs text-slate-200 font-mono italic">Agent xabari...</p>
+                </div>
             </div>
         </section>
 
+    </main>
+
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <div id="contactMenu" class="hidden flex-col gap-2 p-3 rounded-2xl bg-black/90 backdrop-blur-xl border border-amber-500/30 shadow-2xl transition-all">
+            <a href="tel:+998770137713" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-500/20 text-slate-200 text-xs transition">
+                <i class="fas fa-phone text-amber-400"></i> +998 77 013 77 13
+            </a>
+            <a href="https://t.me/usca_13" target="_blank" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-cyan-500/20 text-slate-200 text-xs transition">
+                <i class="fab fa-telegram text-cyan-400"></i> @usca_13
+            </a>
+            <a href="https://github.com/us13" target="_blank" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-purple-500/20 text-slate-200 text-xs transition">
+                <i class="fab fa-github text-purple-400"></i> github.com/us13
+            </a>
+            <a href="mailto:usmonmuxammedov@gmail.com" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-pink-500/20 text-slate-200 text-xs transition">
+                <i class="fas fa-envelope text-pink-400"></i> usmonmuxammedov@gmail.com
+            </a>
+        </div>
+
+        <button onclick="toggleContacts()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-black flex items-center justify-center shadow-lg shadow-amber-500/30 hover:scale-110 active:scale-95 transition">
+            <i class="fas fa-comments text-xl"></i>
+        </button>
     </div>
 
     <script>
-        // --- 1. DATA: 30 AI TOOLS WITH LOGOS ---
-        const aiTools = [
-            { name: "ChatGPT", logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
-            { name: "Claude 3.5", logo: "https://cdn.worldvectorlogo.com/logos/claude-1.svg" },
-            { name: "Midjourney", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png" },
-            { name: "Google Gemini", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" },
-            { name: "n8n Automation", logo: "https://n8n.io/favicon.ico" },
-            { name: "Cursor AI", logo: "https://www.cursor.com/favicon.ico" },
-            { name: "FLUX.1", logo: "https://blackforestlabs.ai/wp-content/uploads/2024/08/cropped-favicon-32x32.png" },
-            { name: "GitHub Copilot", logo: "https://github.githubassets.com/assets/pull-sharp-18e47db26a11.svg" },
-            { name: "Perplexity", logo: "https://www.perplexity.ai/favicon.ico" },
-            { name: "ElevenLabs", logo: "https://elevenlabs.io/favicon.ico" },
-            { name: "Runway Gen-3", logo: "https://runwayml.com/favicon.ico" },
-            { name: "CrewAI", logo: "https://www.crewai.com/favicon.ico" },
-            { name: "AutoGen", logo: "https://microsoft.github.io/autogen/img/ag.svg" },
-            { name: "LangChain", logo: "https://python.langchain.com/img/favicon.ico" },
-            { name: "OpenAI Sora", logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
-            { name: "Stable Diffusion", logo: "https://stability.ai/favicon.ico" },
-            { name: "Llama 3", logo: "https://static.meta.com/favicon.ico" },
-            { name: "Mistral AI", logo: "https://mistral.ai/favicon.ico" },
-            { name: "Notion AI", logo: "https://www.notion.so/front-static/favicon.ico" },
-            { name: "DeepSeek R1", logo: "https://www.deepseek.com/favicon.ico" },
-            { name: "Adobe Firefly", logo: "https://www.adobe.com/favicon.ico" },
-            { name: "Whisper Voice", logo: "https://openai.com/favicon.ico" },
-            { name: "Poe AI", logo: "https://poe.com/favicon.ico" },
-            { name: "Suno AI Music", logo: "https://suno.com/favicon.ico" },
-            { name: "Udio AI", logo: "https://www.udio.com/favicon.ico" },
-            { name: "HeyGen Video", logo: "https://www.heygen.com/favicon.ico" },
-            { name: "Pika Labs", logo: "https://pika.art/favicon.ico" },
-            { name: "Replit Agent", logo: "https://replit.com/favicon.ico" },
-            { name: "Hugging Face", logo: "https://huggingface.co/front/assets/huggingface/llms-logo.svg" },
-            { name: "V0.dev", logo: "https://v0.dev/assets/icon.png" }
-        ];
+        // --- 1. RANDOM 20 INTERACTIVE ITEMS & FX SYSTEM (BOSGAN DAQIQADA EKRANDA TARQALISH) ---
+        const fxCanvas = document.getElementById('fxCanvas');
+        const fxCtx = fxCanvas.getContext('2d');
+        function resizeFx() { fxCanvas.width = window.innerWidth; fxCanvas.height = window.innerHeight; }
+        resizeFx(); window.addEventListener('resize', resizeFx);
 
-        const aiGrid = document.getElementById('aiGrid');
-        aiTools.forEach(tool => {
-            aiGrid.innerHTML += `
-                <div class="ai-chip p-2.5 rounded-2xl flex items-center gap-2.5 cursor-pointer">
-                    <div class="w-7 h-7 rounded-lg bg-black/50 p-1 flex items-center justify-center shrink-0 border border-white/10">
-                        <img src="${tool.logo}" alt="${tool.name}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2103/2103832.png';">
-                    </div>
-                    <span class="text-[11px] font-semibold text-slate-200 truncate">${tool.name}</span>
-                </div>
-            `;
-        });
+        const fxParticles = [];
+        const itemTypes = ["✨", "⚡", "🔮", "🧬", "💎", "👾", "🤖", "🚀", "💥", "🪐", "🌐", "⚙️", "🔥", "🎯", "🌀", "💠", "🧠", "💡", "📡", "⚡"];
 
-        // --- 2. DATA: 10 PROJECTS ---
-        const myProjects = [
-            { icon: "fa-hotel", title: "Luxury Hotel 3D", desc: "Interaktiv 3D xona bron qilish va eksklyuziv bron platformasi.", tech: ["Three.js", "React", "AI Booking"], color: "text-amber-400" },
-            { icon: "fa-shirt", title: "Fashion Hub", desc: "Premium kiyim-kechak brendlari va minimalizm uslubidagi e-commerce.", tech: ["Next.js", "Tailwind", "Stripe"], color: "text-cyan-400" },
-            { icon: "fa-robot", title: "Multi-Agent System", desc: "CrewAI va n8n orqali biznes topshiriqlarini avtomatlashtirish agenti.", tech: ["Python", "n8n", "CrewAI"], color: "text-purple-400" },
-            { icon: "fa-leaf", title: "Eco-Marketplace", desc: "Kamyob va organik mahsulotlar uchun aqlli savdo platformasi.", tech: ["Vue.js", "Node.js", "AI Filter"], color: "text-emerald-400" },
-            { icon: "fa-brain", title: "AI Content Studio", desc: "SMM va kontent meykering uchun avtomatik AI matn/rasm generatori.", tech: ["OpenAI API", "FLUX", "FastAPI"], color: "text-pink-400" },
-            { icon: "fa-chart-line", title: "Analytics Dashboard", desc: "Moliyaviy va savdo ko'rsatkichlarini real-vaqtda tahlil qiluvchi AI vizualizator.", tech: ["Recharts", "WebSockets", "Python"], color: "text-yellow-400" },
-            { icon: "fa-comments", title: "Smart Customer Bot", desc: "Mijozlar bilan insondek muloqot qiluvchi o'zbekcha ovozli AI yordamchi.", tech: ["Whisper", "ElevenLabs", "Telegram"], color: "text-blue-400" },
-            { icon: "fa-code", title: "AI Code Reviewer", desc: "Dasturchilar koddagi xatolarini avtomatik topib tuzatuvchi sub-agent.", tech: ["Claude API", "GitHub API", "Docker"], color: "text-teal-400" },
-            { icon: "fa-house-laptop", title: "Smart HR Recruiter", desc: "Rezyumelarni tahlil qilib munosib nomzodlarni sarflovchi tizim.", tech: ["LangChain", "Vector DB", "React"], color: "text-indigo-400" },
-            { icon: "fa-shield-halved", title: "Cyber-Security AI", desc: "Serverlardagi anomaliya va hujumlarni oldindan aniqlovchi xavfsizlik monitoringi.", tech: ["Python", "TensorFlow", "Linux"], color: "text-red-400" }
-        ];
-
-        const projectsGrid = document.getElementById('projectsGrid');
-        myProjects.forEach(p => {
-            projectsGrid.innerHTML += `
-                <div class="glass-card p-4 rounded-2xl flex flex-col justify-between space-y-3">
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <i class="fas ${p.icon} ${p.color} text-xl"></i>
-                            <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-white/5 border border-white/10 text-slate-300">LIVE DEMO</span>
-                        </div>
-                        <h3 class="text-sm font-bold text-white">${p.title}</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
-                    </div>
-                    <div class="flex flex-wrap gap-1 pt-2 border-t border-white/5">
-                        ${p.tech.map(t => `<span class="text-[9px] font-mono px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20">${t}</span>`).join('')}
-                    </div>
-                </div>
-            `;
-        });
-
-        // --- 3. HIGH-QUALITY NEURAL BRAIN BACKGROUND CANVAS ---
-        const bgCanvas = document.getElementById('neuralBgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-
-        function resizeBg() { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; }
-        resizeBg();
-        window.addEventListener('resize', resizeBg);
-
-        const neuralClusters = [
-            { name: "PREFRONTAL", color: "rgba(236, 72, 153, ", xRatio: 0.35, yRatio: 0.28 },
-            { name: "ASSOCIATION", color: "rgba(168, 85, 247, ", xRatio: 0.65, yRatio: 0.25 },
-            { name: "CONCEPT LAYER", color: "rgba(245, 158, 11, ", xRatio: 0.28, yRatio: 0.50 },
-            { name: "FEATURE LAYER", color: "rgba(34, 197, 94, ", xRatio: 0.72, yRatio: 0.55 },
-            { name: "HIPPOCAMPUS", color: "rgba(56, 189, 248, ", xRatio: 0.50, yRatio: 0.75 }
-        ];
-
-        const bgNodes = [];
-        neuralClusters.forEach((c) => {
-            for(let i=0; i<18; i++) {
-                bgNodes.push({
-                    x: (c.xRatio + (Math.random()-0.5)*0.22) * bgCanvas.width,
-                    y: (c.yRatio + (Math.random()-0.5)*0.22) * bgCanvas.height,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    color: c.color,
-                    label: i === 0 ? c.name : null
+        window.addEventListener('click', (e) => {
+            // Spawn 15-20 random items at click position
+            for(let i=0; i<16; i++) {
+                fxParticles.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: (Math.random() - 0.5) * 8 - 2,
+                    char: itemTypes[Math.floor(Math.random() * itemTypes.length)],
+                    size: 14 + Math.random() * 16,
+                    alpha: 1,
+                    life: 0.02 + Math.random() * 0.02
                 });
             }
         });
 
-        function renderNeuralBg() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        function renderFX() {
+            fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+            for(let i = fxParticles.length - 1; i >= 0; i--) {
+                let p = fxParticles[i];
+                p.x += p.vx; p.y += p.vy;
+                p.alpha -= p.life;
+                if(p.alpha <= 0) { fxParticles.splice(i, 1); continue; }
 
+                fxCtx.globalAlpha = p.alpha;
+                fxCtx.font = `${p.size}px sans-serif`;
+                fxCtx.fillText(p.char, p.x, p.y);
+            }
+            fxCtx.globalAlpha = 1;
+            requestAnimationFrame(renderFX);
+        }
+        renderFX();
+
+        // --- 2. HIGH DYNAMIC NEURAL BACKGROUND (VIDEODAGIDEK) ---
+        const bgCanvas = document.getElementById('neuralCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        function resizeBg() { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; }
+        resizeBg(); window.addEventListener('resize', resizeBg);
+
+        const bgNodes = [];
+        const colors = ["rgba(236, 72, 153, ", "rgba(168, 85, 247, ", "rgba(245, 158, 11, ", "rgba(34, 197, 94, "];
+        const labels = ["PREFRONTAL", "ASSOCIATION", "CONCEPT LAYER", "FEATURE LAYER", "HIPPOCAMPUS"];
+
+        for(let i=0; i<65; i++) {
+            bgNodes.push({
+                x: Math.random() * bgCanvas.width,
+                y: Math.random() * bgCanvas.height,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: (Math.random() - 0.5) * 1.2,
+                color: colors[i % colors.length],
+                label: i < labels.length ? labels[i] : null
+            });
+        }
+
+        function renderNeural() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             for(let i=0; i<bgNodes.length; i++) {
                 let n1 = bgNodes[i];
                 n1.x += n1.vx; n1.y += n1.vy;
-                if (n1.x < 0 || n1.x > bgCanvas.width) n1.vx *= -1;
-                if (n1.y < 0 || n1.y > bgCanvas.height) n1.vy *= -1;
+                if(n1.x < 0 || n1.x > bgCanvas.width) n1.vx *= -1;
+                if(n1.y < 0 || n1.y > bgCanvas.height) n1.vy *= -1;
 
                 bgCtx.beginPath();
                 bgCtx.arc(n1.x, n1.y, 2.5, 0, Math.PI*2);
@@ -261,7 +240,7 @@
                 bgCtx.shadowBlur = 10;
                 bgCtx.fill();
 
-                if (n1.label) {
+                if(n1.label) {
                     bgCtx.font = "bold 10px monospace";
                     bgCtx.fillStyle = "#ffffff";
                     bgCtx.fillText(n1.label, n1.x + 8, n1.y - 4);
@@ -270,188 +249,154 @@
                 for(let j=i+1; j<bgNodes.length; j++) {
                     let n2 = bgNodes[j];
                     let dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
-                    if(dist < 100) {
+                    if(dist < 110) {
                         bgCtx.beginPath();
                         bgCtx.moveTo(n1.x, n1.y);
                         bgCtx.lineTo(n2.x, n2.y);
-                        bgCtx.strokeStyle = n1.color + ((1 - dist/100)*0.35) + ')';
+                        bgCtx.strokeStyle = n1.color + ((1 - dist/110)*0.35) + ')';
                         bgCtx.lineWidth = 0.8;
                         bgCtx.stroke();
                     }
                 }
             }
-            requestAnimationFrame(renderNeuralBg);
+            requestAnimationFrame(renderNeural);
         }
-        renderNeuralBg();
+        renderNeural();
 
-        // --- 4. 3D AI AGENTS TOWN / OFFICE CANVAS (PASTDA) ---
-        const officeCanvas = document.getElementById('officeCanvas');
-        const oCtx = officeCanvas.getContext('2d');
-
-        function resizeOffice() {
-            officeCanvas.width = officeCanvas.parentElement.clientWidth;
-            officeCanvas.height = officeCanvas.parentElement.clientHeight;
-        }
-        resizeOffice();
-        window.addEventListener('resize', resizeOffice);
-
-        const officeZones = [
-            { name: "SOTUV BO'LIMI", x: 0.18, y: 0.25, color: "#f59e0b" },
-            { name: "ANALITIKA", x: 0.72, y: 0.25, color: "#38bdf8" },
-            { name: "KODLASH BO'LIMI", x: 0.45, y: 0.45, color: "#a855f7" },
-            { name: "OSHXONA & KOFE", x: 0.20, y: 0.75, color: "#10b981" },
-            { name: "DAM OLISH ZONASI", x: 0.75, y: 0.75, color: "#ec4899" }
+        // --- 3. AI TOOLS GRID (HIGH QUALITY LOGOS & ICONS) ---
+        const aiTools = [
+            { name: "ChatGPT", icon: "fab fa-openai" },
+            { name: "Claude 3.5", icon: "fas fa-brain" },
+            { name: "Midjourney", icon: "fas fa-palette" },
+            { name: "Google Gemini", icon: "fas fa-atom" },
+            { name: "n8n Automation", icon: "fas fa-diagram-project" },
+            { name: "Cursor AI", icon: "fas fa-code" },
+            { name: "FLUX.1", icon: "fas fa-wand-magic-sparkles" },
+            { name: "GitHub Copilot", icon: "fab fa-github" },
+            { name: "Perplexity", icon: "fas fa-magnifying-glass" },
+            { name: "ElevenLabs", icon: "fas fa-microphone" },
+            { name: "Runway Gen-3", icon: "fas fa-video" },
+            { name: "CrewAI", icon: "fas fa-users-gear" }
         ];
 
-        // Desks Matrix
-        const officeDesks = [];
-        for (let r = 0; r < 4; r++) {
-            for (let c = 0; c < 6; c++) {
-                officeDesks.push({
-                    x: 0.22 + c * 0.11,
-                    y: 0.28 + r * 0.12,
-                    occupied: false
-                });
-            }
-        }
-
-        const agentNamesList = [
-            "Javlon", "Aziz", "Otabek", "Nurbek", "Jasur", "Sardor", 
-            "Bekzod", "Ibrohim", "Temur", "Elyor", "Dilshod", "Kamol", 
-            "G'ayrat", "Humoyun", "Botir", "Zafar", "Shohruh", "Oybek"
-        ];
-
-        const statuses = [
-            { text: "Bash", bg: "#4338ca" },
-            { text: "Edit", bg: "#15803d" },
-            { text: "Grep", bg: "#0369a1" },
-            { text: "Read", bg: "#b45309" },
-            { text: "Glob", bg: "#047857" },
-            { text: "Deploy", bg: "#7e22ce" },
-            { text: "Write", bg: "#be185d" }
-        ];
-
-        // AI Agents array with States: 'working', 'walking', 'sleeping'
-        const simAgents = agentNamesList.map((name, i) => {
-            const desk = officeDesks[i % officeDesks.length];
-            return {
-                name: name,
-                x: (desk.x + (Math.random()-0.5)*0.05) * officeCanvas.width,
-                y: (desk.y + (Math.random()-0.5)*0.05) * officeCanvas.height,
-                targetX: desk.x * officeCanvas.width,
-                targetY: desk.y * officeCanvas.height,
-                state: i % 3 === 0 ? 'working' : (i % 4 === 0 ? 'sleeping' : 'walking'),
-                status: statuses[i % statuses.length],
-                timer: Math.random() * 200,
-                speed: 0.8 + Math.random() * 0.5
-            };
+        const aiGrid = document.getElementById('aiGrid');
+        aiTools.forEach(t => {
+            aiGrid.innerHTML += `
+                <div class="ai-icon-chip px-4 py-2.5 rounded-full flex items-center gap-2.5 cursor-pointer text-xs font-semibold text-slate-200">
+                    <i class="${t.icon} text-amber-400 text-sm"></i>
+                    <span>${t.name}</span>
+                </div>
+            `;
         });
 
-        function renderOffice() {
-            oCtx.clearRect(0, 0, officeCanvas.width, officeCanvas.height);
+        // --- 4. PROJECTS (FLOATING CLEAN DESIGN) ---
+        const projects = [
+            { title: "Luxury Hotel 3D", desc: "Interaktiv 3D vizualizatsiyaga ega bron tizimi.", tech: "Three.js • React" },
+            { title: "Multi-Agent Automation", desc: "CrewAI va n8n orqali biznes topshiriqlarini avtomatik bajarish.", tech: "Python • CrewAI" },
+            { title: "Fashion Hub E-Commerce", desc: "Zamonaviy brendlar uchun eksklyuziv minimalistik do'kon.", tech: "Next.js • Tailwind" },
+            { title: "Eco-Marketplace", desc: "Aql-idrokli filtratsiyaga ega organik mahsulotlar servisi.", tech: "Vue.js • Node.js" }
+        ];
 
-            // Floor Grid
-            oCtx.strokeStyle = "rgba(255, 255, 255, 0.04)";
-            const gap = 35;
-            for (let x = 0; x < officeCanvas.width; x += gap) {
-                oCtx.beginPath(); oCtx.moveTo(x, 0); oCtx.lineTo(x, officeCanvas.height); oCtx.stroke();
-            }
-            for (let y = 0; y < officeCanvas.height; y += gap) {
-                oCtx.beginPath(); oCtx.moveTo(0, y); oCtx.lineTo(officeCanvas.width, y); oCtx.stroke();
-            }
+        const projectsContainer = document.getElementById('projectsContainer');
+        projects.forEach(p => {
+            projectsContainer.innerHTML += `
+                <div class="float-element p-5 rounded-3xl space-y-2 cursor-pointer border border-white/5">
+                    <h3 class="text-base font-bold text-amber-300">${p.title}</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
+                    <span class="inline-block text-[10px] font-mono text-cyan-400 pt-2">${p.tech}</span>
+                </div>
+            `;
+        });
 
-            // Zones Labels
-            officeZones.forEach(z => {
-                const zx = z.x * officeCanvas.width;
-                const zy = z.y * officeCanvas.height;
-                oCtx.font = "bold 12px monospace";
-                oCtx.fillStyle = z.color;
-                oCtx.shadowColor = z.color;
-                oCtx.shadowBlur = 6;
-                oCtx.fillText("■ " + z.name, zx - 40, zy - 20);
-                oCtx.shadowBlur = 0;
+        // --- 5. REALISTIC AI AGENT ROOM WITH SUBTITLES ---
+        const rCanvas = document.getElementById('roomCanvas');
+        const rCtx = rCanvas.getContext('2d');
+        function resizeRoom() {
+            rCanvas.width = rCanvas.parentElement.clientWidth;
+            rCanvas.height = rCanvas.parentElement.clientHeight;
+        }
+        resizeRoom(); window.addEventListener('resize', resizeRoom);
+
+        const agentTasks = [
+            "API so'rovlarini optimallashtirmoqda va ma'lumotlarni tahlil qilmoqda...",
+            "Yangi neyron tarmoq modelini o'rgatish uchun dataset yig'moqda...",
+            "Koddagi anomaliyalarni topib, xavfsizlik testlarini o'tkazmoqda...",
+            "Server bilan real-vaqtda ma'lumotlar almashinuvini ta'minlamoqda..."
+        ];
+
+        const agents = [
+            { id: 1, name: "Agent_Alpha", x: 100, y: 150, vx: 2.2, vy: 1.8, paused: false, status: "CODING" },
+            { id: 2, name: "Agent_Beta", x: 250, y: 220, vx: -2.0, vy: 2.1, paused: false, status: "SEARCHING" },
+            { id: 3, name: "Agent_Gamma", x: 400, y: 120, vx: 2.5, vy: -1.7, paused: false, status: "DEPLOYING" },
+            { id: 4, name: "Agent_Delta", x: 180, y: 300, vx: -1.9, vy: -2.2, paused: false, status: "TRAINING" }
+        ];
+
+        function renderRoom() {
+            rCtx.clearRect(0, 0, rCanvas.width, rCanvas.height);
+
+            // Room Grid
+            rCtx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+            for(let x=0; x<rCanvas.width; x+=30) { rCtx.beginPath(); rCtx.moveTo(x,0); rCtx.lineTo(x,rCanvas.height); rCtx.stroke(); }
+            for(let y=0; y<rCanvas.height; y+=30) { rCtx.beginPath(); rCtx.moveTo(0,y); rCtx.lineTo(rCanvas.width,y); rCtx.stroke(); }
+
+            agents.forEach(a => {
+                if(!a.paused) {
+                    a.x += a.vx; a.y += a.vy;
+                    if(a.x < 20 || a.x > rCanvas.width - 20) a.vx *= -1;
+                    if(a.y < 20 || a.y > rCanvas.height - 20) a.vy *= -1;
+                }
+
+                // Draw Avatar Node
+                rCtx.beginPath();
+                rCtx.arc(a.x, a.y, a.paused ? 12 : 8, 0, Math.PI*2);
+                rCtx.fillStyle = a.paused ? "#f59e0b" : "#10b981";
+                rCtx.shadowColor = a.paused ? "#f59e0b" : "#10b981";
+                rCtx.shadowBlur = 12;
+                rCtx.fill();
+                rCtx.shadowBlur = 0;
+
+                // Name & Status Tag
+                rCtx.font = "10px monospace";
+                rCtx.fillStyle = "#ffffff";
+                rCtx.fillText(`${a.name} [${a.status}]`, a.x + 14, a.y + 4);
             });
 
-            // Draw Desks & Illuminated Monitors
-            officeDesks.forEach(d => {
-                const dx = d.x * officeCanvas.width;
-                const dy = d.y * officeCanvas.height;
+            requestAnimationFrame(renderRoom);
+        }
+        renderRoom();
 
-                // Desk
-                oCtx.fillStyle = "#1e293b";
-                oCtx.fillRect(dx - 12, dy - 8, 28, 16);
+        // INTERACTIVE CLICK ON AGENTS
+        rCanvas.addEventListener('click', (e) => {
+            const rect = rCanvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
 
-                // Monitor Glow
-                oCtx.fillStyle = "#38bdf8";
-                oCtx.shadowColor = "#38bdf8"; oCtx.shadowBlur = 8;
-                oCtx.fillRect(dx - 4, dy - 12, 12, 4);
-                oCtx.shadowBlur = 0;
-            });
+            let clicked = false;
+            agents.forEach(a => {
+                const dist = Math.hypot(a.x - clickX, a.y - clickY);
+                if(dist < 30) {
+                    a.paused = !a.paused;
+                    clicked = true;
 
-            // Update & Draw Agents
-            simAgents.forEach(a => {
-                a.timer++;
-
-                // State Switching Behavior
-                if (a.timer > 220) {
-                    a.timer = 0;
-                    const r = Math.random();
-                    if (r < 0.4) {
-                        a.state = 'working';
-                        const desk = officeDesks[Math.floor(Math.random() * officeDesks.length)];
-                        a.targetX = desk.x * officeCanvas.width;
-                        a.targetY = desk.y * officeCanvas.height;
-                    } else if (r < 0.75) {
-                        a.state = 'walking';
-                        a.targetX = (0.1 + Math.random() * 0.8) * officeCanvas.width;
-                        a.targetY = (0.15 + Math.random() * 0.7) * officeCanvas.height;
+                    const subPanel = document.getElementById('subPanel');
+                    if(a.paused) {
+                        document.getElementById('subAgentName').innerText = a.name;
+                        document.getElementById('subStatus').innerText = a.status;
+                        document.getElementById('subText').innerText = agentTasks[Math.floor(Math.random() * agentTasks.length)];
+                        subPanel.classList.remove('hidden');
                     } else {
-                        a.state = 'sleeping'; // Rest zone
-                        a.targetX = (0.7 + Math.random() * 0.15) * officeCanvas.width;
-                        a.targetY = (0.7 + Math.random() * 0.15) * officeCanvas.height;
+                        subPanel.classList.add('hidden');
                     }
                 }
-
-                // Move Agent
-                const dist = Math.hypot(a.targetX - a.x, a.targetY - a.y);
-                if (dist > 5) {
-                    const angle = Math.atan2(a.targetY - a.y, a.targetX - a.x);
-                    a.x += Math.cos(angle) * a.speed;
-                    a.y += Math.sin(angle) * a.speed;
-                }
-
-                // Draw Avatar Body
-                if (a.state === 'sleeping') {
-                    // Laying down / Sleeping
-                    oCtx.fillStyle = "#94a3b8";
-                    oCtx.fillRect(a.x - 6, a.y - 3, 12, 6);
-                    oCtx.font = "bold 10px sans-serif";
-                    oCtx.fillStyle = "#ec4899";
-                    oCtx.fillText("zZz", a.x + 6, a.y - 6);
-                } else {
-                    // Standing or Sitting Agent Body
-                    oCtx.fillStyle = "#f3f4f6";
-                    oCtx.fillRect(a.x - 3, a.y - 6, 6, 8); // Body
-                    oCtx.fillStyle = "#f59e0b";
-                    oCtx.fillRect(a.x - 2, a.y - 10, 4, 4); // Head
-
-                    // Action Status Badge
-                    oCtx.fillStyle = a.status.bg;
-                    oCtx.fillRect(a.x - 14, a.y - 23, 28, 10);
-                    oCtx.font = "bold 8px sans-serif";
-                    oCtx.fillStyle = "#ffffff";
-                    oCtx.fillText(a.status.text, a.x - 11, a.y - 15);
-                }
-
-                // Agent Name Tag
-                oCtx.font = "9px monospace";
-                oCtx.fillStyle = "#cbd5e1";
-                oCtx.fillText(a.name, a.x - 15, a.y + 11);
             });
+        });
 
-            requestAnimationFrame(renderOffice);
+        // 6. TOGGLE CONTACT MENU
+        function toggleContacts() {
+            const menu = document.getElementById('contactMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
         }
-        renderOffice();
     </script>
 </body>
 </html>
