@@ -3,336 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammadjonov Shousmon — Senior Frontend & AI Specialist</title>
+    <title>Muhammadjonov Shousmon – Senior Frontend & AI Engineer</title>
+    
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         html {
             scroll-behavior: smooth;
         }
 
-        body {
-            margin: 0;
-            background-color: #f7701e; /* Apelsin fon */
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow-x: hidden;
+        /* Qora -> Olovrang -> Bejivi dinamik fon animatsiyasi */
+        @keyframes dynamicBg {
+            0% {
+                background-color: #0b0f19; /* Qora / To'q */
+                color: #ffffff;
+            }
+            33% {
+                background-color: #ea580c; /* Olovrang */
+                color: #ffffff;
+            }
+            66% {
+                background-color: #f5f5dc; /* Bejivi */
+                color: #1c1917;
+            }
+            100% {
+                background-color: #0b0f19; /* Qaytadan qora */
+                color: #ffffff;
+            }
         }
 
-        /* Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            padding: 20px;
+        .animated-theme {
+            animation: dynamicBg 15s infinite ease-in-out;
+            transition: color 0.5s ease;
         }
 
-        /* Rasm va Old Money Kiyimlar Konteyneri */
+        /* Glassmorphism effekti */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Old Money Style Card Hover Effects */
         .mask-container {
             position: relative;
-            width: 300px;
-            height: 440px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
             cursor: pointer;
+            overflow: hidden;
+            border-radius: 1.5rem;
         }
 
         .user-face {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            transition: transform 0.5s ease;
-        }
-
-        /* Old Money Overlay va Filter Effekti */
-        .old-money-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            opacity: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease;
-            pointer-events: none;
-        }
-
-        .mask-container:hover .old-money-overlay {
-            opacity: 1;
+            transition: filter 0.5s ease, transform 0.5s ease;
         }
 
         .outfit-badge {
             position: absolute;
-            bottom: 15px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(8px);
-            color: #d4af37; /* Old money gold */
-            padding: 6px 16px;
+            color: #d4af37;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            z-index: 4;
             border: 1px solid rgba(212, 175, 55, 0.4);
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 10;
         }
 
         .mask-container:hover .outfit-badge {
             opacity: 1;
         }
 
-        /* Neon Skaner Chizig'i */
-        .mask-container:hover::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: #ffffff;
-            box-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff;
-            z-index: 3;
-            animation: scan 2.5s infinite linear;
-        }
-
-        @keyframes scan {
-            0% { top: -10px; }
-            100% { top: 100%; }
-        }
-
-        .main-title {
-            font-size: 44px;
-            font-weight: 900;
-            text-transform: lowercase;
-            margin-top: 25px;
-            line-height: 1;
-            letter-spacing: -2px;
-        }
-
-        .subtitle {
-            font-size: 16px;
-            font-weight: 600;
-            margin-top: 10px;
-            opacity: 0.9;
-            letter-spacing: 1px;
-        }
-
-        .scroll-down-icon {
-            position: absolute;
-            bottom: 20px;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        /* Modal Dialogni Bezatish */
+        /* Modal Dialog */
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
             z-index: 50;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
         }
 
         .modal.active {
             display: flex;
         }
-
-        .modal-content {
-            background: #111827;
-            border: 1px solid #374151;
-            border-radius: 20px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            padding: 30px;
-            position: relative;
-        }
     </style>
 </head>
-<body>
+<body class="animated-theme min-h-screen font-sans selection:bg-orange-500 selection:text-white">
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-        
-        <!-- Interactive Old Money Face Card -->
-        <div class="mask-container" id="outfitCard" onclick="switchOutfit()">
-            <img src="my-face.jpg" alt="Muhammadjonov Shousmon" class="user-face" id="userFace">
-            <div class="old-money-overlay" id="outfitOverlay"></div>
-            <div class="outfit-badge" id="outfitBadge">Old Money: Loro Piana Classic</div>
-        </div>
-
-        <div class="main-title">
-            muhammadjonov<br>shousmon
-        </div>
-        <div class="subtitle">
-            Senior Frontend Engineer & AI Specialist
-        </div>
-
-        <div class="flex gap-4 mt-6">
-            <a href="#resume" class="bg-white text-[#f7701e] px-6 py-3 rounded-full font-bold uppercase text-xs tracking-wider hover:bg-gray-100 transition">
-                Rezyume
-            </a>
-            <button onclick="openModal()" class="border-2 border-white text-white px-6 py-3 rounded-full font-bold uppercase text-xs tracking-wider hover:bg-white hover:text-[#f7701e] transition">
-                40+ AI Loyihalar 🚀
-            </button>
-        </div>
-
-        <a href="#resume" class="scroll-down-icon">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap-round="stroke-linejoin" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </a>
-    </section>
-
-    <!-- CONTENT SECTION (PASTGA TORTGANDA CHIQADIGAN BO'LIM) -->
-    <section id="resume" class="min-h-screen bg-gray-950 text-gray-100 py-20 px-6">
-        <div class="max-w-4xl mx-auto space-y-16">
+    <!-- MAIN HERO SECTION -->
+    <section class="min-h-screen flex flex-col items-center justify-center p-4 text-center relative">
+        <main class="w-full max-w-sm my-auto">
             
-            <!-- Rezyume Boshlanishi -->
-            <div class="border-b border-gray-800 pb-8">
-                <h2 class="text-4xl font-extrabold text-[#f7701e]">Rezyume & AI Mutaxassisligi</h2>
-                <p class="text-gray-400 mt-2">Dasturlash tili (0 va 1) hamda Sun'iy Intellekt modellarini amaliyotga tatbiq etish bo'yicha tajriba.</p>
-            </div>
+            <!-- Rasm kartasi (Old Money Hover & Skaner) -->
+            <div class="glass-box rounded-3xl p-4 shadow-2xl mb-6 mask-container" id="outfitCard">
+                <div class="w-full aspect-square rounded-2xl overflow-hidden bg-black/20 flex items-center justify-center relative shadow-inner">
+                    
+                    <img 
+                        src="my-face.jpg" 
+                        alt="Muhammadjonov Shousmon" 
+                        class="user-face w-full h-full object-cover"
+                        id="userFace"
+                        onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';"
+                    />
 
-            <!-- AI Mutaxassisligi & Tajriba -->
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-                    <h3 class="text-xl font-bold text-white mb-3">🤖 AI Specialist & Prompt Engineering</h3>
-                    <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
-                        <li>LLM (Large Language Models) bilan ishlash va optimallashtirish</li>
-                        <li>Custom AI Agentlar va Botlar yaratish</li>
-                        <li>40+ Dan ortiq muvaffaqiyatli topshirilgan Sun'iy Intellekt loyihalari</li>
-                        <li>AI neyron tarmoqlarini biznes jarayonlariga integratsiya qilish</li>
-                    </ul>
-                </div>
+                    <!-- Rasm topilmasa chiqadigan zaxira avatar -->
+                    <div id="avatar-fallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-orange-600 to-amber-500 text-white font-black text-6xl tracking-wider">
+                        MS
+                    </div>
 
-                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-                    <h3 class="text-xl font-bold text-white mb-3">💻 Frontend & System Architecture</h3>
-                    <ul class="text-gray-400 text-sm space-y-2 list-disc list-inside">
-                        <li>Mukammal JavaScript / TypeScript & React / Next.js</li>
-                        <li>Pastki darajali mantiq (0 va 1 darajasidagi tushunchalar va algoritmlar)</li>
-                        <li>UI/UX Interaktiv animatsiyalar va CSS Architecture</li>
-                        <li>Web Performance & High-load ilovalar</li>
-                    </ul>
+                    <div class="outfit-badge" id="outfitBadge">Old Money: Loro Piana Classic</div>
                 </div>
             </div>
 
-            <!-- 40+ AI Loyihalari Kartochkasi -->
-            <div class="bg-gradient-to-r from-orange-600 to-amber-600 p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 cursor-pointer hover:scale-[1.01] transition" onclick="openModal()">
-                <div>
-                    <h3 class="text-2xl font-black text-white">40+ Sun'iy Intellekt Loyihalarim</h3>
-                    <p class="text-white/80 text-sm mt-1">Barcha top AI apparatlari, Neyron tarmoqlari va Agentlar ro'yxatini ko'rish uchun bosing.</p>
-                </div>
-                <button class="bg-black text-white px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap hover:bg-gray-900 transition">
-                    Loyihalarni Ochish ↗
+            <!-- Ism va Unvon -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase leading-tight mb-2">
+                muhammadjonov<br/>shousmon
+            </h1>
+
+            <p class="text-xs sm:text-sm font-bold opacity-90 tracking-wider uppercase mb-6 text-orange-200">
+                Senior Frontend Developer | AI Automation Engineer
+            </p>
+
+            <!-- Social Links (Aniqlangan manbalar bilan) -->
+            <div class="flex items-center justify-center gap-3 mb-6">
+                <a href="https://t.me/usca_13" target="_blank" class="glass-button w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg" title="Telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="tel:+998770137713" class="glass-button w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg" title="Telefon">
+                    <i class="fas fa-phone"></i>
+                </a>
+                <a href="https://github.com/us13" target="_blank" class="glass-button w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:usmonmuxammedov@gmail.com" class="glass-button w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+
+            <!-- Tugmalar -->
+            <div class="space-y-3">
+                <button onclick="openModal()" class="glass-button w-full py-3 px-6 rounded-2xl font-bold tracking-wide shadow-xl text-xs uppercase flex items-center justify-center gap-2">
+                    <i class="fas fa-robot text-orange-400"></i> 40+ AI Loyihalarim
                 </button>
+                <a href="#resume" class="glass-button inline-block w-full py-3 px-6 rounded-2xl font-bold tracking-wide shadow-xl text-xs uppercase">
+                    Rezyumeni Ko'rish <i class="fas fa-arrow-down ml-1"></i>
+                </a>
             </div>
 
-            <!-- Kontakt Bo'limi -->
-            <div class="text-center pt-10 border-t border-gray-800">
-                <p class="text-gray-500 text-sm">© 2026 Muhammadjonov Shousmon. Barcha huquqlar himoyalangan.</p>
+        </main>
+    </section>
+
+    <!-- RESUME & DETAILS SECTION -->
+    <section id="resume" class="min-h-screen bg-slate-950 text-slate-100 py-16 px-6">
+        <div class="max-w-3xl mx-auto space-y-12">
+            
+            <div class="border-b border-slate-800 pb-6">
+                <h2 class="text-3xl font-black text-orange-500 uppercase tracking-tight">Profil & Injiniring Poydevori</h2>
+                <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                    Kompyuter injeneringi bo'yicha kuchli akademik va muhandislik poydevoriga (Low-level binar mantiq va arxitekturadan tortib murakkab tizimlargacha) ega bo'lgan Senior Frontend Developer va AI Integrator.
+                </p>
+            </div>
+
+            <!-- Ko'nikmalar Grid -->
+            <div>
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                    <i class="fas fa-code text-orange-500"></i> Texnik Ko'nikmalar
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                        <span class="font-bold text-orange-400 block mb-1">Frontend Architecture</span>
+                        <p class="text-slate-400">React.js, Next.js (SSR/SSG), TypeScript, Redux Toolkit, Zustand, Tailwind CSS, Shadcn UI, WebSockets.</p>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                        <span class="font-bold text-orange-400 block mb-1">AI & LLM Integration</span>
+                        <p class="text-slate-400">OpenRouter API, Claude (Anthropic), OpenAI API, Midjourney, Prompt Engineering, Multi-Agent Orchestration.</p>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                        <span class="font-bold text-orange-400 block mb-1">Automation & Workflows</span>
+                        <p class="text-slate-400">n8n Workflow Engine, Webhooks, JSON, AmoCRM / Bitrix24 Integration, Google Sheets API.</p>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                        <span class="font-bold text-orange-400 block mb-1">Core Engineering</span>
+                        <p class="text-slate-400">Kompyuter arxitekturasi, Binar mantiq (0 & 1 Low-level Logic), Algoritmlar, UI/UX Optimallash.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ta'lim & Tillar -->
+            <div class="grid sm:grid-cols-2 gap-6 pt-4 border-t border-slate-800 text-xs">
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-2">🎓 Ta'lim</h4>
+                    <p class="text-slate-300 font-semibold">Qo'qon Universiteti</p>
+                    <p class="text-slate-500">Kompyuter injeneringi (Bakalavr)</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white text-sm mb-2">🌐 Tillar</h4>
+                    <p class="text-slate-300">O'zbek tili — Ona tili</p>
+                    <p class="text-slate-500">Ingliz / Rus tili — Texnik hujjatlar, API va koding standartlari</p>
+                </div>
+            </div>
+
+            <div class="text-center pt-8 text-slate-600 text-xs">
+                © 2026 Muhammadjonov Shousmon. Qo'qon, O'zbekiston.
             </div>
 
         </div>
     </section>
 
-    <!-- AI PROJEKTLARI MODAL DYNAMIС POPUP -->
+    <!-- AI PROJECTS MODAL -->
     <div class="modal" id="aiModal">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-[#f7701e]">Top AI Loyihalarim</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 relative text-slate-100">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-orange-500 flex items-center gap-2">
+                    <i class="fas fa-brain"></i> AI Loyihalar & Avtomatizatsiya
+                </h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
             </div>
             
-            <div class="space-y-4">
-                <!-- AI Project 1 -->
-                <a href="https://github.com" target="_blank" class="block p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition border border-gray-700">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-white">1. Multi-Agent AI Research System</span>
-                        <span class="text-xs text-orange-400 font-mono">GitHub ↗</span>
+            <div class="space-y-3 text-xs">
+                <div class="p-3 bg-slate-800/60 rounded-lg border border-slate-700/50">
+                    <div class="flex justify-between font-bold text-white mb-1">
+                        <span>AI Hybrid Agent System (shousmon13)</span>
+                        <span class="text-orange-400">Multi-Agent</span>
                     </div>
-                    <p class="text-gray-400 text-xs mt-1">Chuqur qidiruv va tahlil qiluvchi avtonom AI agentlar tizimi.</p>
-                </a>
+                    <p class="text-slate-400">OpenRouter, n8n va Telegram Bot integratsiyasi bazasida yaratilgan ko'p vazifali AI-agentlar va boshqaruv paneli.</p>
+                </div>
 
-                <!-- AI Project 2 -->
-                <a href="https://github.com" target="_blank" class="block p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition border border-gray-700">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-white">2. Neural Image & Face Scanner</span>
-                        <span class="text-xs text-orange-400 font-mono">Live Demo ↗</span>
+                <div class="p-3 bg-slate-800/60 rounded-lg border border-slate-700/50">
+                    <div class="flex justify-between font-bold text-white mb-1">
+                        <span>B2B AI-Support & Enterprise Platform</span>
+                        <span class="text-orange-400">Enterprise</span>
                     </div>
-                    <p class="text-gray-400 text-xs mt-1">Rasm va yuzlarni kiber-stilizatsiya va skan qiluvchi algoritm.</p>
-                </a>
-
-                <!-- AI Project 3 -->
-                <a href="https://github.com" target="_blank" class="block p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition border border-gray-700">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-white">3. Autonomous LLM Code Reviewer</span>
-                        <span class="text-xs text-orange-400 font-mono">GitHub ↗</span>
-                    </div>
-                    <p class="text-gray-400 text-xs mt-1">Dasturlash kodlarini avtomatik ravishda tahlil qiluvchi AI asbobi.</p>
-                </a>
-
-                <!-- AI Project 4 -->
-                <a href="https://github.com" target="_blank" class="block p-4 bg-gray-800 rounded-xl hover:bg-gray-700 transition border border-gray-700">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-white">4. Smart Conversational AI Bot</span>
-                        <span class="text-xs text-orange-400 font-mono">GitHub ↗</span>
-                    </div>
-                    <p class="text-gray-400 text-xs mt-1">Ko'p tilli va moslashuvchan biznes muloqot AI agenti.</p>
-                </a>
+                    <p class="text-slate-400">Kompaniya ma'lumotlar bazasini (PDF/Docs) ulab, mijozlar savollariga 90%+ aniqlikda javob beruvchi avtonom operator.</p>
+                </div>
             </div>
 
-            <p class="text-xs text-center text-gray-500 mt-6">+ Barcha 40+ AI ishlanmalari va prototiplari portfolio arxiviga kiritilgan.</p>
+            <a href="https://github.com/us13" target="_blank" class="mt-5 block text-center py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-xl font-bold text-xs transition">
+                GitHub Repository'larni Ko'rish ↗
+            </a>
         </div>
     </div>
 
-    <!-- JAVASCRIPT: OLD MONEY OUTFITS & MODAL -->
+    <!-- JAVASCRIPT: Old Money Styles & Modal logic -->
     <script>
-        // 5 Hil Old Money Uslubi va Filtrlari
         const outfits = [
-            { name: "Old Money: Loro Piana Cashmere", filter: "sepia(0.3) contrast(1.1) brightness(0.95)" },
-            { name: "Old Money: Brunello Cucinelli Suit", filter: "grayscale(0.4) contrast(1.2) sepia(0.2)" },
-            { name: "Old Money: Ralph Lauren Navy Blazer", filter: "hue-rotate(190deg) contrast(1.1) saturate(0.8)" },
-            { name: "Old Money: Zegna Silk Tuxedo", filter: "contrast(1.3) brightness(0.85) grayscale(0.2)" },
-            { name: "Old Money: Tom Ford Emerald Velvet", filter: "hue-rotate(90deg) contrast(1.1) saturate(1.2)" }
+            { name: "Old Money: Loro Piana Classic", filter: "sepia(0.25) contrast(1.1) brightness(0.95)" },
+            { name: "Old Money: Brunello Cucinelli Suit", filter: "grayscale(0.35) contrast(1.2) sepia(0.15)" },
+            { name: "Old Money: Ralph Lauren Blazer", filter: "hue-rotate(185deg) contrast(1.1) saturate(0.85)" },
+            { name: "Old Money: Tom Ford Tuxedo", filter: "contrast(1.3) brightness(0.85) grayscale(0.2)" },
+            { name: "Old Money: Zegna Silk Collection", filter: "hue-rotate(40deg) contrast(1.1) saturate(1.1)" }
         ];
 
         let currentOutfitIndex = 0;
         const faceImg = document.getElementById('userFace');
-        const overlay = document.getElementById('outfitOverlay');
         const badge = document.getElementById('outfitBadge');
-        const container = id = document.getElementById('outfitCard');
+        const container = document.getElementById('outfitCard');
 
-        // Sichqonchani ustiga olib borganda kiyim stilini o'zgartirish
         container.addEventListener('mouseenter', () => {
             currentOutfitIndex = (currentOutfitIndex + 1) % outfits.length;
             const current = outfits[currentOutfitIndex];
-            
-            overlay.style.backdropFilter = "contrast(1.05)";
             faceImg.style.filter = current.filter;
             badge.innerText = current.name;
         });
@@ -341,11 +296,6 @@
             faceImg.style.filter = "none";
         });
 
-        function switchOutfit() {
-            container.dispatchEvent(new Event('mouseenter'));
-        }
-
-        // AI Modal Oynasi Mantiqi
         function openModal() {
             document.getElementById('aiModal').classList.add('active');
         }
