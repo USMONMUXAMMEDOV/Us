@@ -8,7 +8,7 @@
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- FontAwesome Icons -->
+    <!-- FontAwesome Icons (Loyihalar va tugmalar uchun) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -20,17 +20,17 @@
             user-select: none;
         }
 
-        /* Glassmorphism Cards with 3D Tilt */
+        /* Glassmorphism Cards with Hover Effect */
         .glass-card {
             background: rgba(15, 7, 28, 0.65);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(236, 72, 153, 0.18);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
-            transform-style: preserve-3d;
         }
         .glass-card:hover {
             border-color: rgba(56, 189, 248, 0.6);
             box-shadow: 0 15px 35px rgba(236, 72, 153, 0.3);
+            transform: translateY(-5px) scale(1.02);
         }
 
         /* Canvas Overlay for FX */
@@ -42,74 +42,41 @@
             height: 100vh;
             pointer-events: none;
         }
-        #neuralCanvas { z-index: 0; opacity: 0.75; }
+        #neuralCanvas { z-index: 0; opacity: 0.8; }
         #fxCanvas { z-index: 99; }
 
-        /* Multipage Screen Motion Slider */
-        .page-section {
-            display: none;
-            opacity: 0;
-            transform: scale(0.95) translateY(30px);
-            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .page-section.active {
-            display: block;
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* Screen Shake Motion */
-        .screen-shake {
-            animation: shake 0.4s ease-in-out;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            20% { transform: translate(-8px, 5px) rotate(-1deg); }
-            40% { transform: translate(8px, -5px) rotate(1deg); }
-            60% { transform: translate(-5px, -3px) rotate(-0.5deg); }
-            80% { transform: translate(5px, 3px) rotate(0.5deg); }
-        }
-
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #030008; }
         ::-webkit-scrollbar-thumb { background: #ec4899; border-radius: 10px; }
     </style>
 </head>
 <body class="selection:bg-pink-600 selection:text-white">
 
-    <!-- CANVAS EFFECTS (Fondagi va ustki FX animasiyalar) -->
+    <!-- CANVAS BACKGROUNDS & NEURAL FX -->
     <canvas id="neuralCanvas"></canvas>
     <canvas id="fxCanvas"></canvas>
 
-    <!-- UI OVERLAY CONTENT -->
+    <!-- MAIN SINGLE PAGE SCROLL CONTENT -->
     <main class="relative z-10 w-full min-h-screen pb-24">
 
-        <!-- 1. HEADER & PAGE NAVIGATION -->
+        <!-- HEADER -->
         <nav class="fixed top-0 left-0 w-full p-4 flex justify-between items-center bg-[#030008]/80 backdrop-blur-xl border-b border-pink-500/10 z-50">
             <div class="text-lg md:text-xl font-black tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400">
                 SHOUSMON<span class="text-cyan-400">.AI</span>
             </div>
             
-            <!-- Page Controller Buttons -->
-            <div class="flex items-center gap-2 md:gap-3 text-xs font-mono">
-                <button onclick="switchPage(1)" id="btn-page1" class="px-3 py-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 text-pink-300 hover:bg-pink-500/20 transition">
-                    1. Hero
-                </button>
-                <button onclick="switchPage(2)" id="btn-page2" class="px-3 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition">
-                    2. 70 AI Stack
-                </button>
-                <button onclick="switchPage(3)" id="btn-page3" class="px-3 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 transition">
-                    3. 30 AI Loyihalar
-                </button>
+            <div class="flex items-center gap-4 text-xs font-mono">
+                <a href="#ai-stack" class="text-slate-300 hover:text-cyan-400 transition">AI Vositalar</a>
+                <a href="#projects" class="text-slate-300 hover:text-pink-400 transition">Loyihalarim</a>
             </div>
         </nav>
 
-        <!-- ================= PAGE 1: HERO SECTION ================= -->
-        <section id="page-1" class="page-section active h-screen flex flex-col items-center justify-center text-center p-4 pt-16">
+        <!-- HERO SECTION -->
+        <section class="h-screen flex flex-col items-center justify-center text-center p-4">
             <div class="inline-block p-1 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 mb-6 animate-pulse">
                 <div class="bg-[#030008] px-4 py-1.5 rounded-full text-xs font-mono text-cyan-300">
-                    <i class="fas fa-bolt text-yellow-400 mr-1"></i> Interactive Multipage Portfolio
+                    <i class="fas fa-microchip text-yellow-400 mr-1"></i> Interactive Neural Portfolio
                 </div>
             </div>
             <h1 class="text-4xl md:text-7xl font-black uppercase tracking-wider mb-4 text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-pink-500">
@@ -118,29 +85,26 @@
             <p class="text-sm md:text-lg font-mono text-cyan-300 tracking-widest uppercase max-w-2xl">
                 SENIOR AI MUTAHAXIS VA ARHITEKTOR
             </p>
-            <p class="text-xs text-slate-400 mt-4 max-w-md font-mono">
-                Sichqonchani harakatlantiring, ekranni suring: Olov, muzlash va banan animatsiyalarini ko'rasiz!
-            </p>
             
-            <button onclick="switchPage(2)" class="mt-10 px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 font-bold text-white shadow-lg hover:scale-105 transition">
-                70 AI Stackga o'tish <i class="fas fa-arrow-right ml-2"></i>
-            </button>
+            <a href="#ai-stack" class="mt-16 text-pink-500/80 hover:text-pink-400 animate-bounce text-3xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </section>
 
-        <!-- ================= PAGE 2: 70 AI STACK ================= -->
-        <section id="page-2" class="page-section max-w-7xl mx-auto pt-28 px-4">
+        <!-- AI STACK SECTION (Men ishlatadigan AI'lar) -->
+        <section id="ai-stack" class="max-w-7xl mx-auto pt-20 px-4">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-black uppercase tracking-wide text-white">70 TA AI VOSITALARI STAGI</h2>
-                <p class="text-xs font-mono text-cyan-400 mt-2">(Har bir ikonka ustiga bosib rasmiy platformasiga o'ting)</p>
+                <h2 class="text-3xl font-black uppercase tracking-wide text-white">MEN ISHLATADIGAN AI'LAR</h2>
+                <p class="text-xs font-mono text-cyan-400 mt-2">Professional faoliyatimda doimiy va unumli foydalanadigan rasmiy AI platformalari</p>
             </div>
             <div id="aiIconGrid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3"></div>
         </section>
 
-        <!-- ================= PAGE 3: 30 AI PROJECTS ================= -->
-        <section id="page-3" class="page-section max-w-7xl mx-auto pt-28 px-4">
+        <!-- 30 AI PROJECTS SECTION -->
+        <section id="projects" class="max-w-7xl mx-auto pt-28 px-4 border-t border-pink-900/20 mt-20">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-black uppercase tracking-wide text-white">30 TA AI LOYIHALAR (PORTFOLIO)</h2>
-                <p class="text-xs font-mono text-pink-400 mt-2">Muallifsiz, tayyor AI va Workflow yechimlari</p>
+                <h2 class="text-3xl font-black uppercase tracking-wide text-white">MEN YARATGAN AI VA WORKFLOW LOYIHALAR</h2>
+                <p class="text-xs font-mono text-pink-400 mt-2">Shousmon Muhammadjonov muallifligidagi amaliy yechimlar va agentlar</p>
             </div>
             <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </section>
@@ -160,81 +124,65 @@
 
     <!-- JAVASCRIPT ANIMATION AND DATA ENGINE -->
     <script>
-        // --- 1. DATA: 70 AI TOOLS ---
+        // DATA: MEN ISHLATADIGAN AI'LAR (Rasmiy logotiplar/ikonkalar bilan)
         const aiTools = [
-            { name: "ChatGPT", icon: "fa-comments", color: "#10a37f", url: "https://chatgpt.com" },
-            { name: "Claude", icon: "fa-brain", color: "#d97706", url: "https://claude.ai" },
-            { name: "Midjourney", icon: "fa-palette", color: "#ec4899", url: "https://midjourney.com" },
-            { name: "n8n", icon: "fa-diagram-project", color: "#a855f7", url: "https://n8n.io" },
-            { name: "v0.dev", icon: "fa-code", color: "#38bdf8", url: "https://v0.dev" },
-            { name: "Cursor", icon: "fa-terminal", color: "#6366f1", url: "https://cursor.com" },
-            { name: "ElevenLabs", icon: "fa-microphone", color: "#10b981", url: "https://elevenlabs.io" },
-            { name: "Runway", icon: "fa-video", color: "#f43f5e", url: "https://runwayml.com" },
-            { name: "Flux", icon: "fa-wand-magic-sparkles", color: "#eab308", url: "https://blackforestlabs.ai" },
-            { name: "GitHub Copilot", icon: "fa-laptop-code", color: "#8b5cf6", url: "https://github.com/features/copilot" },
-            { name: "Perplexity", icon: "fa-magnifying-glass", color: "#06b6d4", url: "https://perplexity.ai" },
-            { name: "Sora", icon: "fa-film", color: "#f97316", url: "https://openai.com/sora" },
-            { name: "Suno AI", icon: "fa-music", color: "#ec4899", url: "https://suno.com" },
-            { name: "Udio", icon: "fa-headphones", color: "#a855f7", url: "https://udio.com" },
-            { name: "LangChain", icon: "fa-link", color: "#22c55e", url: "https://langchain.com" },
-            { name: "LlamaIndex", icon: "fa-database", color: "#38bdf8", url: "https://llamaindex.ai" },
-            { name: "OpenRouter", icon: "fa-network-wired", color: "#6366f1", url: "https://openrouter.ai" },
-            { name: "HuggingFace", icon: "fa-robot", color: "#f59e0b", url: "https://huggingface.co" },
-            { name: "Mistral", icon: "fa-wind", color: "#ef4444", url: "https://mistral.ai" },
-            { name: "Gemini", icon: "fa-gem", color: "#3b82f6", url: "https://gemini.google.com" },
-            { name: "Groq", icon: "fa-bolt", color: "#f97316", url: "https://groq.com" },
-            { name: "Pinecone", icon: "fa-tree", color: "#10b981", url: "https://pinecone.io" },
-            { name: "Qdrant", icon: "fa-cubes", color: "#ec4899", url: "https://qdrant.tech" },
-            { name: "Make", icon: "fa-gears", color: "#d946ef", url: "https://make.com" },
-            { name: "Zapier", icon: "fa-bolt-lightning", color: "#ff4d00", url: "https://zapier.com" },
-            { name: "Replit", icon: "fa-layer-group", color: "#f43f5e", url: "https://replit.com" },
-            { name: "Voiceflow", icon: "fa-comment-dots", color: "#3b82f6", url: "https://voiceflow.com" },
-            { name: "Botpress", icon: "fa-robot", color: "#8b5cf6", url: "https://botpress.com" },
-            { name: "AutoGPT", icon: "fa-microchip", color: "#06b6d4", url: "https://agpt.co" },
-            { name: "CrewAI", icon: "fa-users-gear", color: "#10b981", url: "https://crewai.com" },
-            { name: "Flowise", icon: "fa-sliders", color: "#a855f7", url: "https://flowiseai.com" },
-            { name: "Langflow", icon: "fa-share-nodes", color: "#ec4899", url: "https://langflow.org" },
-            { name: "Pika Labs", icon: "fa-clapperboard", color: "#eab308", url: "https://pika.art" },
-            { name: "Leonardo AI", icon: "fa-paintbrush", color: "#f43f5e", url: "https://leonardo.ai" },
-            { name: "Stable Diffusion", icon: "fa-border-all", color: "#38bdf8", url: "https://stability.ai" },
-            { name: "Kling AI", icon: "fa-video-slash", color: "#a855f7", url: "https://klingai.com" },
-            { name: "Luma Dream", icon: "fa-cloud-moon", color: "#3b82f6", url: "https://lumalabs.ai" },
-            { name: "HeyGen", icon: "fa-user-tie", color: "#10b981", url: "https://heygen.com" },
-            { name: "Synthesia", icon: "fa-circle-play", color: "#6366f1", url: "https://synthesia.io" },
-            { name: "Descript", icon: "fa-sliders-h", color: "#06b6d4", url: "https://descript.com" },
-            { name: "Notion AI", icon: "fa-file-lines", color: "#ffffff", url: "https://notion.so" },
-            { name: "Otter.ai", icon: "fa-headset", color: "#38bdf8", url: "https://otter.ai" },
-            { name: "Fireflies", icon: "fa-bug", color: "#eab308", url: "https://fireflies.ai" },
-            { name: "Gamma App", icon: "fa-file-powerpoint", color: "#ec4899", url: "https://gamma.app" },
-            { name: "Tome", icon: "fa-book-open", color: "#a855f7", url: "https://tome.app" },
-            { name: "Phind", icon: "fa-filter", color: "#10b981", url: "https://phind.com" },
-            { name: "Codeium", icon: "fa-code-branch", color: "#06b6d4", url: "https://codeium.com" },
-            { name: "Tabnine", icon: "fa-keyboard", color: "#f43f5e", url: "https://tabnine.com" },
-            { name: "Superhuman", icon: "fa-paper-plane", color: "#6366f1", url: "https://superhuman.com" },
-            { name: "Mem.ai", icon: "fa-brain-circuit", color: "#3b82f6", url: "https://mem.ai" },
-            { name: "Chatbase", icon: "fa-message", color: "#10b981", url: "https://chatbase.co" },
-            { name: "CustomGPT", icon: "fa-sliders", color: "#a855f7", url: "https://customgpt.ai" },
-            { name: "Replicate", icon: "fa-clone", color: "#ffffff", url: "https://replicate.com" },
-            { name: "Together AI", icon: "fa-circle-nodes", color: "#38bdf8", url: "https://together.ai" },
-            { name: "Anyscale", icon: "fa-expand", color: "#eab308", url: "https://anyscale.com" },
-            { name: "Modal Labs", icon: "fa-server", color: "#ec4899", url: "https://modal.com" },
-            { name: "Baseten", icon: "fa-hard-drive", color: "#f43f5e", url: "https://baseten.co" },
-            { name: "RunPod", icon: "fa-microchip", color: "#a855f7", url: "https://runpod.io" },
-            { name: "Vast.ai", icon: "fa-memory", color: "#06b6d4", url: "https://vast.ai" },
-            { name: "Ollama", icon: "fa-box-archive", color: "#ffffff", url: "https://ollama.com" },
-            { name: "LM Studio", icon: "fa-desktop", color: "#38bdf8", url: "https://lmstudio.ai" },
-            { name: "Jan.ai", icon: "fa-laptop", color: "#10b981", url: "https://jan.ai" },
-            { name: "AnythingLLM", icon: "fa-box", color: "#6366f1", url: "https://anythingllm.com" },
-            { name: "Open WebUI", icon: "fa-window-maximize", color: "#3b82f6", url: "https://openwebui.com" },
-            { name: "ComfyUI", icon: "fa-diagram-successor", color: "#eab308", url: "https://comfy.org" },
-            { name: "Automatic1111", icon: "fa-sliders", color: "#ec4899", url: "https://github.com/AUTOMATIC1111" },
-            { name: "Fooocus", icon: "fa-eye", color: "#a855f7", url: "https://github.com/lllyasviel/Fooocus" },
-            { name: "Whisper", icon: "fa-ear-listen", color: "#10b981", url: "https://openai.com/research/whisper" },
-            { name: "DeepL AI", icon: "fa-language", color: "#06b6d4", url: "https://deepl.com" },
-            { name: "Kapa.ai", icon: "fa-circle-question", color: "#f43f5e", url: "https://kapa.ai" }
+            { name: "ChatGPT", logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg", url: "https://chatgpt.com" },
+            { name: "Claude", logo: "https://cdn.worldvectorlogo.com/logos/claude-1.svg", url: "https://claude.ai" },
+            { name: "Midjourney", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png", url: "https://midjourney.com" },
+            { name: "n8n", logo: "https://n8n.io/favicon.ico", url: "https://n8n.io" },
+            { name: "v0.dev", logo: "https://v0.dev/assets/icon.png", url: "https://v0.dev" },
+            { name: "Cursor", logo: "https://www.cursor.com/favicon.ico", url: "https://cursor.com" },
+            { name: "ElevenLabs", logo: "https://elevenlabs.io/favicon.ico", url: "https://elevenlabs.io" },
+            { name: "Runway", logo: "https://runwayml.com/favicon.ico", url: "https://runwayml.com" },
+            { name: "Flux", logo: "https://blackforestlabs.ai/wp-content/uploads/2024/08/cropped-favicon-32x32.png", url: "https://blackforestlabs.ai" },
+            { name: "GitHub Copilot", logo: "https://github.githubassets.com/assets/copilot-logo-3008985ef413.svg", url: "https://github.com/features/copilot" },
+            { name: "Perplexity", logo: "https://www.perplexity.ai/favicon.ico", url: "https://perplexity.ai" },
+            { name: "Sora", logo: "https://openai.com/favicon.ico", url: "https://openai.com/sora" },
+            { name: "Suno AI", logo: "https://suno.com/favicon.ico", url: "https://suno.com" },
+            { name: "Udio", logo: "https://www.udio.com/favicon.ico", url: "https://udio.com" },
+            { name: "LangChain", logo: "https://python.langchain.com/img/favicon.ico", url: "https://langchain.com" },
+            { name: "LlamaIndex", logo: "https://www.llamaindex.ai/favicon.ico", url: "https://llamaindex.ai" },
+            { name: "OpenRouter", logo: "https://openrouter.ai/favicon.ico", url: "https://openrouter.ai" },
+            { name: "HuggingFace", logo: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg", url: "https://huggingface.co" },
+            { name: "Mistral", logo: "https://mistral.ai/favicon.ico", url: "https://mistral.ai" },
+            { name: "Gemini", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg", url: "https://gemini.google.com" },
+            { name: "Groq", logo: "https://groq.com/wp-content/uploads/2024/03/cropped-Groq_Favicon_512x512-32x32.png", url: "https://groq.com" },
+            { name: "Pinecone", logo: "https://www.pinecone.io/favicon.ico", url: "https://pinecone.io" },
+            { name: "Qdrant", logo: "https://qdrant.tech/favicon.ico", url: "https://qdrant.tech" },
+            { name: "Make", logo: "https://www.make.com/favicon.ico", url: "https://make.com" },
+            { name: "Zapier", logo: "https://cdn.zapier.com/zapier/images/favicon.ico", url: "https://zapier.com" },
+            { name: "Replit", logo: "https://replit.com/favicon.ico", url: "https://replit.com" },
+            { name: "Voiceflow", logo: "https://www.voiceflow.com/favicon.ico", url: "https://voiceflow.com" },
+            { name: "Botpress", logo: "https://botpress.com/favicon.ico", url: "https://botpress.com" },
+            { name: "CrewAI", logo: "https://www.crewai.com/favicon.ico", url: "https://crewai.com" },
+            { name: "Flowise", logo: "https://flowiseai.com/favicon.ico", url: "https://flowiseai.com" },
+            { name: "Langflow", logo: "https://www.langflow.org/favicon.ico", url: "https://langflow.org" },
+            { name: "Pika Labs", logo: "https://pika.art/favicon.ico", url: "https://pika.art" },
+            { name: "Leonardo AI", logo: "https://leonardo.ai/favicon.ico", url: "https://leonardo.ai" },
+            { name: "Stable Diffusion", logo: "https://stability.ai/favicon.ico", url: "https://stability.ai" },
+            { name: "Kling AI", logo: "https://klingai.com/favicon.ico", url: "https://klingai.com" },
+            { name: "Luma Dream", logo: "https://lumalabs.ai/favicon.ico", url: "https://lumalabs.ai" },
+            { name: "HeyGen", logo: "https://www.heygen.com/favicon.ico", url: "https://heygen.com" },
+            { name: "Synthesia", logo: "https://www.synthesia.io/favicon.ico", url: "https://synthesia.io" },
+            { name: "Descript", logo: "https://www.descript.com/favicon.ico", url: "https://descript.com" },
+            { name: "Notion AI", logo: "https://www.notion.so/front-static/favicon.ico", url: "https://notion.so" },
+            { name: "Otter.ai", logo: "https://otter.ai/favicon.ico", url: "https://otter.ai" },
+            { name: "Gamma App", logo: "https://gamma.app/favicon.ico", url: "https://gamma.app" },
+            { name: "Tome", logo: "https://tome.app/favicon.ico", url: "https://tome.app" },
+            { name: "Phind", logo: "https://www.phind.com/favicon.ico", url: "https://phind.com" },
+            { name: "Codeium", logo: "https://codeium.com/favicon.ico", url: "https://codeium.com" },
+            { name: "Mem.ai", logo: "https://mem.ai/favicon.ico", url: "https://mem.ai" },
+            { name: "Chatbase", logo: "https://www.chatbase.co/favicon.ico", url: "https://chatbase.co" },
+            { name: "Replicate", logo: "https://replicate.com/favicon.ico", url: "https://replicate.com" },
+            { name: "Together AI", logo: "https://www.together.ai/favicon.ico", url: "https://together.ai" },
+            { name: "Ollama", logo: "https://ollama.com/public/ollama.png", url: "https://ollama.com" },
+            { name: "LM Studio", logo: "https://lmstudio.ai/favicon.ico", url: "https://lmstudio.ai" },
+            { name: "ComfyUI", logo: "https://comfy.org/favicon.ico", url: "https://comfy.org" },
+            { name: "Whisper", logo: "https://openai.com/favicon.ico", url: "https://openai.com/research/whisper" },
+            { name: "DeepL AI", logo: "https://www.deepl.com/favicon.ico", url: "https://deepl.com" }
         ];
 
-        // --- 2. DATA: 30 AI PROJECTS ---
+        // DATA: 30 AI PROJECTS (Mualifi: Shousmon)
         const aiProjects = [
             { name: "Autonomous Support Agent", icon: "fa-headset", color: "#ec4899", desc: "n8n & RAG bazasidagi 24/7 avto-mijozlar servisi.", url: "https://n8n.io" },
             { name: "Web Scraping Lead Gen", icon: "fa-spider", color: "#38bdf8", desc: "Veb-saytlardan ma'lumot yig'uvchi AI agent.", url: "https://v0.dev" },
@@ -268,21 +216,25 @@
             { name: "Face & Motion Tracking Studio", icon: "fa-video", color: "#eab308", desc: "Video oqimida harakat va yuz analitikasi.", url: "https://klingai.com" }
         ];
 
-        // --- 3. RENDER CONTENT ---
+        // RENDER AI ICONS (Rasmiy rasmlar/svg logotiplar bilan)
         const aiGrid = document.getElementById('aiIconGrid');
         aiTools.forEach(t => {
             aiGrid.innerHTML += `
-                <a href="${t.url}" target="_blank" onclick="triggerConfetti(event)" class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer group hover:scale-110">
-                    <i class="fas ${t.icon} text-xl md:text-2xl mb-1 transition" style="color: ${t.color}"></i>
+                <a href="${t.url}" target="_blank" onclick="spawnBanana()" class="glass-card p-3 rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer group">
+                    <div class="w-8 h-8 md:w-10 md:h-10 mb-2 flex items-center justify-center rounded-xl bg-white/5 p-1.5 group-hover:bg-cyan-500/20 transition">
+                        <img src="${t.logo}" alt="${t.name}" class="max-w-full max-h-full object-contain filter drop-shadow hover:scale-110 transition duration-300" 
+                             onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2103/2103832.png';">
+                    </div>
                     <span class="text-[10px] font-mono text-slate-300 truncate w-full group-hover:text-cyan-300">${t.name}</span>
                 </a>
             `;
         });
 
+        // RENDER 30 PROJECTS
         const projGrid = document.getElementById('projectGrid');
         aiProjects.forEach(p => {
             projGrid.innerHTML += `
-                <a href="${p.url}" target="_blank" onclick="triggerConfetti(event)" class="glass-card p-6 rounded-3xl flex flex-col text-left group">
+                <a href="${p.url}" target="_blank" onclick="spawnBanana()" class="glass-card p-6 rounded-3xl flex flex-col text-left group">
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center border border-slate-700 mb-4" style="background: ${p.color}15; border-color: ${p.color}40;">
                         <i class="fas ${p.icon} text-2xl" style="color: ${p.color};"></i>
                     </div>
@@ -293,21 +245,7 @@
             `;
         });
 
-        // --- 4. MULTIPAGE CONTROL & SCREEN MOTION ---
-        function switchPage(pageIndex) {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-            const activePage = document.getElementById(`page-${pageIndex}`);
-            activePage.classList.add('active');
-
-            // Screen Shake Motion
-            document.body.classList.add('screen-shake');
-            setTimeout(() => document.body.classList.remove('screen-shake'), 400);
-
-            // Spawn Banana Effect
-            spawnBanana();
-        }
-
-        // --- 5. CANVAS ANIMATIONS (Fire, Freeze, Bananas, n8n Nodes) ---
+        // CANVAS ANIMATIONS & DYNAMIC NEURAL NODES
         const fxCanvas = document.getElementById('fxCanvas');
         const fxCtx = fxCanvas.getContext('2d');
         const nCanvas = document.getElementById('neuralCanvas');
@@ -323,33 +261,33 @@
         const particles = [];
         let mouseX = 0, mouseY = 0;
 
-        // Olov / Fire Particles on Mouse Move & Scroll
+        // Olov / Fire Particles on Mouse Move
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
-            for(let i=0; i<3; i++) {
+            for(let i=0; i<2; i++) {
                 particles.push({
                     x: mouseX, y: mouseY,
                     vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3 - 1,
-                    size: Math.random()*6 + 2, color: Math.random() > 0.5 ? '#ff4500' : '#ff8c00',
-                    life: 1, type: 'fire'
+                    size: Math.random()*5 + 2, color: Math.random() > 0.5 ? '#ff4500' : '#ff8c00',
+                    life: 1
                 });
             }
         });
 
-        // Scroll / Drag Event -> Ice / Freeze & Fire Blast
+        // Dynamic Neural Nodes on Scroll
         window.addEventListener('scroll', () => {
-            for(let i=0; i<5; i++) {
+            for(let i=0; i<3; i++) {
                 particles.push({
                     x: Math.random()*window.innerWidth,
                     y: Math.random()*window.innerHeight,
-                    vx: (Math.random()-0.5)*2, vy: (Math.random()-0.5)*2,
-                    size: Math.random()*8 + 3, color: '#38bdf8',
-                    life: 1, type: 'ice'
+                    vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3,
+                    size: Math.random()*6 + 3, color: '#a855f7',
+                    life: 1, isNeuron: true
                 });
             }
         });
 
-        // Bananas Array
+        // Bananas Array 🍌
         const bananas = [];
         function spawnBanana() {
             bananas.push({
@@ -361,44 +299,37 @@
             });
         }
 
-        function triggerConfetti(e) {
-            e.stopPropagation();
-            for(let i=0; i<30; i++) {
-                particles.push({
-                    x: e.clientX, y: e.clientY,
-                    vx: (Math.random()-0.5)*10, vy: (Math.random()-0.5)*10,
-                    size: Math.random()*6 + 2, color: '#ec4899',
-                    life: 1, type: 'fire'
-                });
-            }
-        }
-
-        // n8n Neural Nodes Background
-        const nodes = Array.from({length: 25}, () => ({
+        // Background Neural Network
+        const nodes = Array.from({length: 28}, () => ({
             x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight,
             vx: (Math.random()-0.5)*1.2, vy: (Math.random()-0.5)*1.2,
             radius: Math.random()*3 + 3
         }));
 
         function loop() {
-            // FX Loop
             fxCtx.clearRect(0,0, fxCanvas.width, fxCanvas.height);
 
-            // Render Fire & Ice Particles
             for(let i = particles.length - 1; i >= 0; i--) {
                 const p = particles[i];
-                p.x += p.vx; p.y += p.vy; p.life -= 0.02;
+                p.x += p.vx; p.y += p.vy; p.life -= 0.025;
                 if(p.life <= 0) { particles.splice(i, 1); continue; }
 
                 fxCtx.beginPath();
                 fxCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
                 fxCtx.fillStyle = p.color;
-                fxCtx.shadowColor = p.color; fxCtx.shadowBlur = 10;
+                fxCtx.shadowColor = p.color; fxCtx.shadowBlur = 12;
                 fxCtx.fill();
                 fxCtx.shadowBlur = 0;
+
+                if (p.isNeuron) {
+                    fxCtx.beginPath();
+                    fxCtx.moveTo(p.x, p.y);
+                    fxCtx.lineTo(p.x + p.vx * 15, p.y + p.vy * 15);
+                    fxCtx.strokeStyle = `rgba(168, 85, 247, ${p.life * 0.5})`;
+                    fxCtx.stroke();
+                }
             }
 
-            // Render Bananas 🍌
             for(let i = bananas.length - 1; i >= 0; i--) {
                 const b = bananas[i];
                 b.x += b.vx; b.y += b.vy; b.vy += 0.4; b.rot += b.vRot;
@@ -412,7 +343,6 @@
                 fxCtx.restore();
             }
 
-            // Neural Nodes Loop
             nCtx.clearRect(0,0, nCanvas.width, nCanvas.height);
             nodes.forEach(n => {
                 n.x += n.vx; n.y += n.vy;
@@ -421,8 +351,8 @@
 
                 nCtx.beginPath();
                 nCtx.arc(n.x, n.y, n.radius, 0, Math.PI*2);
-                nCtx.fillStyle = '#a855f7';
-                nCtx.shadowColor = '#a855f7'; nCtx.shadowBlur = 8;
+                nCtx.fillStyle = '#38bdf8';
+                nCtx.shadowColor = '#38bdf8'; nCtx.shadowBlur = 8;
                 nCtx.fill();
                 nCtx.shadowBlur = 0;
             });
@@ -430,11 +360,11 @@
             for(let i=0; i<nodes.length; i++) {
                 for(let j=i+1; j<nodes.length; j++) {
                     const dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
-                    if(dist < 130) {
+                    if(dist < 140) {
                         nCtx.beginPath();
                         nCtx.moveTo(nodes[i].x, nodes[i].y);
                         nCtx.lineTo(nodes[j].x, nodes[j].y);
-                        nCtx.strokeStyle = `rgba(236, 72, 153, ${0.3 - dist/400})`;
+                        nCtx.strokeStyle = `rgba(236, 72, 153, ${0.35 - dist/400})`;
                         nCtx.stroke();
                     }
                 }
