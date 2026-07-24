@@ -125,29 +125,30 @@
             <div class="cyber-card rounded-3xl p-3 shadow-2xl mb-6 mask-wrapper" id="portraitCard">
                 <div class="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-black/40 flex items-center justify-center relative shadow-inner">
                     
-                    <!-- Asosiy Cyber Samurai Rasmi -->
+                    <!-- Asosiy Cyber Samurai Rasmi (GitHub'dagi fayl nomi) -->
                     <img 
                         src="samurai.png" 
                         alt="Muhammadjonov Shousmon - Cyber Samurai" 
                         class="samurai-img w-full h-full object-cover"
                         id="samuraiImg"
-                        onerror="this.onerror=null; this.src='https://i.ibb.co/6P2T3wL/samurai.png'; document.getElementById('cyberMask').style.display='block';"
+                        onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';"
                     />
 
                     <!-- Cyber Oni Mask Overlay -->
                     <svg class="cyber-mask" id="cyberMask" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Mask Main Outer Armor -->
                         <path d="M20 30 L50 15 L80 30 L75 65 L50 85 L25 65 Z" fill="rgba(10, 4, 18, 0.9)" stroke="#ec4899" stroke-width="3"/>
-                        <!-- Cyber Teeth -->
                         <path d="M35 55 L40 65 L45 55 L50 65 L55 55 L60 65 L65 55" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Nose Shield -->
                         <path d="M50 28 L44 44 L56 44 Z" fill="#a855f7" opacity="0.95"/>
-                        <!-- Glowing Neon Eye Slots -->
                         <circle cx="37" cy="37" r="4.5" fill="#38bdf8"/>
                         <circle cx="63" cy="37" r="4.5" fill="#38bdf8"/>
                         <path d="M28 30 L43 35" stroke="#ec4899" stroke-width="2.5"/>
                         <path d="M72 30 L57 35" stroke="#ec4899" stroke-width="2.5"/>
                     </svg>
+
+                    <!-- Rasm topilmasa zaxira belgi -->
+                    <div id="avatar-fallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-purple-900 to-pink-600 text-white font-black text-6xl">
+                        MS
+                    </div>
 
                     <!-- Vizual Ko'rsatkich -->
                     <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-pink-500/50 text-[10px] text-pink-300 font-mono tracking-widest uppercase pointer-events-none shadow-md">
@@ -166,7 +167,7 @@
                 Senior Frontend Developer | AI Specialist
             </p>
 
-            <!-- Social Links (Aniqlangan kontaktlar) -->
+            <!-- Social Links -->
             <div class="flex items-center justify-center gap-3 mb-6">
                 <a href="https://t.me/usca_13" target="_blank" class="cyber-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-pink-300 shadow-lg" title="Telegram">
                     <i class="fab fa-telegram-plane"></i>
