@@ -17,7 +17,7 @@
         }
 
         body {
-            background-color: #020205;
+            background-color: #03040a;
             color: #f3f4f6;
             overflow-x: hidden;
             user-select: none;
@@ -25,30 +25,30 @@
 
         /* Border-less Floating Glass Cards with Glow */
         .float-card {
-            background: rgba(15, 23, 42, 0.4);
+            background: rgba(13, 18, 36, 0.6);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
             transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
         }
         .float-card:hover {
-            border-color: rgba(245, 158, 11, 0.5);
-            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.8);
+            background: rgba(245, 158, 11, 0.12);
             transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.4);
         }
 
         .ai-logo-chip {
-            background: rgba(10, 15, 30, 0.7);
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.25s ease;
         }
         .ai-logo-chip:hover {
-            border-color: rgba(245, 158, 11, 0.6);
-            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.8);
+            background: rgba(245, 158, 11, 0.25);
             transform: scale(1.08) translateY(-2px);
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.5);
         }
 
         /* Neural Canvas Layer */
@@ -70,8 +70,8 @@
         }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020205; }
-        ::-webkit-scrollbar-thumb { background: #f59e0b55; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #03040a; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b88; border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen relative selection:bg-amber-500 selection:text-black">
@@ -83,16 +83,16 @@
     <main class="relative z-10 max-w-5xl mx-auto px-4 py-12 space-y-20">
 
         <header class="text-center space-y-4 max-w-3xl mx-auto">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono tracking-widest uppercase shadow-lg shadow-amber-500/10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-mono tracking-widest uppercase shadow-lg shadow-amber-500/20">
                 <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
                 AI Engineering & Neural Networks
             </div>
 
-            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-yellow-500 drop-shadow-sm">
+            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-yellow-500 drop-shadow-md">
                 Muhammadjonov Shousmon
             </h1>
 
-            <p class="text-sm md:text-base text-slate-300 leading-relaxed font-light">
+            <p class="text-sm md:text-base text-slate-200 leading-relaxed font-light">
                 Men zamonaviy <strong class="text-amber-400 font-semibold">Sun'iy Intellekt texnologiyalari, neyron tarmoqlar</strong> hamda ko'p agentli avtomatlashtirilgan tizimlar bo'yicha mutaxassisman. Biznes jarayonlarini raqamlashtirish va sun'iy intellekt integratsiyasida ilg'or modellardan unumli foydalanaman.
             </p>
         </header>
@@ -102,7 +102,7 @@
                 <h2 class="text-base md:text-lg font-extrabold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-400">
                     Sohamizdagi Ilg'or Sun'iy Intellekt Vositalari
                 </h2>
-                <p class="text-xs text-slate-400 font-mono mt-1">Loyiha va avtomatizatsiyalarda foydalaniladigan rasmiy modellar</p>
+                <p class="text-xs text-slate-300 font-mono mt-1">Loyiha va avtomatizatsiyalarda foydalaniladigan rasmiy modellar</p>
             </div>
 
             <div id="aiGrid" class="flex flex-wrap justify-center items-center gap-3 max-w-4xl mx-auto"></div>
@@ -113,7 +113,7 @@
                 <h2 class="text-lg md:text-xl font-extrabold uppercase tracking-widest text-amber-400">
                     Amalga Oshirilgan Loyihalar (10+)
                 </h2>
-                <p class="text-xs text-slate-400 font-mono">Loyihani ko'rish uchun ustiga bosing</p>
+                <p class="text-xs text-slate-300 font-mono">Loyihani ko'rish uchun ustiga bosing</p>
             </div>
 
             <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
@@ -123,22 +123,22 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-emerald-400 uppercase font-mono flex items-center gap-2">
-                        <i class="fas fa-users-gear"></i> 50 AI Agentlar Hamjamiyati va Ish Xonasi
+                        <i class="fas fa-users-gear"></i> 50 HQ AI Agentlar Shaharchasi & n8n Workstations
                     </h2>
-                    <p class="text-xs text-slate-400 font-mono">Odam ko'rinishidagi agentlar: Stulda o'tiradi va ishlaydi. Ustiga bosing!</p>
+                    <p class="text-xs text-slate-300 font-mono">Yuqori sifatli humanoid agentlar: Stulda o'tiradi va ishlaydi. Ustiga bosing!</p>
                 </div>
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">● 50 Active Humanoid Agents</span>
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">● 50 Active HQ Agents</span>
             </div>
 
-            <div class="relative w-full h-[520px] rounded-3xl overflow-hidden bg-black/90 backdrop-blur-md cursor-pointer border border-emerald-500/30 shadow-2xl">
+            <div class="relative w-full h-[540px] rounded-3xl overflow-hidden bg-black/95 backdrop-blur-md cursor-pointer border border-emerald-500/40 shadow-2xl">
                 <canvas id="roomCanvas" class="w-full h-full"></canvas>
 
-                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-black/95 backdrop-blur-xl border border-amber-500/50 hidden transition-all shadow-2xl">
+                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-black/95 backdrop-blur-xl border border-amber-500/60 hidden transition-all shadow-2xl">
                     <div class="flex items-center justify-between text-xs font-mono text-amber-400 mb-1">
                         <span id="subAgentName" class="font-bold text-sm flex items-center gap-2">
-                            <i class="fas fa-user-astronaut"></i> AGENT_NAME
+                            <i class="fas fa-user-astronaut text-amber-400"></i> AGENT_NAME
                         </span>
-                        <span id="subStatus" class="px-2.5 py-0.5 rounded bg-amber-500/20 text-[10px] border border-amber-500/30 font-bold">STATUS</span>
+                        <span id="subStatus" class="px-2.5 py-0.5 rounded bg-amber-500/20 text-[10px] border border-amber-500/40 font-bold">STATUS</span>
                     </div>
                     <p id="subText" class="text-xs text-slate-200 font-mono italic">Agent xabari...</p>
                 </div>
@@ -167,13 +167,13 @@
             </a>
         </div>
 
-        <button onclick="toggleContacts()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 text-black flex items-center justify-center shadow-xl shadow-amber-500/20 hover:scale-110 active:scale-95 transition">
+        <button onclick="toggleContacts()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 text-black flex items-center justify-center shadow-xl shadow-amber-500/30 hover:scale-110 active:scale-95 transition">
             <i class="fas fa-headset text-xl"></i>
         </button>
     </div>
 
     <script>
-        // --- 1. FX SYSTEM (HAR BOSGANDA 20 XIL ELEMENTDAN RANDOM 1 TASI) ---
+        // --- 1. FX SYSTEM ---
         const fxCanvas = document.getElementById('fxCanvas');
         const fxCtx = fxCanvas.getContext('2d');
         function resizeFx() { fxCanvas.width = window.innerWidth; fxCanvas.height = window.innerHeight; }
@@ -187,12 +187,12 @@
             fxParticles.push({
                 x: e.clientX,
                 y: e.clientY,
-                vx: (Math.random() - 0.5) * 4,
-                vy: -3 - Math.random() * 3,
+                vx: (Math.random() - 0.5) * 5,
+                vy: -4 - Math.random() * 4,
                 char: chosenItem,
-                size: 26 + Math.random() * 12,
+                size: 28 + Math.random() * 12,
                 alpha: 1,
-                life: 0.015
+                life: 0.02
             });
         });
 
@@ -213,7 +213,7 @@
         }
         renderFX();
 
-        // --- 2. HIGHLY CREATIVE NEURAL & PLASMA BACKGROUND ---
+        // --- 2. HIGH-SPEED BRIGHT NEURAL & N8N AUTOMATION MESH ---
         const bgCanvas = document.getElementById('neuralCanvas');
         const bgCtx = bgCanvas.getContext('2d');
         function resizeBg() { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; }
@@ -221,55 +221,58 @@
 
         const bgNodes = [];
         const colors = ["rgba(236, 72, 153, ", "rgba(168, 85, 247, ", "rgba(245, 158, 11, ", "rgba(34, 197, 94, ", "rgba(56, 189, 248, "];
-        const labels = ["PREFRONTAL", "ASSOCIATION", "CONCEPT LAYER", "FEATURE LAYER", "HIPPOCAMPUS", "SYNAPSE_CORE"];
+        const n8nTypes = ["WEBHOOK", "OPENAI", "TELEGRAM", "POSTGRES", "HTTP_REQUEST", "ROUTER"];
 
-        for(let i=0; i<70; i++) {
+        for(let i=0; i<85; i++) {
             bgNodes.push({
                 x: Math.random() * bgCanvas.width,
                 y: Math.random() * bgCanvas.height,
-                vx: (Math.random() - 0.5) * 1.2,
-                vy: (Math.random() - 0.5) * 1.2,
-                radius: 2 + Math.random() * 2.5,
+                vx: (Math.random() - 0.5) * 2.5, // Tezroq harakat
+                vy: (Math.random() - 0.5) * 2.5,
+                radius: 3 + Math.random() * 3,
                 color: colors[i % colors.length],
-                label: i < labels.length ? labels[i] : null,
-                pulse: Math.random() * Math.PI
+                label: i < 12 ? n8nTypes[i % n8nTypes.length] : null,
+                pulseProgress: Math.random() * Math.PI
             });
         }
 
         function renderNeural() {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
             for(let i=0; i<bgNodes.length; i++) {
                 let n1 = bgNodes[i];
                 n1.x += n1.vx; n1.y += n1.vy;
-                n1.pulse += 0.03;
+                n1.pulseProgress += 0.05;
 
                 if(n1.x < 0 || n1.x > bgCanvas.width) n1.vx *= -1;
                 if(n1.y < 0 || n1.y > bgCanvas.height) n1.vy *= -1;
 
-                let currentRadius = n1.radius + Math.sin(n1.pulse) * 1.2;
+                let pulseRadius = n1.radius + Math.sin(n1.pulseProgress) * 1.5;
 
+                // Draw Nodes
                 bgCtx.beginPath();
-                bgCtx.arc(n1.x, n1.y, Math.max(1, currentRadius), 0, Math.PI*2);
-                bgCtx.fillStyle = n1.color + '0.95)';
+                bgCtx.arc(n1.x, n1.y, Math.max(1, pulseRadius), 0, Math.PI*2);
+                bgCtx.fillStyle = n1.color + '1)';
                 bgCtx.shadowColor = n1.color + '1)';
-                bgCtx.shadowBlur = 15;
+                bgCtx.shadowBlur = 18;
                 bgCtx.fill();
 
                 if(n1.label) {
-                    bgCtx.font = "bold 9px monospace";
+                    bgCtx.font = "bold 10px Fira Code, monospace";
                     bgCtx.fillStyle = "#ffffff";
-                    bgCtx.fillText(n1.label, n1.x + 10, n1.y - 4);
+                    bgCtx.fillText(`[${n1.label}]`, n1.x + 10, n1.y - 4);
                 }
 
+                // Connections & Data Pulses
                 for(let j=i+1; j<bgNodes.length; j++) {
                     let n2 = bgNodes[j];
                     let dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
-                    if(dist < 120) {
+                    if(dist < 140) {
                         bgCtx.beginPath();
                         bgCtx.moveTo(n1.x, n1.y);
                         bgCtx.lineTo(n2.x, n2.y);
-                        bgCtx.strokeStyle = n1.color + ((1 - dist/120)*0.4) + ')';
-                        bgCtx.lineWidth = 0.9;
+                        bgCtx.strokeStyle = n1.color + ((1 - dist/140)*0.6) + ')';
+                        bgCtx.lineWidth = 1.2;
                         bgCtx.stroke();
                     }
                 }
@@ -278,7 +281,7 @@
         }
         renderNeural();
 
-        // --- 3. 15 TA REAL LOGOTIPLI AI VOSITALAR ---
+        // --- 3. 15 AI TOOLS ---
         const aiTools = [
             { name: "ChatGPT", logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
             { name: "Claude 3.5", logo: "https://cdn.worldvectorlogo.com/logos/claude-1.svg" },
@@ -304,7 +307,7 @@
                     <div class="w-6 h-6 rounded-lg bg-black/40 p-0.5 flex items-center justify-center shrink-0">
                         <img src="${t.logo}" alt="${t.name}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2103/2103832.png';">
                     </div>
-                    <span class="text-xs font-medium text-slate-200">${t.name}</span>
+                    <span class="text-xs font-medium text-slate-100">${t.name}</span>
                 </div>
             `;
         });
@@ -331,13 +334,13 @@
                         <h3 class="text-base font-bold text-amber-300">${p.title}</h3>
                         <i class="fas fa-arrow-up-right-from-square text-xs text-amber-400"></i>
                     </div>
-                    <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
+                    <p class="text-xs text-slate-300 leading-relaxed">${p.desc}</p>
                     <span class="inline-block text-[10px] font-mono text-cyan-400 pt-2">${p.tech}</span>
                 </a>
             `;
         });
 
-        // --- 5. 50 TA HUMANOID AI AGENTS & WORKSTATION SIMULATOR ---
+        // --- 5. ULTRA-HQ 50 HUMANOID AI AGENTS SIMULATOR ---
         const rCanvas = document.getElementById('roomCanvas');
         const rCtx = rCanvas.getContext('2d');
         function resizeRoom() {
@@ -347,72 +350,79 @@
         resizeRoom(); window.addEventListener('resize', resizeRoom);
 
         const agentTasks = [
+            "n8n avtomatizatsiya zanjiridagi xatoni avto-tuzatmoqda...",
             "Koddagi anomaliyalarni tahlil qilmoqda va avto-test yozmoqda...",
             "Neyron tarmoq uchun yangi datasetlarni sarflamoqda...",
             "Server bilan yuqori tezlikdagi ma'lumotlar sinxronizatsiyasini qilmoqda...",
-            "Prompt muhandisligi asosida kontentlarni optimallashtirmoqda...",
             "Sub-agentlar o'rtasida vazifalarni qayta taqsimlamoqda..."
         ];
 
         const statuses = ["CODING", "SEARCHING", "DEPLOYING", "TRAINING", "ANALYZING"];
         const agentColors = ["#f59e0b", "#38bdf8", "#a855f7", "#10b981", "#ec4899"];
 
-        // EXACTLY 50 HUMANOID AGENTS & DESKS
         const agents = [];
         for(let i=1; i<=50; i++) {
             agents.push({
                 id: i,
                 name: `Agent_${i < 10 ? '0'+i : i}`,
-                x: 40 + Math.random() * (window.innerWidth < 768 ? 300 : 700),
-                y: 50 + Math.random() * 400,
-                deskX: 40 + Math.random() * (window.innerWidth < 768 ? 300 : 700),
-                deskY: 50 + Math.random() * 400,
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5,
+                x: 40 + Math.random() * (window.innerWidth < 768 ? 320 : 720),
+                y: 50 + Math.random() * 420,
+                deskX: 40 + Math.random() * (window.innerWidth < 768 ? 320 : 720),
+                deskY: 50 + Math.random() * 420,
+                vx: (Math.random() - 0.5) * 2.0,
+                vy: (Math.random() - 0.5) * 2.0,
                 paused: false,
-                isSeated: Math.random() > 0.5,
+                isSeated: Math.random() > 0.4,
                 status: statuses[i % statuses.length],
                 color: agentColors[i % agentColors.length]
             });
         }
 
-        // DRAW HUMANOID AGENT WITH DESK & LAPTOP
-        function drawHumanAgent(ctx, a) {
-            // Draw Desk & Chair
-            ctx.fillStyle = "#1e293b";
-            ctx.fillRect(a.deskX - 12, a.deskY - 6, 24, 12); // Desk
-            ctx.fillStyle = a.color + "aa";
-            ctx.fillRect(a.deskX - 8, a.deskY - 4, 16, 3);   // Laptop screen
-
+        // DRAW DETAILED HIGH QUALITY HUMANOID AGENT
+        function drawHQHumanAgent(ctx, a) {
             let posX = a.isSeated ? a.deskX : a.x;
             let posY = a.isSeated ? a.deskY + 8 : a.y;
 
-            // Draw Body (Tana)
+            // 1. Desk & Workspace Glow
+            ctx.fillStyle = "#0f172a";
+            ctx.fillRect(a.deskX - 14, a.deskY - 8, 28, 14); // Workstation Desk
+            
             ctx.fillStyle = a.color;
-            ctx.beginPath();
-            ctx.arc(posX, posY + 4, 5, Math.PI, 0, false);
-            ctx.fill();
-
-            // Draw Head (Bosh)
-            ctx.beginPath();
-            ctx.arc(posX, posY - 3, 4, 0, Math.PI*2);
-            ctx.fillStyle = "#ffffff";
             ctx.shadowColor = a.color;
-            ctx.shadowBlur = a.paused ? 15 : 6;
-            ctx.fill();
+            ctx.shadowBlur = 10;
+            ctx.fillRect(a.deskX - 9, a.deskY - 6, 18, 4);  // Glowing Screen
             ctx.shadowBlur = 0;
 
-            // Name Tag
-            ctx.font = "8px monospace";
-            ctx.fillStyle = a.paused ? "#f59e0b" : "#94a3b8";
-            ctx.fillText(a.name, posX - 16, posY - 10);
+            // 2. Body / Shoulders
+            ctx.fillStyle = a.color;
+            ctx.beginPath();
+            ctx.arc(posX, posY + 5, 6, Math.PI, 0, false);
+            ctx.fill();
+
+            // 3. Head & Neon Visor
+            ctx.beginPath();
+            ctx.arc(posX, posY - 3, 5, 0, Math.PI*2);
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowColor = a.color;
+            ctx.shadowBlur = a.paused ? 20 : 10;
+            ctx.fill();
+
+            // Visor Line
+            ctx.fillStyle = a.color;
+            ctx.fillRect(posX - 3, posY - 4, 6, 2);
+            ctx.shadowBlur = 0;
+
+            // 4. Name Badge
+            ctx.font = "bold 9px Fira Code, monospace";
+            ctx.fillStyle = a.paused ? "#f59e0b" : "#e2e8f0";
+            ctx.fillText(a.name, posX - 18, posY - 12);
         }
 
         function renderRoom() {
             rCtx.clearRect(0, 0, rCanvas.width, rCanvas.height);
 
-            // Office Grid Floor
-            rCtx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+            // Tech Floor Grid
+            rCtx.strokeStyle = "rgba(255, 255, 255, 0.05)";
             for(let x=0; x<rCanvas.width; x+=30) { rCtx.beginPath(); rCtx.moveTo(x,0); rCtx.lineTo(x,rCanvas.height); rCtx.stroke(); }
             for(let y=0; y<rCanvas.height; y+=30) { rCtx.beginPath(); rCtx.moveTo(0,y); rCtx.lineTo(rCanvas.width,y); rCtx.stroke(); }
 
@@ -422,21 +432,19 @@
                     if(a.x < 20 || a.x > rCanvas.width - 20) a.vx *= -1;
                     if(a.y < 20 || a.y > rCanvas.height - 20) a.vy *= -1;
 
-                    // Randomly decide to sit at desk
-                    if(Math.random() < 0.002) a.isSeated = true;
+                    if(Math.random() < 0.003) a.isSeated = true;
                 } else if(!a.paused && a.isSeated) {
-                    // Randomly decide to stand up and walk
-                    if(Math.random() < 0.003) a.isSeated = false;
+                    if(Math.random() < 0.004) a.isSeated = false;
                 }
 
-                drawHumanAgent(rCtx, a);
+                drawHQHumanAgent(rCtx, a);
             });
 
             requestAnimationFrame(renderRoom);
         }
         renderRoom();
 
-        // CLICK EVENT ON HUMAN AGENTS
+        // CLICK ON AGENTS
         rCanvas.addEventListener('click', (e) => {
             const rect = rCanvas.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
@@ -447,12 +455,12 @@
                 let posY = a.isSeated ? a.deskY : a.y;
 
                 const dist = Math.hypot(posX - clickX, posY - clickY);
-                if(dist < 22) {
+                if(dist < 25) {
                     a.paused = !a.paused;
 
                     const subPanel = document.getElementById('subPanel');
                     if(a.paused) {
-                        document.getElementById('subAgentName').innerText = `${a.name} (Humanoid AI)`;
+                        document.getElementById('subAgentName').innerText = `${a.name} (HQ Humanoid AI)`;
                         document.getElementById('subStatus').innerText = a.status;
                         document.getElementById('subText').innerText = agentTasks[Math.floor(Math.random() * agentTasks.length)];
                         subPanel.classList.remove('hidden');
