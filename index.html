@@ -1,73 +1,67 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammadjonov Shousmon – Senior AI & Frontend Engineer</title>
+    <title>Muhammadjonov Shousmon – Lusion Style AI & Frontend Portfolio</title>
     
     <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        html {
-            scroll-behavior: smooth;
+        /* Lusion Dark Aesthetics */
+        body {
+            background-color: #030008;
+            color: #f3f4f6;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Cyberpunk Ambient Background Glow */
-        @keyframes cyberGlowBg {
-            0% {
-                background-color: #08040e;
-                color: #ffffff;
-            }
-            33% {
-                background-color: #1a0624;
-                color: #ffffff;
-            }
-            66% {
-                background-color: #041221;
-                color: #ffffff;
-            }
-            100% {
-                background-color: #08040e;
-                color: #ffffff;
-            }
+        /* Ambient Glow & Glassmorphism */
+        .lusion-card {
+            background: rgba(15, 7, 28, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .animated-cyber-bg {
-            animation: cyberGlowBg 12s infinite ease-in-out;
-        }
-
-        /* Glassmorphism Cards */
-        .cyber-card {
-            background: rgba(18, 8, 32, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(236, 72, 153, 0.3);
-            box-shadow: 0 0 30px rgba(236, 72, 153, 0.15);
+        .lusion-card:hover {
+            border-color: rgba(56, 189, 248, 0.6);
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 30px rgba(236, 72, 153, 0.15), 0 0 20px rgba(56, 189, 248, 0.2);
         }
 
         .cyber-btn {
-            background: rgba(236, 72, 153, 0.12);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(236, 72, 153, 0.35);
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
         .cyber-btn:hover {
-            background: rgba(236, 72, 153, 0.35);
-            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+            background: rgba(236, 72, 153, 0.3);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
             transform: translateY(-2px);
         }
 
-        /* Canvas Node Box Wrapper */
-        .canvas-container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 1.25rem;
-            overflow: hidden;
-            background: radial-gradient(circle at center, rgba(30, 10, 50, 0.8), rgba(5, 2, 10, 0.95));
+        /* Lusion Grid Glowing Lines */
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(236, 72, 153, 0.12) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030008;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ec4899;
+            border-radius: 3px;
         }
 
         /* Modal Dialog */
@@ -75,115 +69,160 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(5, 2, 10, 0.92);
-            backdrop-filter: blur(14px);
-            z-index: 50;
+            background: rgba(3, 0, 8, 0.92);
+            backdrop-filter: blur(16px);
+            z-index: 100;
             justify-content: center;
             align-items: center;
             padding: 16px;
         }
-
         .modal.active {
             display: flex;
         }
     </style>
 </head>
-<body class="animated-cyber-bg min-h-screen font-sans selection:bg-pink-500 selection:text-white">
+<body class="bg-grid-pattern min-h-screen selection:bg-pink-500 selection:text-white">
 
-    <!-- HERO SECTION -->
-    <section class="min-h-screen flex flex-col items-center justify-center p-4 text-center relative">
-        <main class="w-full max-w-sm my-auto">
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-[#030008]/80 backdrop-blur-xl border-b border-pink-500/20 px-6 py-4 flex justify-between items-center">
+        <div class="text-lg font-black tracking-widest uppercase bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-300 to-cyan-400">
+            Shousmon<span class="text-cyan-400">.ai</span>
+        </div>
+        <div class="flex items-center gap-4 text-xs font-mono">
+            <a href="#ai-ecosystem" class="hidden sm:inline-block hover:text-pink-400 transition">AI Ekotizim (70)</a>
+            <a href="#resume" class="hidden sm:inline-block hover:text-cyan-400 transition">Rezyume</a>
+            <button onclick="openModal()" class="cyber-btn px-4 py-2 rounded-full text-pink-300 font-bold">
+                <i class="fas fa-brain mr-1 text-cyan-400"></i> AI Loyihalar
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO & CANVAS INTERACTIVE SECTION -->
+    <section class="pt-32 pb-16 px-4 max-w-6xl mx-auto flex flex-col items-center text-center relative">
+        
+        <!-- Interactive n8n Node Canvas -->
+        <div class="w-full max-w-xl aspect-square sm:aspect-[16/9] lusion-card rounded-3xl p-2 relative overflow-hidden mb-8 shadow-2xl">
+            <canvas id="neuralCanvas" class="w-full h-full block rounded-2xl cursor-pointer"></canvas>
             
-            <!-- Dynamic n8n/Neural Canvas Box -->
-            <div class="cyber-card rounded-3xl p-3 shadow-2xl mb-6">
-                <div class="canvas-container shadow-inner flex items-center justify-center relative">
-                    <canvas id="neuralCanvas" class="w-full h-full block"></canvas>
-                    
-                    <!-- Overlay Badge -->
-                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full border border-cyan-500/40 text-[10px] text-cyan-300 font-mono tracking-widest uppercase pointer-events-none shadow-md flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> n8n AI Agent Workflow Engine
-                    </div>
-                </div>
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-cyan-500/40 text-[11px] text-cyan-300 font-mono tracking-widest uppercase pointer-events-none flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> n8n & Multi-Agent Node Universe
             </div>
+        </div>
 
-            <!-- Ism va Unvon -->
-            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wider uppercase leading-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-400 drop-shadow">
-                muhammadjonov<br/>shousmon
-            </h1>
+        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-wider leading-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-200 to-cyan-400 drop-shadow-2xl">
+            MUHAMMADJONOV SHOUSMON
+        </h1>
 
-            <p class="text-xs sm:text-sm font-bold tracking-widest uppercase mb-6 text-cyan-300 opacity-90">
-                Senior Frontend Developer | AI Specialist
-            </p>
+        <p class="text-sm sm:text-base font-mono text-cyan-300 tracking-widest uppercase mb-8 max-w-2xl">
+            Senior Frontend Developer | AI Orchestrator | Autonomous Agent Engineer
+        </p>
 
-            <!-- Social Links -->
-            <div class="flex items-center justify-center gap-3 mb-6">
-                <a href="https://t.me/usca_13" target="_blank" class="cyber-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-pink-300 shadow-lg" title="Telegram">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
-                <a href="tel:+998770137713" class="cyber-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-cyan-300 shadow-lg" title="Telefon">
-                    <i class="fas fa-phone"></i>
-                </a>
-                <a href="https://github.com/us13" target="_blank" class="cyber-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-purple-300 shadow-lg" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="mailto:usmonmuxammedov@gmail.com" class="cyber-btn w-11 h-11 rounded-full flex items-center justify-center text-lg text-pink-300 shadow-lg" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
+        <!-- Social Links -->
+        <div class="flex items-center justify-center gap-4 mb-10">
+            <a href="https://t.me/usca_13" target="_blank" class="cyber-btn w-12 h-12 rounded-full flex items-center justify-center text-xl text-pink-400" title="Telegram">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <a href="tel:+998770137713" class="cyber-btn w-12 h-12 rounded-full flex items-center justify-center text-xl text-cyan-400" title="Telefon">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="https://github.com/us13" target="_blank" class="cyber-btn w-12 h-12 rounded-full flex items-center justify-center text-xl text-purple-400" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:usmonmuxammedov@gmail.com" class="cyber-btn w-12 h-12 rounded-full flex items-center justify-center text-xl text-pink-400" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
 
-            <!-- Tugmalar -->
-            <div class="space-y-3">
-                <button onclick="openModal()" class="cyber-btn w-full py-3.5 px-6 rounded-2xl font-bold tracking-wider shadow-xl text-xs uppercase text-pink-200 flex items-center justify-center gap-2">
-                    <i class="fas fa-network-wired text-cyan-400"></i> AI & Workflow Loyihalar
-                </button>
-                <a href="#resume" class="cyber-btn inline-block w-full py-3.5 px-6 rounded-2xl font-bold tracking-wider shadow-xl text-xs uppercase text-cyan-200">
-                    Rezyumeni Ko'rish <i class="fas fa-chevron-down ml-1"></i>
-                </a>
-            </div>
-
-        </main>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="#ai-ecosystem" class="cyber-btn px-8 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider text-pink-200 flex items-center gap-2">
+                <i class="fas fa-th-large text-cyan-400"></i> TOP 70 AI Vositalari
+            </a>
+            <a href="#resume" class="cyber-btn px-8 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider text-cyan-200">
+                Injiniring va CV
+            </a>
+        </div>
     </section>
 
-    <!-- RESUME & DETAILS SECTION -->
-    <section id="resume" class="min-h-screen bg-[#07030d] text-slate-100 py-16 px-6 border-t border-pink-900/40">
-        <div class="max-w-3xl mx-auto space-y-12">
-            
-            <div class="border-b border-purple-900/40 pb-6">
-                <h2 class="text-2xl font-black text-pink-500 uppercase tracking-wider flex items-center gap-2">
-                    <i class="fas fa-terminal text-cyan-400"></i> Profil & Injiniring
-                </h2>
-                <p class="text-slate-400 text-sm mt-3 leading-relaxed font-light">
-                    Kompyuter injeneringi bo'yicha akademik va muhandislik poydevoriga ega bo'lgan Senior Frontend Developer hamda AI Integrator. React, Next.js, TypeScript hamda AI agentlar (n8n, OpenRouter API, Claude, Telegram Bot) tizimlarini ishlab chiqishda amaliy tajribaga ega.
-                </p>
+    <!-- 70 TOP AI ECOSYSTEM SECTION -->
+    <section id="ai-ecosystem" class="py-20 px-6 max-w-7xl mx-auto border-t border-pink-900/30">
+        <div class="text-center mb-16 space-y-3">
+            <div class="inline-block px-4 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 font-mono text-xs uppercase tracking-widest">
+                Global AI Infrastructure
+            </div>
+            <h2 class="text-3xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-400 uppercase">
+                2026 TOP 70 AI Websaytlari va Vositalari
+            </h2>
+            <p class="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto font-light">
+                Dasturlash, neyron tarmoqlar, avtomatlashtirish, 3D, audio hamda biznes sohalaridagi eng ilg'or AI vositalari. Kartaga bosib to'g'ridan-to'g'ri saytga o'ting.
+            </p>
+        </div>
+
+        <!-- AI Categories Container -->
+        <div id="ai-categories-container" class="space-y-12">
+            <!-- JavaScript orqali 14 ta sohadagi 70 AI avtomatik shakllantiriladi -->
+        </div>
+    </section>
+
+    <!-- RESUME & SKILLS SECTION -->
+    <section id="resume" class="py-20 px-6 max-w-5xl mx-auto border-t border-pink-900/30">
+        <div class="lusion-card rounded-3xl p-8 sm:p-12 space-y-10">
+            <div class="border-b border-purple-900/40 pb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h2 class="text-3xl font-black text-pink-500 uppercase tracking-wider flex items-center gap-3">
+                        <i class="fas fa-terminal text-cyan-400"></i> Muhandislik & Injiniring
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">Senior Frontend Developer | AI System Architect</p>
+                </div>
+                <span class="px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 font-mono text-xs">
+                    Qo'qon, O'zbekiston
+                </span>
             </div>
 
-            <!-- Ko'nikmalar Grid -->
-            <div>
-                <h3 class="text-lg font-bold text-cyan-300 mb-6 flex items-center gap-2">
-                    <i class="fas fa-code text-pink-500"></i> Texnik Ko'nikmalar
-                </h3>
-                <div class="grid sm:grid-cols-2 gap-4 text-xs">
-                    <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-800/40">
-                        <span class="font-bold text-pink-400 block mb-1">Frontend Architecture</span>
-                        <p class="text-slate-400">React.js, Next.js (SSR/SSG), TypeScript, JavaScript (ES6+), Redux Toolkit, Zustand, Tailwind CSS, Shadcn UI, WebSockets.</p>
+            <p class="text-slate-300 text-sm leading-relaxed font-light">
+                Kompyuter injeneringi bo'yicha akademik va muhandislik poydevoriga ega bo'lgan mutassis. Murakkab Frontend (React, Next.js, TypeScript), AI Agentlar (n8n, OpenRouter API, Claude) va Binar darajadagi mantiqlarni integratsiya qilish bo'yicha katta tajribaga ega.
+            </p>
+
+            <!-- Skills Grid -->
+            <div class="grid sm:grid-cols-2 gap-6 text-xs">
+                <div class="p-5 rounded-2xl bg-purple-950/20 border border-purple-800/40 space-y-2">
+                    <div class="font-bold text-pink-400 text-sm flex items-center gap-2">
+                        <i class="fas fa-code"></i> Frontend Architecture
                     </div>
-                    <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-800/40">
-                        <span class="font-bold text-cyan-400 block mb-1">AI & LLM Integration</span>
-                        <p class="text-slate-400">OpenRouter API, Claude (Anthropic), OpenAI API, Midjourney, Prompt Engineering, Multi-Agent Orchestration.</p>
+                    <p class="text-slate-400 leading-normal">
+                        React.js, Next.js (SSR/SSG), TypeScript, Redux Toolkit, Zustand, Tailwind CSS, Shadcn UI, WebSockets.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-purple-950/20 border border-purple-800/40 space-y-2">
+                    <div class="font-bold text-cyan-400 text-sm flex items-center gap-2">
+                        <i class="fas fa-robot"></i> AI & Agent Integration
                     </div>
-                    <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-800/40">
-                        <span class="font-bold text-pink-400 block mb-1">Automation & Workflows</span>
-                        <p class="text-slate-400">n8n Workflow Engine, Webhooks, JSON, AmoCRM / Bitrix24 Integration, Google Sheets API.</p>
+                    <p class="text-slate-400 leading-normal">
+                        OpenRouter API, Claude Anthropic, OpenAI GPT-4o, Midjourney, Multi-Agent Orchestration, Prompt Engineering.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-purple-950/20 border border-purple-800/40 space-y-2">
+                    <div class="font-bold text-pink-400 text-sm flex items-center gap-2">
+                        <i class="fas fa-network-wired"></i> Workflow Automation
                     </div>
-                    <div class="bg-purple-950/20 p-4 rounded-xl border border-purple-800/40">
-                        <span class="font-bold text-cyan-400 block mb-1">Core Engineering</span>
-                        <p class="text-slate-400">Kompyuter arxitekturasi, Binar mantiq (0 & 1 Low-level Logic), Algoritmlar, UI/UX Optimallash.</p>
+                    <p class="text-slate-400 leading-normal">
+                        n8n Engine, Custom Webhooks, REST API, JSON processing, AmoCRM / Bitrix24 / Google Sheets API.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-purple-950/20 border border-purple-800/40 space-y-2">
+                    <div class="font-bold text-cyan-400 text-sm flex items-center gap-2">
+                        <i class="fas fa-microchip"></i> Core Engineering
                     </div>
+                    <p class="text-slate-400 leading-normal">
+                        Kompyuter arxitekturasi, Binar mantiq (Low-level 0&1 Logic), Algoritmlar, UI/UX Performance Optimization.
+                    </p>
                 </div>
             </div>
 
-            <!-- Ta'lim & Tillar -->
-            <div class="grid sm:grid-cols-2 gap-6 pt-4 border-t border-purple-900/40 text-xs">
+            <!-- Education & Languages -->
+            <div class="grid sm:grid-cols-2 gap-6 pt-6 border-t border-purple-900/40 text-xs">
                 <div>
                     <h4 class="font-bold text-pink-400 text-sm mb-2">🎓 Ta'lim</h4>
                     <p class="text-slate-200 font-semibold">Qo'qon Universiteti</p>
@@ -195,34 +234,34 @@
                     <p class="text-slate-500">Ingliz / Rus tili — Texnik hujjatlar va API standartlari</p>
                 </div>
             </div>
-
-            <div class="text-center pt-8 text-slate-600 text-xs font-mono">
-                © 2026 Muhammadjonov Shousmon. Qo'qon, O'zbekiston.
-            </div>
-
         </div>
     </section>
 
+    <!-- FOOTER -->
+    <footer class="py-10 text-center text-slate-600 text-xs font-mono border-t border-pink-900/20">
+        © 2026 Muhammadjonov Shousmon. Designed with Lusion Aesthetics.
+    </footer>
+
     <!-- AI PROJECTS MODAL -->
     <div class="modal" id="aiModal">
-        <div class="cyber-card rounded-2xl max-w-lg w-full p-6 relative text-slate-100 border border-pink-500/50">
-            <div class="flex justify-between items-center mb-4">
+        <div class="lusion-card rounded-3xl max-w-lg w-full p-6 relative text-slate-100 border border-pink-500/50">
+            <div class="flex justify-between items-center mb-6">
                 <h3 class="text-lg font-bold text-pink-400 flex items-center gap-2">
-                    <i class="fas fa-brain text-cyan-400"></i> AI Loyihalar va Avtomatizatsiya
+                    <i class="fas fa-brain text-cyan-400"></i> Amaliy AI Loyihalarim
                 </h3>
                 <button onclick="closeModal()" class="text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
             </div>
             
-            <div class="space-y-3 text-xs">
-                <div class="p-3 bg-purple-950/40 rounded-lg border border-purple-700/40">
+            <div class="space-y-4 text-xs">
+                <div class="p-4 bg-purple-950/40 rounded-xl border border-purple-700/40">
                     <div class="flex justify-between font-bold text-white mb-1">
-                        <span>AI Hybrid Agent System (shousmon13)</span>
+                        <span>AI Hybrid Agent System</span>
                         <span class="text-cyan-400">Multi-Agent</span>
                     </div>
                     <p class="text-slate-400">OpenRouter, n8n va Telegram Bot integratsiyasi bazasida yaratilgan ko'p vazifali AI-agentlar va boshqaruv paneli.</p>
                 </div>
 
-                <div class="p-3 bg-purple-950/40 rounded-lg border border-purple-700/40">
+                <div class="p-4 bg-purple-950/40 rounded-xl border border-purple-700/40">
                     <div class="flex justify-between font-bold text-white mb-1">
                         <span>B2B AI-Support Platform</span>
                         <span class="text-pink-400">Enterprise</span>
@@ -231,14 +270,208 @@
                 </div>
             </div>
 
-            <a href="https://github.com/us13" target="_blank" class="mt-5 block text-center py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl font-bold text-xs transition shadow-lg">
-                GitHub Repozitoriyalarini Ko'rish ↗
+            <a href="https://github.com/us13" target="_blank" class="mt-6 block text-center py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-xl font-bold text-xs transition shadow-xl">
+                GitHub Repozitoriyasiga O'tish ↗
             </a>
         </div>
     </div>
 
-    <!-- JAVASCRIPT: Dynamic n8n Neural Network Animation -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
+        // --- 1. TOP 70 AI WEBSITES DATA (14 Categories x 5 AI) ---
+        const aiCategories = [
+            {
+                title: "1. Large Language Models (LLMs) & Search",
+                icon: "fa-comments",
+                items: [
+                    { name: "ChatGPT (OpenAI)", desc: "Dunyodagi eng mashhur universal AI model", url: "https://chatgpt.com" },
+                    { name: "Claude (Anthropic)", desc: "Mantiqiy fikrlash va kod yozish bo'yicha TOP AI", url: "https://claude.ai" },
+                    { name: "Google Gemini", desc: "Multimodal va tezkor Google neyron tarmog'i", url: "https://gemini.google.com" },
+                    { name: "Perplexity AI", desc: "Aqlli va manbalarga asoslangan AI qidiruv tizimi", url: "https://perplexity.ai" },
+                    { name: "DeepSeek", desc: "Matematika va murakkab mantiqiy savollar uchun AI", url: "https://deepseek.com" }
+                ]
+            },
+            {
+                title: "2. Image Generation & Art",
+                icon: "fa-palette",
+                items: [
+                    { name: "Midjourney", desc: "Eng yuqori fotorealistik va badiiy rasm generatori", url: "https://midjourney.com" },
+                    { name: "DALL-E 3", desc: "OpenAI tomonidan yaratilgan aniq promptli rasm AI", url: "https://chatgpt.com" },
+                    { name: "Flux.1 (Black Forest)", desc: "Matnlarni o'ta aniq tasvirga aylantiruvchi yangi AI", url: "https://blackforestlabs.ai" },
+                    { name: "Leonardo.Ai", desc: "O'yinlar va dizaynerlar uchun moslashuvchan rasm AI", url: "https://leonardo.ai" },
+                    { name: "Stable Diffusion", desc: "Ochiq kodli va moslashuvchan neyron tarmoq", url: "https://stability.ai" }
+                ]
+            },
+            {
+                title: "3. Video Generation & VFX",
+                icon: "fa-video",
+                items: [
+                    { name: "OpenAI Sora", desc: "Fotorealistik kinematografik videolar yaratish", url: "https://openai.com/sora" },
+                    { name: "Runway Gen-3", desc: "Kino va VFX sanoati uchun professional AI video", url: "https://runwayml.com" },
+                    { name: "Luma Dream Machine", desc: "Tezkor va sifatli 3D render uslubidagi video AI", url: "https://lumalabs.ai/dream-machine" },
+                    { name: "Kling AI", desc: "Harakat va fizikani mukammal aks ettiruvchi video AI", url: "https://klingai.com" },
+                    { name: "Pika Labs", desc: "3D animatsiya va vizual effektlar yaratish AI", url: "https://pika.art" }
+                ]
+            },
+            {
+                title: "4. AI Automation & Multi-Agents",
+                icon: "fa-diagram-project",
+                items: [
+                    { name: "n8n.io", desc: "Workflow va AI Agentlarni birlashtiruvchi platforma", url: "https://n8n.io" },
+                    { name: "Make (Integromat)", desc: "Biznes jarayonlarini avtomatlashtirish vizual paneli", url: "https://make.com" },
+                    { name: "FlowiseAI", desc: "LLM va AI agentlarni sudrab-tashlab qurish vositasi", url: "https://flowiseai.com" },
+                    { name: "LangChain", desc: "LLM ilovalari va agentlarni ishlab chiqish freymvorki", url: "https://langchain.com" },
+                    { name: "AutoGen (Microsoft)", desc: "Ko'p agentli muloqot tizimlarini yaratish kodi", url: "https://microsoft.github.io/autogen" }
+                ]
+            },
+            {
+                title: "5. Coding & Frontend AI",
+                icon: "fa-code",
+                items: [
+                    { name: "GitHub Copilot", desc: "Dasturchilar uchun eng ommabop AI yordamchi", url: "https://github.com/features/copilot" },
+                    { name: "Cursor AI", desc: "VS Code bazasidagi eng kuchli AI kod muhiti", url: "https://cursor.com" },
+                    { name: "v0.dev (Vercel)", desc: "Matndan tayyor React va Tailwind komponentlar yasash", url: "https://v0.dev" },
+                    { name: "Replit Agent", desc: "To'liq veb-sayt va loyihalarni noldan avtonom yaratish", url: "https://replit.com" },
+                    { name: "Codeium / Windsurf", desc: "Tezkor va bepul AI kod generatori hamda muhit", url: "https://codeium.com" }
+                ]
+            },
+            {
+                title: "6. Voice & Audio AI",
+                icon: "fa-microphone",
+                items: [
+                    { name: "ElevenLabs", desc: "O'ta tabiiy ovozlarni sintez qilish va klonlash AI", url: "https://elevenlabs.io" },
+                    { name: "Suno AI", desc: "Matndan to'liq musiqa va qo'shiqlar yaratuvchi neyron tarmoq", url: "https://suno.com" },
+                    { name: "Udio", desc: "Professional sifatdagi musiqa va trek generatori", url: "https://udio.com" },
+                    { name: "Murf.ai", desc: "Taqdimotlar va roliklar uchun professional diktor AI", url: "https://murf.ai" },
+                    { name: "Resemble AI", desc: "Ovoz klonlash va kiberxavfsiz AI ovozlar", url: "https://resemble.ai" }
+                ]
+            },
+            {
+                title: "7. 3D & Spatial AI",
+                icon: "fa-cube",
+                items: [
+                    { name: "Meshy AI", desc: "Matn va rasmdan 3D modellarni tayyorlash AI", url: "https://meshy.ai" },
+                    { name: "CSM (Common Sense)", desc: "Suratlardan 3D obyektlar yasash platformasi", url: "https://csm.ai" },
+                    { name: "Spline AI", desc: "Veb uchun 3D sahnalarni AI yordamida dizayn qilish", url: "https://spline.design" },
+                    { name: "Luma Genie", desc: "Telefon va matn orqali 3D obyektlar generatsiyasi", url: "https://lumalabs.ai" },
+                    { name: "Tripo3D", desc: "Soniyalar ichida 3D mesh va teksturalar yaratish", url: "https://tripo3d.ai" }
+                ]
+            },
+            {
+                title: "8. UI/UX & Web Design AI",
+                icon: "fa-object-group",
+                items: [
+                    { name: "Figma AI", desc: "Figma ichidagi aqlli dizayn va avto-layaut AI", url: "https://figma.com" },
+                    { name: "Uizard", desc: "Qo'lda chizilgan eskizlardan UI/UX maketlar yaratish", url: "https://uizard.io" },
+                    { name: "Relume AI", desc: "Saytlar strukturasi va sitemap'ni avto-yaratish", url: "https://relume.io" },
+                    { name: "Framer AI", desc: "Matn orqali interaktiv websaytlarni yaratish va deploy qilish", url: "https://framer.com" },
+                    { name: "Galileo AI", desc: "Matnli tavsifdan murakkab UI interfeyslarni loyihalash", url: "https://usegalileo.ai" }
+                ]
+            },
+            {
+                title: "9. Productivity & Notes",
+                icon: "fa-bolt",
+                items: [
+                    { name: "Notion AI", desc: "Qaydlar va hujjatlarni avtomatik tartiblash AI", url: "https://notion.so" },
+                    { name: "Taskade", desc: "AI Agentlar bilan jamoaviy loyihalarni boshqarish", url: "https://taskade.com" },
+                    { name: "Gamma App", desc: "Soniyalar ichida taqdimot va slaydlar tayyorlash", url: "https://gamma.app" },
+                    { name: "Mem.ai", desc: "Shaxsiy xotira va bilimlar bazasini tartiblovchi AI", url: "https://mem.ai" },
+                    { name: "Otter.ai", desc: "Onlayn uchrashuvlarni matnga o'giruvchi va konspektlovchi AI", url: "https://otter.ai" }
+                ]
+            },
+            {
+                title: "10. Marketing & Copywriting AI",
+                icon: "fa-bullhorn",
+                items: [
+                    { name: "Jasper AI", desc: "Katta kopirayting va kontent jamoalari uchun AI", url: "https://jasper.ai" },
+                    { name: "Copy.ai", desc: "Sotuv matnlari va SMM uchun kopirayt AI", url: "https://copy.ai" },
+                    { name: "Writesonic", desc: "SEO-maqolalar va e'lonlar uchun AI generator", url: "https://writesonic.com" },
+                    { name: "Surfer SEO", desc: "Qidiruv tizimlarida birinchi o'ringa chiqish AI vositasi", url: "https://surferseo.com" },
+                    { name: "HubSpot Breeze AI", desc: "Marketing va CRM jarayonlarini AI yordamida oshirish", url: "https://hubspot.com" }
+                ]
+            },
+            {
+                title: "11. Business & CRM Analytics AI",
+                icon: "fa-chart-line",
+                items: [
+                    { name: "Julius AI", desc: "Excel va ma'lumotlar bazasini tahlil qiluvchi AI", url: "https://julius.ai" },
+                    { name: "Tableau Pulse", desc: "Biznes ko'rsatkichlarini AI orqali prognozlash", url: "https://tableau.com" },
+                    { name: "AmoCRM / Bitrix24 AI", desc: "Sotuv va mijozlar bilan muloqot avtomatizatsiyasi", url: "https://amocrm.com" },
+                    { name: "Chatbase", desc: "Kompaniya hujjatlari bazasida aqlli chat-bot yaratish", url: "https://chatbase.co" },
+                    { name: "CustomGPT.ai", desc: "Biznes uchun xavfsiz va shaxsiy AI chatbotlar", url: "https://customgpt.ai" }
+                ]
+            },
+            {
+                title: "12. Research & Academic AI",
+                icon: "fa-graduation-cap",
+                items: [
+                    { name: "Consensus", desc: "Ilmiy maqolalar va tadqiqotlardan tasdiqlangan javoblar", url: "https://consensus.app" },
+                    { name: "Elicit", desc: "Tadbiriylarni tezlashtirish va maqolalarni tahlil qilish AI", url: "https://elicit.com" },
+                    { name: "SciSpace (Typeset)", desc: "Ilmiy PDF fayllarni tushuntirib beruvchi AI platforma", url: "https://typeset.io" },
+                    { name: "ResearchRabbit", desc: "Ilmiy ishlar va adabiyotlar xaritasini tuzuvchi AI", url: "https://researchrabbit.ai" },
+                    { name: "Connected Papers", desc: "Mavzu bo'yicha bog'liq ilmiy ishlarni vizualizatsiya qilish", url: "https://connectedpapers.com" }
+                ]
+            },
+            {
+                title: "13. Translation & Localization AI",
+                icon: "fa-language",
+                items: [
+                    { name: "DeepL Translate", desc: "Dunyodagi eng aniq va kontekstual tarjimon AI", url: "https://deepl.com" },
+                    { name: "HeyGen", desc: "Videolardagi nutqni va lab harakatini boshqa tillarga moslash", url: "https://heygen.com" },
+                    { name: "Rask AI", desc: "Dublyaj va video lokalizatsiya platformasi", url: "https://rask.ai" },
+                    { name: "SeamlessM4T (Meta)", desc: "Ko'p tilli audio va matnlarni tarjima qilish kodi", url: "https://ai.meta.com" },
+                    { name: "ElevenLabs Dubbing", desc: "Hissiyotni saqlagan holda ovozli video tarjimasi", url: "https://elevenlabs.io" }
+                ]
+            },
+            {
+                title: "14. HR & Avatar AI",
+                icon: "fa-user-tie",
+                items: [
+                    { name: "Synthesia", desc: "Raqamli avatarlar orqali video taqdimotlar tayyorlash", url: "https://synthesia.io" },
+                    { name: "D-ID", desc: "Fotosuratlarni gapirtirish va aqlli avatarlar yaratish", url: "https://d-id.com" },
+                    { name: "HireVue", desc: "AI orqali suhbatlar va nomzodlarni baholash", url: "https://hirevue.com" },
+                    { name: "Character.ai", desc: "Har xil personajlar va xarakterlar bilan muloqot AI", url: "https://character.ai" },
+                    { name: "InWorld AI", desc: "O'yinlar va NPC kadrlar uchun sun'iy intellekt xarakterlar", url: "https://inworld.ai" }
+                ]
+            }
+        ];
+
+        // Render AI Categories to DOM
+        const container = document.getElementById('ai-categories-container');
+        
+        aiCategories.forEach(cat => {
+            const catBlock = document.createElement('div');
+            catBlock.className = 'space-y-4';
+
+            let itemsHtml = '';
+            cat.items.forEach(item => {
+                itemsHtml += `
+                    <a href="${item.url}" target="_blank" class="lusion-card p-4 rounded-2xl flex flex-col justify-between group">
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <h4 class="font-bold text-white group-hover:text-pink-400 transition text-sm">${item.name}</h4>
+                                <i class="fas fa-external-link-alt text-[10px] text-slate-500 group-hover:text-cyan-400 transition"></i>
+                            </div>
+                            <p class="text-slate-400 text-xs font-light leading-relaxed">${item.desc}</p>
+                        </div>
+                        <span class="text-[10px] text-cyan-400 font-mono mt-3 block opacity-0 group-hover:opacity-100 transition">Saytga o'tish ↗</span>
+                    </a>
+                `;
+            });
+
+            catBlock.innerHTML = `
+                <h3 class="text-lg font-bold text-cyan-300 flex items-center gap-2 border-b border-purple-900/30 pb-2">
+                    <i class="fas ${cat.icon} text-pink-500"></i> ${cat.title}
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    ${itemsHtml}
+                </div>
+            `;
+
+            container.appendChild(catBlock);
+        });
+
+        // --- 2. LUSION NEURAL NODE CANVAS ANIMATION ---
         const canvas = document.getElementById('neuralCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -249,24 +482,22 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // Create n8n Nodes
         const nodes = [];
-        const nodeCount = 14;
-        const colors = ['#ec4899', '#38bdf8', '#a855f7', '#f43f5e', '#10b981'];
+        const nodeCount = 18;
+        const colors = ['#ec4899', '#38bdf8', '#a855f7', '#10b981'];
 
         for (let i = 0; i < nodeCount; i++) {
             nodes.push({
-                x: Math.random() * (canvas.width || 300),
+                x: Math.random() * (canvas.width || 400),
                 y: Math.random() * (canvas.height || 300),
-                radius: Math.random() * 4 + 5,
+                radius: Math.random() * 3 + 4,
                 color: colors[Math.floor(Math.random() * colors.length)],
-                vx: (Math.random() - 0.5) * 1.2,
-                vy: (Math.random() - 0.5) * 1.2,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
                 pulse: Math.random() * Math.PI * 2
             });
         }
 
-        // Signal packets moving along connections
         const pulses = [];
         function createPulse(n1, n2) {
             pulses.push({
@@ -281,40 +512,37 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Update Nodes Position
             nodes.forEach(node => {
                 node.x += node.vx;
                 node.y += node.vy;
 
-                if (node.x < 20 || node.x > canvas.width - 20) node.vx *= -1;
-                if (node.y < 20 || node.y > canvas.height - 20) node.vy *= -1;
+                if (node.x < 15 || node.x > canvas.width - 15) node.vx *= -1;
+                if (node.y < 15 || node.y > canvas.height - 15) node.vy *= -1;
 
-                node.pulse += 0.05;
+                node.pulse += 0.04;
             });
 
-            // Draw Connections (n8n Workflow Lines)
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
                     const dx = nodes[i].x - nodes[j].x;
                     const dy = nodes[i].y - nodes[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 110) {
+                    if (dist < 120) {
                         ctx.beginPath();
                         ctx.moveTo(nodes[i].x, nodes[i].y);
                         ctx.lineTo(nodes[j].x, nodes[j].y);
-                        ctx.strokeStyle = `rgba(168, 85, 247, ${1 - dist / 110})`;
+                        ctx.strokeStyle = `rgba(236, 72, 153, ${0.4 - dist / 300})`;
                         ctx.lineWidth = 1;
                         ctx.stroke();
 
-                        if (Math.random() < 0.003) {
+                        if (Math.random() < 0.004) {
                             createPulse(nodes[i], nodes[j]);
                         }
                     }
                 }
             }
 
-            // Draw Pulses (Data Transmission)
             for (let i = pulses.length - 1; i >= 0; i--) {
                 const p = pulses[i];
                 p.progress += p.speed;
@@ -328,17 +556,16 @@
                 const currentY = p.startNode.y + (p.endNode.y - p.startNode.y) * p.progress;
 
                 ctx.beginPath();
-                ctx.arc(currentX, currentY, 3, 0, Math.PI * 2);
+                ctx.arc(currentX, currentY, 2.5, 0, Math.PI * 2);
                 ctx.fillStyle = p.color;
                 ctx.shadowColor = p.color;
-                ctx.shadowBlur = 8;
+                ctx.shadowBlur = 10;
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
 
-            // Draw Nodes
             nodes.forEach(node => {
-                const currentRadius = node.radius + Math.sin(node.pulse) * 1.5;
+                const currentRadius = node.radius + Math.sin(node.pulse) * 1.2;
 
                 ctx.beginPath();
                 ctx.arc(node.x, node.y, currentRadius, 0, Math.PI * 2);
@@ -347,13 +574,6 @@
                 ctx.shadowBlur = 12;
                 ctx.fill();
                 ctx.shadowBlur = 0;
-
-                // Outer Ring
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, currentRadius + 3, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(255, 255, 255, 0.3)`;
-                ctx.lineWidth = 1;
-                ctx.stroke();
             });
 
             requestAnimationFrame(animate);
@@ -361,7 +581,7 @@
 
         animate();
 
-        // Modal Logic
+        // --- 3. MODAL LOGIC ---
         function openModal() {
             document.getElementById('aiModal').classList.add('active');
         }
