@@ -17,25 +17,29 @@
         }
 
         body {
-            background-color: #020307;
+            background-color: #020205;
             color: #f3f4f6;
             overflow-x: hidden;
             user-select: none;
         }
 
-        /* Border-less Floating Glass Elements */
+        /* Border-less Floating Glass Cards with Glow */
         .float-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(16px);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(245, 158, 11, 0.1);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
         .float-card:hover {
+            border-color: rgba(245, 158, 11, 0.5);
             background: rgba(245, 158, 11, 0.08);
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.2);
         }
 
         .ai-logo-chip {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(10, 15, 30, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.25s ease;
@@ -43,11 +47,11 @@
         .ai-logo-chip:hover {
             border-color: rgba(245, 158, 11, 0.6);
             background: rgba(245, 158, 11, 0.15);
-            transform: scale(1.08);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
         }
 
-        /* Neural Background Canvas */
+        /* Neural Canvas Layer */
         #neuralCanvas {
             position: fixed;
             top: 0; left: 0;
@@ -56,7 +60,7 @@
             pointer-events: none;
         }
 
-        /* Single Random Item FX Layer */
+        /* FX Interactive Layer */
         #fxCanvas {
             position: fixed;
             top: 0; left: 0;
@@ -65,9 +69,8 @@
             pointer-events: none;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020307; }
+        ::-webkit-scrollbar-track { background: #020205; }
         ::-webkit-scrollbar-thumb { background: #f59e0b55; border-radius: 3px; }
     </style>
 </head>
@@ -80,12 +83,12 @@
     <main class="relative z-10 max-w-5xl mx-auto px-4 py-12 space-y-20">
 
         <header class="text-center space-y-4 max-w-3xl mx-auto">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono tracking-widest uppercase">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono tracking-widest uppercase shadow-lg shadow-amber-500/10">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
                 AI Engineering & Neural Networks
             </div>
 
-            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-yellow-500">
+            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-yellow-500 drop-shadow-sm">
                 Muhammadjonov Shousmon
             </h1>
 
@@ -110,7 +113,7 @@
                 <h2 class="text-lg md:text-xl font-extrabold uppercase tracking-widest text-amber-400">
                     Amalga Oshirilgan Loyihalar (10+)
                 </h2>
-                <p class="text-xs text-slate-400 font-mono">Intellektual va innovatsion web ishlanmalar</p>
+                <p class="text-xs text-slate-400 font-mono">Loyihani ko'rish uchun ustiga bosing</p>
             </div>
 
             <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
@@ -120,22 +123,24 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-emerald-400 uppercase font-mono flex items-center gap-2">
-                        <i class="fas fa-microchip"></i> Real-time AI Agentlar Shaharchasi
+                        <i class="fas fa-users-gear"></i> 50 AI Agentlar Hamjamiyati va Ish Xonasi
                     </h2>
-                    <p class="text-xs text-slate-400 font-mono">Agent ustiga bosing: U to'xtaydi va uning topshiriq konsoli ochiladi.</p>
+                    <p class="text-xs text-slate-400 font-mono">Odam ko'rinishidagi agentlar: Stulda o'tiradi va ishlaydi. Ustiga bosing!</p>
                 </div>
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400">● Live Agents Active</span>
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">● 50 Active Humanoid Agents</span>
             </div>
 
-            <div class="relative w-full h-[480px] rounded-3xl overflow-hidden bg-black/80 backdrop-blur-md cursor-pointer border border-emerald-500/30 shadow-2xl">
+            <div class="relative w-full h-[520px] rounded-3xl overflow-hidden bg-black/90 backdrop-blur-md cursor-pointer border border-emerald-500/30 shadow-2xl">
                 <canvas id="roomCanvas" class="w-full h-full"></canvas>
 
-                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl bg-black/90 backdrop-blur-xl border border-amber-500/50 hidden transition-all">
+                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-black/95 backdrop-blur-xl border border-amber-500/50 hidden transition-all shadow-2xl">
                     <div class="flex items-center justify-between text-xs font-mono text-amber-400 mb-1">
-                        <span id="subAgentName" class="font-bold text-sm">AGENT_NAME</span>
-                        <span id="subStatus" class="px-2 py-0.5 rounded bg-amber-500/20 text-[10px] border border-amber-500/30">STATUS</span>
+                        <span id="subAgentName" class="font-bold text-sm flex items-center gap-2">
+                            <i class="fas fa-user-astronaut"></i> AGENT_NAME
+                        </span>
+                        <span id="subStatus" class="px-2.5 py-0.5 rounded bg-amber-500/20 text-[10px] border border-amber-500/30 font-bold">STATUS</span>
                     </div>
-                    <p id="subText" class="text-xs text-slate-200 font-mono italic">Agent topshirig'i...</p>
+                    <p id="subText" class="text-xs text-slate-200 font-mono italic">Agent xabari...</p>
                 </div>
             </div>
         </section>
@@ -168,27 +173,24 @@
     </div>
 
     <script>
-        // --- 1. SINGLE RANDOM ITEM FX SYSTEM (HAR BOSGANDA TURLI 1 TA ITEM) ---
+        // --- 1. FX SYSTEM (HAR BOSGANDA 20 XIL ELEMENTDAN RANDOM 1 TASI) ---
         const fxCanvas = document.getElementById('fxCanvas');
         const fxCtx = fxCanvas.getContext('2d');
         function resizeFx() { fxCanvas.width = window.innerWidth; fxCanvas.height = window.innerHeight; }
         resizeFx(); window.addEventListener('resize', resizeFx);
 
         const fxParticles = [];
-        // 20 xil interaktiv obyektlar to'plami
         const itemTypes = ["✨", "⚡", "🔮", "🧬", "💎", "👾", "🤖", "🚀", "💥", "🪐", "🌐", "⚙️", "🔥", "🎯", "🌀", "💠", "🧠", "💡", "📡", "🛸"];
 
         window.addEventListener('click', (e) => {
-            // Har bosganda 20 xil element ichidan RANDOM 1 TASI tanlanadi!
             const chosenItem = itemTypes[Math.floor(Math.random() * itemTypes.length)];
-
             fxParticles.push({
                 x: e.clientX,
                 y: e.clientY,
                 vx: (Math.random() - 0.5) * 4,
                 vy: -3 - Math.random() * 3,
                 char: chosenItem,
-                size: 24 + Math.random() * 12,
+                size: 26 + Math.random() * 12,
                 alpha: 1,
                 life: 0.015
             });
@@ -211,24 +213,26 @@
         }
         renderFX();
 
-        // --- 2. HIGH QUALITY NEURAL BACKGROUND ---
+        // --- 2. HIGHLY CREATIVE NEURAL & PLASMA BACKGROUND ---
         const bgCanvas = document.getElementById('neuralCanvas');
         const bgCtx = bgCanvas.getContext('2d');
         function resizeBg() { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; }
         resizeBg(); window.addEventListener('resize', resizeBg);
 
         const bgNodes = [];
-        const colors = ["rgba(236, 72, 153, ", "rgba(168, 85, 247, ", "rgba(245, 158, 11, ", "rgba(34, 197, 94, "];
-        const labels = ["PREFRONTAL", "ASSOCIATION", "CONCEPT LAYER", "FEATURE LAYER", "HIPPOCAMPUS"];
+        const colors = ["rgba(236, 72, 153, ", "rgba(168, 85, 247, ", "rgba(245, 158, 11, ", "rgba(34, 197, 94, ", "rgba(56, 189, 248, "];
+        const labels = ["PREFRONTAL", "ASSOCIATION", "CONCEPT LAYER", "FEATURE LAYER", "HIPPOCAMPUS", "SYNAPSE_CORE"];
 
-        for(let i=0; i<60; i++) {
+        for(let i=0; i<70; i++) {
             bgNodes.push({
                 x: Math.random() * bgCanvas.width,
                 y: Math.random() * bgCanvas.height,
-                vx: (Math.random() - 0.5) * 1.0,
-                vy: (Math.random() - 0.5) * 1.0,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: (Math.random() - 0.5) * 1.2,
+                radius: 2 + Math.random() * 2.5,
                 color: colors[i % colors.length],
-                label: i < labels.length ? labels[i] : null
+                label: i < labels.length ? labels[i] : null,
+                pulse: Math.random() * Math.PI
             });
         }
 
@@ -237,31 +241,35 @@
             for(let i=0; i<bgNodes.length; i++) {
                 let n1 = bgNodes[i];
                 n1.x += n1.vx; n1.y += n1.vy;
+                n1.pulse += 0.03;
+
                 if(n1.x < 0 || n1.x > bgCanvas.width) n1.vx *= -1;
                 if(n1.y < 0 || n1.y > bgCanvas.height) n1.vy *= -1;
 
+                let currentRadius = n1.radius + Math.sin(n1.pulse) * 1.2;
+
                 bgCtx.beginPath();
-                bgCtx.arc(n1.x, n1.y, 2.5, 0, Math.PI*2);
-                bgCtx.fillStyle = n1.color + '0.9)';
+                bgCtx.arc(n1.x, n1.y, Math.max(1, currentRadius), 0, Math.PI*2);
+                bgCtx.fillStyle = n1.color + '0.95)';
                 bgCtx.shadowColor = n1.color + '1)';
-                bgCtx.shadowBlur = 10;
+                bgCtx.shadowBlur = 15;
                 bgCtx.fill();
 
                 if(n1.label) {
-                    bgCtx.font = "bold 10px monospace";
+                    bgCtx.font = "bold 9px monospace";
                     bgCtx.fillStyle = "#ffffff";
-                    bgCtx.fillText(n1.label, n1.x + 8, n1.y - 4);
+                    bgCtx.fillText(n1.label, n1.x + 10, n1.y - 4);
                 }
 
                 for(let j=i+1; j<bgNodes.length; j++) {
                     let n2 = bgNodes[j];
                     let dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
-                    if(dist < 110) {
+                    if(dist < 120) {
                         bgCtx.beginPath();
                         bgCtx.moveTo(n1.x, n1.y);
                         bgCtx.lineTo(n2.x, n2.y);
-                        bgCtx.strokeStyle = n1.color + ((1 - dist/110)*0.35) + ')';
-                        bgCtx.lineWidth = 0.8;
+                        bgCtx.strokeStyle = n1.color + ((1 - dist/120)*0.4) + ')';
+                        bgCtx.lineWidth = 0.9;
                         bgCtx.stroke();
                     }
                 }
@@ -301,32 +309,35 @@
             `;
         });
 
-        // --- 4. 10 TA LOYIHA (EXCELLENT CARDS) ---
+        // --- 4. 10 TA LOYIHA ---
         const projects = [
-            { title: "Luxury Hotel 3D", desc: "Interaktiv 3D vizualizatsiyaga ega eksklyuziv bron tizimi.", tech: "Three.js • React" },
-            { title: "Multi-Agent Automation", desc: "CrewAI va n8n orqali biznes topshiriqlarini avtomatik bajarish.", tech: "Python • CrewAI" },
-            { title: "Fashion Hub E-Commerce", desc: "Zamonaviy brendlar uchun minimalistik premium do'kon.", tech: "Next.js • Tailwind" },
-            { title: "Eco-Marketplace", desc: "Aql-idrokli filtratsiyaga ega organik mahsulotlar servisi.", tech: "Vue.js • Node.js" },
-            { title: "AI Content Studio", desc: "SMM va kontent meykering uchun avtomatik matn/rasm generatori.", tech: "OpenAI • FastAPI" },
-            { title: "Smart Customer Bot", desc: "Mijozlar bilan insondek muloqot qiluvchi o'zbekcha AI yordamchi.", tech: "Whisper • Telegram" },
-            { title: "Analytics AI Dashboard", desc: "Moliyaviy ko'rsatkichlarni tahlil qiluvchi AI vizualizator.", tech: "Python • WebSockets" },
-            { title: "AI Code Reviewer", desc: "Dasturchilar koddagi xatolarini avtomatik tuzatuvchi sub-agent.", tech: "Claude API • GitHub" },
-            { title: "Smart HR Recruiter", desc: "Rezyumelarni tahlil qilib munosib nomzodlarni sarflovchi tizim.", tech: "LangChain • VectorDB" },
-            { title: "Cyber Security AI Monitoring", desc: "Serverlardagi anomaliya va hujumlarni aniqlovchi monitoring.", tech: "TensorFlow • Linux" }
+            { title: "Luxury Hotel 3D", desc: "Interaktiv 3D vizualizatsiyaga ega eksklyuziv bron tizimi.", tech: "Three.js • React", url: "https://github.com/us13" },
+            { title: "Multi-Agent Automation", desc: "CrewAI va n8n orqali biznes topshiriqlarini avtomatik bajarish.", tech: "Python • CrewAI", url: "https://github.com/us13" },
+            { title: "Fashion Hub E-Commerce", desc: "Zamonaviy brendlar uchun minimalistik premium do'kon.", tech: "Next.js • Tailwind", url: "https://github.com/us13" },
+            { title: "Eco-Marketplace", desc: "Aql-idrokli filtratsiyaga ega organik mahsulotlar servisi.", tech: "Vue.js • Node.js", url: "https://github.com/us13" },
+            { title: "AI Content Studio", desc: "SMM va kontent meykering uchun avtomatik matn/rasm generatori.", tech: "OpenAI • FastAPI", url: "https://github.com/us13" },
+            { title: "Smart Customer Bot", desc: "Mijozlar bilan insondek muloqot qiluvchi o'zbekcha AI yordamchi.", tech: "Whisper • Telegram", url: "https://github.com/us13" },
+            { title: "Analytics AI Dashboard", desc: "Moliyaviy ko'rsatkichlarni tahlil qiluvchi AI vizualizator.", tech: "Python • WebSockets", url: "https://github.com/us13" },
+            { title: "AI Code Reviewer", desc: "Dasturchilar koddagi xatolarini avtomatik tuzatuvchi sub-agent.", tech: "Claude API • GitHub", url: "https://github.com/us13" },
+            { title: "Smart HR Recruiter", desc: "Rezyumelarni tahlil qilib munosib nomzodlarni sarflovchi tizim.", tech: "LangChain • VectorDB", url: "https://github.com/us13" },
+            { title: "Cyber Security AI Monitoring", desc: "Serverlardagi anomaliya va hujumlarni aniqlovchi monitoring.", tech: "TensorFlow • Linux", url: "https://github.com/us13" }
         ];
 
         const projectsContainer = document.getElementById('projectsContainer');
         projects.forEach(p => {
             projectsContainer.innerHTML += `
-                <div class="float-card p-5 rounded-3xl space-y-2 border border-white/5 cursor-pointer">
-                    <h3 class="text-base font-bold text-amber-300">${p.title}</h3>
+                <a href="${p.url}" target="_blank" class="float-card p-5 rounded-3xl space-y-2 cursor-pointer block">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-bold text-amber-300">${p.title}</h3>
+                        <i class="fas fa-arrow-up-right-from-square text-xs text-amber-400"></i>
+                    </div>
                     <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
                     <span class="inline-block text-[10px] font-mono text-cyan-400 pt-2">${p.tech}</span>
-                </div>
+                </a>
             `;
         });
 
-        // --- 5. REALISTIC BEAUTIFUL AI AGENTS SIMULATOR ---
+        // --- 5. 50 TA HUMANOID AI AGENTS & WORKSTATION SIMULATOR ---
         const rCanvas = document.getElementById('roomCanvas');
         const rCtx = rCanvas.getContext('2d');
         function resizeRoom() {
@@ -336,73 +347,112 @@
         resizeRoom(); window.addEventListener('resize', resizeRoom);
 
         const agentTasks = [
-            "API so'rovlarini optimallashtirmoqda va ma'lumotlarni tahlil qilmoqda...",
-            "Yangi neyron tarmoq modelini o'rgatish uchun dataset yig'moqda...",
-            "Koddagi anomaliyalarni topib, xavfsizlik testlarini o'tkazmoqda...",
-            "Server bilan real-vaqtda ma'lumotlar almashinuvini ta'minlamoqda..."
+            "Koddagi anomaliyalarni tahlil qilmoqda va avto-test yozmoqda...",
+            "Neyron tarmoq uchun yangi datasetlarni sarflamoqda...",
+            "Server bilan yuqori tezlikdagi ma'lumotlar sinxronizatsiyasini qilmoqda...",
+            "Prompt muhandisligi asosida kontentlarni optimallashtirmoqda...",
+            "Sub-agentlar o'rtasida vazifalarni qayta taqsimlamoqda..."
         ];
 
-        const agents = [
-            { id: 1, name: "Agent_Alpha", x: 120, y: 150, vx: 1.8, vy: 1.4, paused: false, status: "CODING", color: "#f59e0b" },
-            { id: 2, name: "Agent_Beta", x: 280, y: 240, vx: -1.6, vy: 1.9, paused: false, status: "SEARCHING", color: "#38bdf8" },
-            { id: 3, name: "Agent_Gamma", x: 420, y: 140, vx: 2.1, vy: -1.5, paused: false, status: "DEPLOYING", color: "#a855f7" },
-            { id: 4, name: "Agent_Delta", x: 200, y: 320, vx: -1.5, vy: -1.8, paused: false, status: "TRAINING", color: "#10b981" }
-        ];
+        const statuses = ["CODING", "SEARCHING", "DEPLOYING", "TRAINING", "ANALYZING"];
+        const agentColors = ["#f59e0b", "#38bdf8", "#a855f7", "#10b981", "#ec4899"];
+
+        // EXACTLY 50 HUMANOID AGENTS & DESKS
+        const agents = [];
+        for(let i=1; i<=50; i++) {
+            agents.push({
+                id: i,
+                name: `Agent_${i < 10 ? '0'+i : i}`,
+                x: 40 + Math.random() * (window.innerWidth < 768 ? 300 : 700),
+                y: 50 + Math.random() * 400,
+                deskX: 40 + Math.random() * (window.innerWidth < 768 ? 300 : 700),
+                deskY: 50 + Math.random() * 400,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
+                paused: false,
+                isSeated: Math.random() > 0.5,
+                status: statuses[i % statuses.length],
+                color: agentColors[i % agentColors.length]
+            });
+        }
+
+        // DRAW HUMANOID AGENT WITH DESK & LAPTOP
+        function drawHumanAgent(ctx, a) {
+            // Draw Desk & Chair
+            ctx.fillStyle = "#1e293b";
+            ctx.fillRect(a.deskX - 12, a.deskY - 6, 24, 12); // Desk
+            ctx.fillStyle = a.color + "aa";
+            ctx.fillRect(a.deskX - 8, a.deskY - 4, 16, 3);   // Laptop screen
+
+            let posX = a.isSeated ? a.deskX : a.x;
+            let posY = a.isSeated ? a.deskY + 8 : a.y;
+
+            // Draw Body (Tana)
+            ctx.fillStyle = a.color;
+            ctx.beginPath();
+            ctx.arc(posX, posY + 4, 5, Math.PI, 0, false);
+            ctx.fill();
+
+            // Draw Head (Bosh)
+            ctx.beginPath();
+            ctx.arc(posX, posY - 3, 4, 0, Math.PI*2);
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowColor = a.color;
+            ctx.shadowBlur = a.paused ? 15 : 6;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Name Tag
+            ctx.font = "8px monospace";
+            ctx.fillStyle = a.paused ? "#f59e0b" : "#94a3b8";
+            ctx.fillText(a.name, posX - 16, posY - 10);
+        }
 
         function renderRoom() {
             rCtx.clearRect(0, 0, rCanvas.width, rCanvas.height);
 
-            // Tech Floor Grid
-            rCtx.strokeStyle = "rgba(255, 255, 255, 0.04)";
-            for(let x=0; x<rCanvas.width; x+=35) { rCtx.beginPath(); rCtx.moveTo(x,0); rCtx.lineTo(x,rCanvas.height); rCtx.stroke(); }
-            for(let y=0; y<rCanvas.height; y+=35) { rCtx.beginPath(); rCtx.moveTo(0,y); rCtx.lineTo(rCanvas.width,y); rCtx.stroke(); }
+            // Office Grid Floor
+            rCtx.strokeStyle = "rgba(255, 255, 255, 0.03)";
+            for(let x=0; x<rCanvas.width; x+=30) { rCtx.beginPath(); rCtx.moveTo(x,0); rCtx.lineTo(x,rCanvas.height); rCtx.stroke(); }
+            for(let y=0; y<rCanvas.height; y+=30) { rCtx.beginPath(); rCtx.moveTo(0,y); rCtx.lineTo(rCanvas.width,y); rCtx.stroke(); }
 
             agents.forEach(a => {
-                if(!a.paused) {
+                if(!a.paused && !a.isSeated) {
                     a.x += a.vx; a.y += a.vy;
-                    if(a.x < 30 || a.x > rCanvas.width - 30) a.vx *= -1;
-                    if(a.y < 30 || a.y > rCanvas.height - 30) a.vy *= -1;
+                    if(a.x < 20 || a.x > rCanvas.width - 20) a.vx *= -1;
+                    if(a.y < 20 || a.y > rCanvas.height - 20) a.vy *= -1;
+
+                    // Randomly decide to sit at desk
+                    if(Math.random() < 0.002) a.isSeated = true;
+                } else if(!a.paused && a.isSeated) {
+                    // Randomly decide to stand up and walk
+                    if(Math.random() < 0.003) a.isSeated = false;
                 }
 
-                // Outer Glowing Ring
-                rCtx.beginPath();
-                rCtx.arc(a.x, a.y, a.paused ? 16 : 10, 0, Math.PI*2);
-                rCtx.fillStyle = a.color + "33";
-                rCtx.fill();
-
-                // Core Agent Node
-                rCtx.beginPath();
-                rCtx.arc(a.x, a.y, a.paused ? 8 : 6, 0, Math.PI*2);
-                rCtx.fillStyle = a.paused ? "#ffffff" : a.color;
-                rCtx.shadowColor = a.color;
-                rCtx.shadowBlur = 15;
-                rCtx.fill();
-                rCtx.shadowBlur = 0;
-
-                // Status Badge Above Agent
-                rCtx.font = "bold 9px monospace";
-                rCtx.fillStyle = a.color;
-                rCtx.fillText(`${a.name} [${a.status}]`, a.x - 25, a.y - 15);
+                drawHumanAgent(rCtx, a);
             });
 
             requestAnimationFrame(renderRoom);
         }
         renderRoom();
 
-        // INTERACTIVE CLICK ON AGENTS
+        // CLICK EVENT ON HUMAN AGENTS
         rCanvas.addEventListener('click', (e) => {
             const rect = rCanvas.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const clickY = e.clientY - rect.top;
 
             agents.forEach(a => {
-                const dist = Math.hypot(a.x - clickX, a.y - clickY);
-                if(dist < 35) {
+                let posX = a.isSeated ? a.deskX : a.x;
+                let posY = a.isSeated ? a.deskY : a.y;
+
+                const dist = Math.hypot(posX - clickX, posY - clickY);
+                if(dist < 22) {
                     a.paused = !a.paused;
 
                     const subPanel = document.getElementById('subPanel');
                     if(a.paused) {
-                        document.getElementById('subAgentName').innerText = a.name;
+                        document.getElementById('subAgentName').innerText = `${a.name} (Humanoid AI)`;
                         document.getElementById('subStatus').innerText = a.status;
                         document.getElementById('subText').innerText = agentTasks[Math.floor(Math.random() * agentTasks.length)];
                         subPanel.classList.remove('hidden');
@@ -413,7 +463,7 @@
             });
         });
 
-        // 6. TOGGLE CONTACT MENU
+        // TOGGLE CONTACT MENU
         function toggleContacts() {
             const menu = document.getElementById('contactMenu');
             menu.classList.toggle('hidden');
