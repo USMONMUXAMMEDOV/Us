@@ -17,41 +17,38 @@
         }
 
         body {
-            background-color: #03040a;
-            color: #f3f4f6;
+            background-color: #070913; /* Yumshoq ko'zni og'ritmaydigan to'q-ko'k fon */
+            color: #e2e8f0;
             overflow-x: hidden;
             user-select: none;
         }
 
-        /* Border-less Floating Glass Cards with Glow */
+        /* Ko'zga yoqimli va muloyim kartochkalar */
         .float-card {
-            background: rgba(13, 18, 36, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
         }
         .float-card:hover {
-            border-color: rgba(245, 158, 11, 0.8);
-            background: rgba(245, 158, 11, 0.12);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.4);
+            border-color: rgba(245, 158, 11, 0.4);
+            background: rgba(245, 158, 11, 0.06);
+            transform: translateY(-4px);
         }
 
         .ai-logo-chip {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.25s ease;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease;
         }
         .ai-logo-chip:hover {
-            border-color: rgba(245, 158, 11, 0.8);
-            background: rgba(245, 158, 11, 0.25);
-            transform: scale(1.08) translateY(-2px);
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.5);
+            border-color: rgba(245, 158, 11, 0.5);
+            background: rgba(245, 158, 11, 0.15);
+            transform: translateY(-2px);
         }
 
-        /* Neural Canvas Layer */
+        /* Smooth Canvas Layers */
         #neuralCanvas {
             position: fixed;
             top: 0; left: 0;
@@ -60,7 +57,6 @@
             pointer-events: none;
         }
 
-        /* FX Interactive Layer */
         #fxCanvas {
             position: fixed;
             top: 0; left: 0;
@@ -70,8 +66,8 @@
         }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #03040a; }
-        ::-webkit-scrollbar-thumb { background: #f59e0b88; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #070913; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b44; border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen relative selection:bg-amber-500 selection:text-black">
@@ -83,26 +79,26 @@
     <main class="relative z-10 max-w-5xl mx-auto px-4 py-12 space-y-20">
 
         <header class="text-center space-y-4 max-w-3xl mx-auto">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-mono tracking-widest uppercase shadow-lg shadow-amber-500/20">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono tracking-widest uppercase">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
                 AI Engineering & Neural Networks
             </div>
 
-            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-400 to-yellow-500 drop-shadow-md">
+            <h1 class="text-3xl md:text-5xl font-extrabold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-amber-300 to-yellow-500">
                 Muhammadjonov Shousmon
             </h1>
 
-            <p class="text-sm md:text-base text-slate-200 leading-relaxed font-light">
+            <p class="text-sm md:text-base text-slate-300 leading-relaxed font-light">
                 Men zamonaviy <strong class="text-amber-400 font-semibold">Sun'iy Intellekt texnologiyalari, neyron tarmoqlar</strong> hamda ko'p agentli avtomatlashtirilgan tizimlar bo'yicha mutaxassisman. Biznes jarayonlarini raqamlashtirish va sun'iy intellekt integratsiyasida ilg'or modellardan unumli foydalanaman.
             </p>
         </header>
 
         <section class="space-y-6">
             <div class="text-center">
-                <h2 class="text-base md:text-lg font-extrabold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-400">
+                <h2 class="text-base md:text-lg font-extrabold tracking-widest uppercase text-slate-200">
                     Sohamizdagi Ilg'or Sun'iy Intellekt Vositalari
                 </h2>
-                <p class="text-xs text-slate-300 font-mono mt-1">Loyiha va avtomatizatsiyalarda foydalaniladigan rasmiy modellar</p>
+                <p class="text-xs text-slate-400 font-mono mt-1">Loyiha va avtomatizatsiyalarda foydalaniladigan rasmiy modellar</p>
             </div>
 
             <div id="aiGrid" class="flex flex-wrap justify-center items-center gap-3 max-w-4xl mx-auto"></div>
@@ -113,7 +109,7 @@
                 <h2 class="text-lg md:text-xl font-extrabold uppercase tracking-widest text-amber-400">
                     Amalga Oshirilgan Loyihalar (10+)
                 </h2>
-                <p class="text-xs text-slate-300 font-mono">Loyihani ko'rish uchun ustiga bosing</p>
+                <p class="text-xs text-slate-400 font-mono">Loyihani ko'rish uchun ustiga bosing</p>
             </div>
 
             <div id="projectsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
@@ -123,24 +119,24 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-lg font-bold text-emerald-400 uppercase font-mono flex items-center gap-2">
-                        <i class="fas fa-users-gear"></i> 50 HQ AI Agentlar Shaharchasi & n8n Workstations
+                        <i class="fas fa-users-gear"></i> 50 AI Agentlar Ish Xonasi
                     </h2>
-                    <p class="text-xs text-slate-300 font-mono">Yuqori sifatli humanoid agentlar: Stulda o'tiradi va ishlaydi. Ustiga bosing!</p>
+                    <p class="text-xs text-slate-400 font-mono">Odam ko'rinishidagi agentlar: Ish stollarida ishlamoqda. Ustiga bosing!</p>
                 </div>
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">● 50 Active HQ Agents</span>
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">● 50 Active Agents</span>
             </div>
 
-            <div class="relative w-full h-[540px] rounded-3xl overflow-hidden bg-black/95 backdrop-blur-md cursor-pointer border border-emerald-500/40 shadow-2xl">
+            <div class="relative w-full h-[520px] rounded-3xl overflow-hidden bg-[#0a0d1a] cursor-pointer border border-slate-800 shadow-2xl">
                 <canvas id="roomCanvas" class="w-full h-full"></canvas>
 
-                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-black/95 backdrop-blur-xl border border-amber-500/60 hidden transition-all shadow-2xl">
+                <div id="subPanel" class="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-amber-500/40 hidden transition-all shadow-xl">
                     <div class="flex items-center justify-between text-xs font-mono text-amber-400 mb-1">
                         <span id="subAgentName" class="font-bold text-sm flex items-center gap-2">
-                            <i class="fas fa-user-astronaut text-amber-400"></i> AGENT_NAME
+                            <i class="fas fa-user-astronaut"></i> AGENT_NAME
                         </span>
-                        <span id="subStatus" class="px-2.5 py-0.5 rounded bg-amber-500/20 text-[10px] border border-amber-500/40 font-bold">STATUS</span>
+                        <span id="subStatus" class="px-2.5 py-0.5 rounded bg-amber-500/10 text-[10px] border border-amber-500/30 font-bold">STATUS</span>
                     </div>
-                    <p id="subText" class="text-xs text-slate-200 font-mono italic">Agent xabari...</p>
+                    <p id="subText" class="text-xs text-slate-300 font-mono italic">Agent xabari...</p>
                 </div>
             </div>
         </section>
@@ -148,32 +144,32 @@
     </main>
 
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-        <div id="contactMenu" class="hidden flex-col gap-3 p-4 rounded-3xl bg-black/95 backdrop-blur-2xl border border-amber-500/40 shadow-2xl transition-all w-64">
+        <div id="contactMenu" class="hidden flex-col gap-3 p-4 rounded-3xl bg-slate-900/95 backdrop-blur-2xl border border-amber-500/30 shadow-2xl transition-all w-64">
             <div class="text-xs font-mono text-amber-400 border-b border-white/10 pb-2 flex items-center justify-between">
                 <span>BOG'LANISH</span>
                 <i class="fas fa-paper-plane"></i>
             </div>
-            <a href="tel:+998770137713" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-500/20 text-slate-200 text-xs transition border border-transparent hover:border-amber-500/30">
+            <a href="tel:+998770137713" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-500/10 text-slate-200 text-xs transition">
                 <i class="fas fa-phone text-amber-400 text-sm"></i> +998 77 013 77 13
             </a>
-            <a href="https://t.me/usca_13" target="_blank" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-cyan-500/20 text-slate-200 text-xs transition border border-transparent hover:border-cyan-500/30">
+            <a href="https://t.me/usca_13" target="_blank" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-cyan-500/10 text-slate-200 text-xs transition">
                 <i class="fab fa-telegram text-cyan-400 text-sm"></i> Telegram: @usca_13
             </a>
-            <a href="https://github.com/us13" target="_blank" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-purple-500/20 text-slate-200 text-xs transition border border-transparent hover:border-purple-500/30">
+            <a href="https://github.com/us13" target="_blank" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-purple-500/10 text-slate-200 text-xs transition">
                 <i class="fab fa-github text-purple-400 text-sm"></i> GitHub / us13
             </a>
-            <a href="mailto:usmonmuxammedov@gmail.com" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-pink-500/20 text-slate-200 text-xs transition border border-transparent hover:border-pink-500/30">
+            <a href="mailto:usmonmuxammedov@gmail.com" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-pink-500/10 text-slate-200 text-xs transition">
                 <i class="fas fa-envelope text-pink-400 text-sm"></i> Gmail
             </a>
         </div>
 
-        <button onclick="toggleContacts()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 text-black flex items-center justify-center shadow-xl shadow-amber-500/30 hover:scale-110 active:scale-95 transition">
+        <button onclick="toggleContacts()" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-300 text-black flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition">
             <i class="fas fa-headset text-xl"></i>
         </button>
     </div>
 
     <script>
-        // --- 1. FX SYSTEM ---
+        // --- 1. FX CLICK SYSTEM ---
         const fxCanvas = document.getElementById('fxCanvas');
         const fxCtx = fxCanvas.getContext('2d');
         function resizeFx() { fxCanvas.width = window.innerWidth; fxCanvas.height = window.innerHeight; }
@@ -187,10 +183,10 @@
             fxParticles.push({
                 x: e.clientX,
                 y: e.clientY,
-                vx: (Math.random() - 0.5) * 5,
-                vy: -4 - Math.random() * 4,
+                vx: (Math.random() - 0.5) * 3,
+                vy: -2 - Math.random() * 2,
                 char: chosenItem,
-                size: 28 + Math.random() * 12,
+                size: 24,
                 alpha: 1,
                 life: 0.02
             });
@@ -213,26 +209,23 @@
         }
         renderFX();
 
-        // --- 2. HIGH-SPEED BRIGHT NEURAL & N8N AUTOMATION MESH ---
+        // --- 2. SMOOTH & SOFT NEURAL BACKGROUND (EYE FRIENDLY) ---
         const bgCanvas = document.getElementById('neuralCanvas');
         const bgCtx = bgCanvas.getContext('2d');
         function resizeBg() { bgCanvas.width = window.innerWidth; bgCanvas.height = window.innerHeight; }
         resizeBg(); window.addEventListener('resize', resizeBg);
 
         const bgNodes = [];
-        const colors = ["rgba(236, 72, 153, ", "rgba(168, 85, 247, ", "rgba(245, 158, 11, ", "rgba(34, 197, 94, ", "rgba(56, 189, 248, "];
-        const n8nTypes = ["WEBHOOK", "OPENAI", "TELEGRAM", "POSTGRES", "HTTP_REQUEST", "ROUTER"];
+        const colors = ["rgba(148, 163, 184, ", "rgba(56, 189, 248, ", "rgba(245, 158, 11, "]; // Soft Blue, Amber & Slate
 
-        for(let i=0; i<85; i++) {
+        for(let i=0; i<60; i++) {
             bgNodes.push({
                 x: Math.random() * bgCanvas.width,
                 y: Math.random() * bgCanvas.height,
-                vx: (Math.random() - 0.5) * 2.5, // Tezroq harakat
-                vy: (Math.random() - 0.5) * 2.5,
-                radius: 3 + Math.random() * 3,
-                color: colors[i % colors.length],
-                label: i < 12 ? n8nTypes[i % n8nTypes.length] : null,
-                pulseProgress: Math.random() * Math.PI
+                vx: (Math.random() - 0.5) * 0.6, // Sekin va ravon harakat
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: 1.8 + Math.random() * 1.5,
+                color: colors[i % colors.length]
             });
         }
 
@@ -242,37 +235,24 @@
             for(let i=0; i<bgNodes.length; i++) {
                 let n1 = bgNodes[i];
                 n1.x += n1.vx; n1.y += n1.vy;
-                n1.pulseProgress += 0.05;
 
                 if(n1.x < 0 || n1.x > bgCanvas.width) n1.vx *= -1;
                 if(n1.y < 0 || n1.y > bgCanvas.height) n1.vy *= -1;
 
-                let pulseRadius = n1.radius + Math.sin(n1.pulseProgress) * 1.5;
-
-                // Draw Nodes
                 bgCtx.beginPath();
-                bgCtx.arc(n1.x, n1.y, Math.max(1, pulseRadius), 0, Math.PI*2);
-                bgCtx.fillStyle = n1.color + '1)';
-                bgCtx.shadowColor = n1.color + '1)';
-                bgCtx.shadowBlur = 18;
+                bgCtx.arc(n1.x, n1.y, n1.radius, 0, Math.PI*2);
+                bgCtx.fillStyle = n1.color + '0.6)';
                 bgCtx.fill();
 
-                if(n1.label) {
-                    bgCtx.font = "bold 10px Fira Code, monospace";
-                    bgCtx.fillStyle = "#ffffff";
-                    bgCtx.fillText(`[${n1.label}]`, n1.x + 10, n1.y - 4);
-                }
-
-                // Connections & Data Pulses
                 for(let j=i+1; j<bgNodes.length; j++) {
                     let n2 = bgNodes[j];
                     let dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
-                    if(dist < 140) {
+                    if(dist < 110) {
                         bgCtx.beginPath();
                         bgCtx.moveTo(n1.x, n1.y);
                         bgCtx.lineTo(n2.x, n2.y);
-                        bgCtx.strokeStyle = n1.color + ((1 - dist/140)*0.6) + ')';
-                        bgCtx.lineWidth = 1.2;
+                        bgCtx.strokeStyle = n1.color + ((1 - dist/110)*0.15) + ')';
+                        bgCtx.lineWidth = 0.8;
                         bgCtx.stroke();
                     }
                 }
@@ -304,10 +284,10 @@
         aiTools.forEach(t => {
             aiGrid.innerHTML += `
                 <div class="ai-logo-chip px-3 py-2 rounded-2xl flex items-center gap-2.5 cursor-pointer">
-                    <div class="w-6 h-6 rounded-lg bg-black/40 p-0.5 flex items-center justify-center shrink-0">
+                    <div class="w-5 h-5 rounded-lg bg-black/30 p-0.5 flex items-center justify-center shrink-0">
                         <img src="${t.logo}" alt="${t.name}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/2103/2103832.png';">
                     </div>
-                    <span class="text-xs font-medium text-slate-100">${t.name}</span>
+                    <span class="text-xs font-medium text-slate-300">${t.name}</span>
                 </div>
             `;
         });
@@ -340,7 +320,7 @@
             `;
         });
 
-        // --- 5. ULTRA-HQ 50 HUMANOID AI AGENTS SIMULATOR ---
+        // --- 5. 50 HUMANOID AI AGENTS WORKSPACE ---
         const rCanvas = document.getElementById('roomCanvas');
         const rCtx = rCanvas.getContext('2d');
         function resizeRoom() {
@@ -350,11 +330,10 @@
         resizeRoom(); window.addEventListener('resize', resizeRoom);
 
         const agentTasks = [
-            "n8n avtomatizatsiya zanjiridagi xatoni avto-tuzatmoqda...",
-            "Koddagi anomaliyalarni tahlil qilmoqda va avto-test yozmoqda...",
+            "Ma'lumotlarni tahlil qilmoqda va avto-test yozmoqda...",
             "Neyron tarmoq uchun yangi datasetlarni sarflamoqda...",
-            "Server bilan yuqori tezlikdagi ma'lumotlar sinxronizatsiyasini qilmoqda...",
-            "Sub-agentlar o'rtasida vazifalarni qayta taqsimlamoqda..."
+            "Server bilan ma'lumotlar sinxronizatsiyasini amalga oshirmoqda...",
+            "Avtomatlashtirish ssenariylarini tekshirmoqda..."
         ];
 
         const statuses = ["CODING", "SEARCHING", "DEPLOYING", "TRAINING", "ANALYZING"];
@@ -365,12 +344,12 @@
             agents.push({
                 id: i,
                 name: `Agent_${i < 10 ? '0'+i : i}`,
-                x: 40 + Math.random() * (window.innerWidth < 768 ? 320 : 720),
-                y: 50 + Math.random() * 420,
-                deskX: 40 + Math.random() * (window.innerWidth < 768 ? 320 : 720),
-                deskY: 50 + Math.random() * 420,
-                vx: (Math.random() - 0.5) * 2.0,
-                vy: (Math.random() - 0.5) * 2.0,
+                x: 30 + Math.random() * (window.innerWidth < 768 ? 300 : 700),
+                y: 40 + Math.random() * 400,
+                deskX: 30 + Math.random() * (window.innerWidth < 768 ? 300 : 700),
+                deskY: 40 + Math.random() * 400,
+                vx: (Math.random() - 0.5) * 1.2,
+                vy: (Math.random() - 0.5) * 1.2,
                 paused: false,
                 isSeated: Math.random() > 0.4,
                 status: statuses[i % statuses.length],
@@ -378,51 +357,39 @@
             });
         }
 
-        // DRAW DETAILED HIGH QUALITY HUMANOID AGENT
-        function drawHQHumanAgent(ctx, a) {
+        function drawHumanAgent(ctx, a) {
             let posX = a.isSeated ? a.deskX : a.x;
-            let posY = a.isSeated ? a.deskY + 8 : a.y;
+            let posY = a.isSeated ? a.deskY + 6 : a.y;
 
-            // 1. Desk & Workspace Glow
-            ctx.fillStyle = "#0f172a";
-            ctx.fillRect(a.deskX - 14, a.deskY - 8, 28, 14); // Workstation Desk
-            
+            // Desk
+            ctx.fillStyle = "#1e293b";
+            ctx.fillRect(a.deskX - 12, a.deskY - 6, 24, 12);
             ctx.fillStyle = a.color;
-            ctx.shadowColor = a.color;
-            ctx.shadowBlur = 10;
-            ctx.fillRect(a.deskX - 9, a.deskY - 6, 18, 4);  // Glowing Screen
-            ctx.shadowBlur = 0;
+            ctx.fillRect(a.deskX - 8, a.deskY - 4, 16, 3); // Screen
 
-            // 2. Body / Shoulders
+            // Body
             ctx.fillStyle = a.color;
             ctx.beginPath();
-            ctx.arc(posX, posY + 5, 6, Math.PI, 0, false);
+            ctx.arc(posX, posY + 4, 5, Math.PI, 0, false);
             ctx.fill();
 
-            // 3. Head & Neon Visor
+            // Head
             ctx.beginPath();
-            ctx.arc(posX, posY - 3, 5, 0, Math.PI*2);
+            ctx.arc(posX, posY - 3, 4, 0, Math.PI*2);
             ctx.fillStyle = "#ffffff";
-            ctx.shadowColor = a.color;
-            ctx.shadowBlur = a.paused ? 20 : 10;
             ctx.fill();
 
-            // Visor Line
-            ctx.fillStyle = a.color;
-            ctx.fillRect(posX - 3, posY - 4, 6, 2);
-            ctx.shadowBlur = 0;
-
-            // 4. Name Badge
-            ctx.font = "bold 9px Fira Code, monospace";
-            ctx.fillStyle = a.paused ? "#f59e0b" : "#e2e8f0";
-            ctx.fillText(a.name, posX - 18, posY - 12);
+            // Name Badge
+            ctx.font = "8px monospace";
+            ctx.fillStyle = a.paused ? "#f59e0b" : "#94a3b8";
+            ctx.fillText(a.name, posX - 16, posY - 10);
         }
 
         function renderRoom() {
             rCtx.clearRect(0, 0, rCanvas.width, rCanvas.height);
 
-            // Tech Floor Grid
-            rCtx.strokeStyle = "rgba(255, 255, 255, 0.05)";
+            // Floor Grid
+            rCtx.strokeStyle = "rgba(255, 255, 255, 0.02)";
             for(let x=0; x<rCanvas.width; x+=30) { rCtx.beginPath(); rCtx.moveTo(x,0); rCtx.lineTo(x,rCanvas.height); rCtx.stroke(); }
             for(let y=0; y<rCanvas.height; y+=30) { rCtx.beginPath(); rCtx.moveTo(0,y); rCtx.lineTo(rCanvas.width,y); rCtx.stroke(); }
 
@@ -432,12 +399,12 @@
                     if(a.x < 20 || a.x > rCanvas.width - 20) a.vx *= -1;
                     if(a.y < 20 || a.y > rCanvas.height - 20) a.vy *= -1;
 
-                    if(Math.random() < 0.003) a.isSeated = true;
+                    if(Math.random() < 0.002) a.isSeated = true;
                 } else if(!a.paused && a.isSeated) {
-                    if(Math.random() < 0.004) a.isSeated = false;
+                    if(Math.random() < 0.003) a.isSeated = false;
                 }
 
-                drawHQHumanAgent(rCtx, a);
+                drawHumanAgent(rCtx, a);
             });
 
             requestAnimationFrame(renderRoom);
@@ -455,12 +422,12 @@
                 let posY = a.isSeated ? a.deskY : a.y;
 
                 const dist = Math.hypot(posX - clickX, posY - clickY);
-                if(dist < 25) {
+                if(dist < 22) {
                     a.paused = !a.paused;
 
                     const subPanel = document.getElementById('subPanel');
                     if(a.paused) {
-                        document.getElementById('subAgentName').innerText = `${a.name} (HQ Humanoid AI)`;
+                        document.getElementById('subAgentName').innerText = a.name;
                         document.getElementById('subStatus').innerText = a.status;
                         document.getElementById('subText').innerText = agentTasks[Math.floor(Math.random() * agentTasks.length)];
                         subPanel.classList.remove('hidden');
